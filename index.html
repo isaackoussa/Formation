@@ -1,5 +1,11 @@
 <title>Atelier Données</title>
 <meta name="description" content="Atelier de formation au traitement de données : chaque manipulation appliquée en direct et traduite en Python, R, SQL, Excel et Power BI.">
+<meta name="theme-color" content="#0e6a55">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Atelier Données">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
@@ -37,7 +43,7 @@
 
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--f-body);padding-inline:16px;padding-block:0 48px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--f-body);padding-inline:16px;padding-block:0 48px}
 h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.01em}
 h2{font-size:1.15rem;font-weight:700}
 h3{font-size:1rem;font-weight:700}
@@ -53,7 +59,8 @@ code,pre,.mono{font-family:var(--f-mono);font-size:.84em}
 /* En-tête */
 header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);margin-inline:-16px;padding:12px 16px 0;border-bottom:1px solid var(--line)}
 .brandrow{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
-.brand{display:flex;align-items:baseline;gap:10px;margin-right:auto}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto}
+.brand-mark{flex:none;display:block}
 .brand h1{font-size:1.45rem;font-weight:700}
 .brand h1 b{color:var(--accent)}
 .brand span{color:var(--ink-3);font-size:.85rem}
@@ -286,16 +293,102 @@ svg.star .st3{fill:var(--accent);font-weight:700;font-size:15px;font-family:var(
 table.memo.fun{min-width:760px}
 table.memo.fun td:first-child{width:auto}
 .tool{display:inline-block;font-size:.74rem;font-weight:600;border-radius:4px;padding:2px 8px;white-space:nowrap;background:var(--surface-2);box-shadow:inset 3px 0 0 var(--tc)}
+/* Barrière d'accès, compte et console admin */
+.locked .wrap{display:none}
+.gate{min-height:100vh;display:grid;place-items:center;padding-block:32px}
+.gate-card{width:100%;max-width:440px;display:flex;flex-direction:column;gap:18px}
+.gbrand{display:flex;gap:12px;align-items:center}
+.gbrand b{display:block;font-family:var(--f-display);font-size:1.45rem;line-height:1.2}
+.gbrand b span{color:var(--accent)}
+.gbrand small{color:var(--ink-3)}
+.gate-box{padding:28px 26px;box-shadow:0 14px 40px rgb(0 0 0 / .08)}
+.gate-box form,.gstack{display:flex;flex-direction:column;gap:16px}
+.gate-box .gstack{gap:8px}
+.gate-box h2{font-size:clamp(1.5rem,5vw,1.9rem)}
+.gate-box h2 span{color:var(--accent)}
+.gate-box label{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:.88rem}
+.gate-box input{font-size:1rem;padding:10px 12px;width:100%}
+#gCode{font-family:var(--f-mono);font-size:1.8rem;letter-spacing:.5em;text-align:center;padding-left:.5em}
+.gate-box .btn{justify-content:center}
+.gate-box .btn.pri{padding:11px 16px;font-size:1rem}
+.gate-box .btn:disabled{opacity:.55;cursor:default}
+.gback{align-self:flex-start;margin-left:-8px}
+.gerr{background:var(--bad-soft);color:var(--bad);border-radius:6px;padding:8px 12px;font-size:.88rem}
+.gben{display:flex;flex-direction:column;gap:8px;font-size:.86rem;color:var(--ink-2)}
+.gben div{display:flex;gap:10px}.gben i{color:var(--accent);font-style:normal;font-weight:700}
+.tiny{font-size:.76rem;color:var(--ink-3);text-align:center}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.acct{display:flex;align-items:center;gap:8px;font-size:.84rem;color:var(--ink-2);min-width:0}
+.acct .dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--ink-3)}
+.acct .dot.saved{background:var(--good)}.acct .dot.saving{background:var(--warn)}.acct .dot.offline{background:var(--bad)}
+.acct-mail{max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.admin-mode nav.tabs,.admin-mode .dsbar,.admin-mode .acct{display:none}
+.adm-login{padding:16px;display:flex;flex-direction:column;gap:8px;max-width:460px}
+.adm-login label{font-weight:600;font-size:.88rem}
+.adm-login input{flex:1;min-width:0}
+.adm-list{display:flex;flex-direction:column;gap:8px}
+.adm-row{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;padding:12px 14px}
+.adm-row.is-blocked{opacity:.6}
+.adm-who{min-width:0;display:flex;flex-direction:column}
+.adm-who b{overflow-wrap:anywhere}
+.adm-who small{color:var(--ink-3);font-size:.78rem}
+.adm-chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.btn.danger{border-color:var(--bad);color:var(--bad)}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:6px;font-size:.88rem;z-index:50;max-width:calc(100% - 32px)}
 .empty{padding:28px 16px;text-align:center;color:var(--ink-3);font-size:.9rem}
 @media (max-width:560px){.fields{grid-template-columns:1fr}.brand span{display:none}.xrow{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:no-preference){.step,.opt,.btn{transition:border-color .15s,background-color .15s}}
 </style>
 
+<div class="gate" id="gate" hidden>
+  <div class="gate-card">
+    <div class="gbrand"><svg class="" viewBox="0 0 512 512" width="48" height="48" aria-hidden="true"><rect width="512" height="512" rx="116" fill="#0e6a55"/>
+  <rect x="104" y="112" width="304" height="288" rx="30" fill="#ffffff"/>
+  <path d="M104 142a30 30 0 0 1 30-30h244a30 30 0 0 1 30 30v42H104z" fill="#9fe3cc"/>
+  <path d="M104 256h202M104 328h202M205 184v216M306 184v216" stroke="#d5e6df" stroke-width="8"/>
+  <path d="M128 222h52M128 294h40M128 366h56M229 222h52M229 294h36M229 366h48" stroke="#9db5ab" stroke-width="14" stroke-linecap="round"/>
+  <rect x="324" y="318" width="20" height="62" rx="6" fill="#0e6a55"/>
+  <rect x="348" y="270" width="20" height="110" rx="6" fill="#0e6a55"/>
+  <rect x="372" y="214" width="20" height="166" rx="6" fill="#e0633a"/></svg><div><b>Atelier <span>Données</span></b><small>Python · R · SQL · Excel · Power BI</small></div></div>
+    <div class="panel gate-box">
+      <p class="muted" id="gLoading">Connexion…</p>
+      <form id="gEmailForm" hidden novalidate>
+        <div class="gstack"><h2>Ton espace <span>personnel</span></h2><p class="muted">Connecte-toi avec ton e-mail : ta progression est sauvegardée et te suit sur tous tes appareils. Pas de mot de passe, juste un code.</p></div>
+        <label for="gEmail">Adresse e-mail<input type="email" id="gEmail" inputmode="email" autocomplete="email" placeholder="toi@exemple.com"></label>
+        <p class="gerr" id="gEmailErr" hidden></p>
+        <button class="btn pri" type="submit" id="gSend" disabled>Recevoir mon code →</button>
+        <div class="gben"><div><i>✓</i>Leçons lues, défis réussis et quiz sauvegardés en ligne</div><div><i>✓</i>Reprends sur ordinateur ou téléphone, là où tu t'es arrêté</div><div><i>✓</i>Tes pipelines de l'Atelier conservés</div></div>
+      </form>
+      <form id="gCodeForm" hidden novalidate>
+        <button class="btn ghost sm gback" type="button" id="gBack">← Changer d'e-mail</button>
+        <div class="gstack"><h2>Vérifie ta boîte mail</h2><p class="muted">Un code à 6 chiffres a été envoyé à <b id="gEmailShow"></b>. Pense à regarder dans les spams.</p></div>
+        <label for="gCode" class="sr">Code à 6 chiffres</label>
+        <input id="gCode" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="••••••">
+        <p class="gerr" id="gCodeErr" hidden></p>
+        <button class="btn pri" type="submit" id="gVerify" disabled>Me connecter</button>
+        <button class="btn ghost" type="button" id="gResend">Renvoyer un code</button>
+      </form>
+      <div id="gLocal" class="gstack" hidden>
+        <h2>Accès sans serveur</h2>
+        <p class="muted">Cette copie de l'Atelier n'est pas reliée au serveur de comptes (fichier ouvert sur l'ordinateur ou aperçu). Tu peux l'utiliser sans compte : ta progression reste sur cet appareil. Sur le site en ligne, la connexion par code e-mail est obligatoire.</p>
+        <button class="btn pri" type="button" id="gLocalGo">Continuer sans compte</button>
+      </div>
+    </div>
+    <p class="tiny">En continuant, tu acceptes de recevoir les e-mails liés à ton compte (code de connexion, bienvenue).</p>
+  </div>
+</div>
+
 <div class="wrap">
 <header class="top">
   <div class="brandrow">
-    <div class="brand"><h1>Atelier <b>Données</b></h1><span>Python · R · SQL · Excel · Power BI</span></div>
+    <div class="brand"><svg class="brand-mark" viewBox="0 0 512 512" width="34" height="34" aria-hidden="true"><rect width="512" height="512" rx="116" fill="#0e6a55"/>
+  <rect x="104" y="112" width="304" height="288" rx="30" fill="#ffffff"/>
+  <path d="M104 142a30 30 0 0 1 30-30h244a30 30 0 0 1 30 30v42H104z" fill="#9fe3cc"/>
+  <path d="M104 256h202M104 328h202M205 184v216M306 184v216" stroke="#d5e6df" stroke-width="8"/>
+  <path d="M128 222h52M128 294h40M128 366h56M229 222h52M229 294h36M229 366h48" stroke="#9db5ab" stroke-width="14" stroke-linecap="round"/>
+  <rect x="324" y="318" width="20" height="62" rx="6" fill="#0e6a55"/>
+  <rect x="348" y="270" width="20" height="110" rx="6" fill="#0e6a55"/>
+  <rect x="372" y="214" width="20" height="166" rx="6" fill="#e0633a"/></svg><h1>Atelier <b>Données</b></h1><span>Python · R · SQL · Excel · Power BI</span></div>
     <div class="dsbar">
       <label class="lbl" for="dsSel">Jeu de données</label>
       <select id="dsSel"></select>
@@ -303,6 +396,7 @@ table.memo.fun td:first-child{width:auto}
       <button class="btn" id="btnPaste" type="button">Coller</button>
       <input type="file" id="fileIn" accept=".csv,.tsv,.txt,.xlsx,.xls" hidden>
     </div>
+    <div class="acct" id="acct" hidden></div>
   </div>
   <nav class="tabs" role="tablist" id="tabs">
     <button role="tab" data-tab="atelier">Atelier</button>
@@ -399,6 +493,11 @@ table.memo.fun td:first-child{width:auto}
   <div class="grid" id="toolCards"></div>
   <div class="section-h"><h2>Vocabulaire</h2><p>Un même concept porte souvent un nom différent selon l'outil.</p></div>
   <div class="gloss" id="gloss"></div>
+</section>
+
+<section class="view" id="v-admin" hidden>
+  <div class="section-h" style="margin-top:0"><h2>Console admin</h2><p>Suivi des apprenants et de leur progression.</p><button class="btn sm ghost" type="button" id="admExit">← Retour à l'Atelier</button></div>
+  <div id="adminBox"></div>
 </section>
 
 <section class="view" id="v-quiz" hidden>
@@ -2850,7 +2949,7 @@ $("#tabs").onclick = e => { const b = e.target.closest("[data-tab]"); if (b) { s
 function renderAll() {
   STAGES = run(S.ds, steps()); if (S.sel && !steps().some(s => s.id === S.sel)) S.sel = null;
   $("#dsSel").value = S.ds;
-  ({ atelier: renderAtelier, cours: renderCours, fonctions: renderFonctions, explorer: renderExplorer, graphiques: renderCharts, defis: renderDefis, memo: renderMemo, quiz: renderQuiz })[S.tab]();
+  ({ atelier: renderAtelier, admin: renderAdmin, cours: renderCours, fonctions: renderFonctions, explorer: renderExplorer, graphiques: renderCharts, defis: renderDefis, memo: renderMemo, quiz: renderQuiz })[S.tab]();
   save();
 }
 $("#steps").addEventListener("click", onStepsClick);
@@ -2867,7 +2966,182 @@ $("#loadDemo").onclick = () => {
 };
 $("#clearSteps").onclick = () => { S.stepsBy[S.ds] = []; S.sel = null; renderAll(); };
 
+/* ============ Compte : accès par code e-mail, comme Anglais 365 ============ */
+const SESSION_KEY = "atelier-donnees:session", ADMIN_KEY_STORE = "atelier-donnees:admin";
+const C = { session: store(SESSION_KEY), server: null, email: "", status: "", cooldown: 0, lastSent: "", timer: null };
+class ApiError extends Error { constructor(status, code, data = {}) { super(code); this.status = status; this.code = code; this.data = data; } }
+async function api(path, { method = "GET", body, key } = {}) {
+  const h = {};
+  if (body) h["Content-Type"] = "application/json";
+  if (C.session && !C.session.local) h.Authorization = "Bearer " + C.session.token;
+  if (key) h["x-admin-key"] = key;
+  let res;
+  try { res = await fetch("./api/" + path, { method, headers: h, body: body && JSON.stringify(body) }); }
+  catch (e) { throw new ApiError(0, location.protocol === "file:" ? "no_server" : "network"); }
+  if (!(res.headers.get("content-type") || "").includes("application/json")) throw new ApiError(res.status, "no_server");
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) { if (res.status === 401 && !key && C.session && !C.session.local) setSession(null); throw new ApiError(res.status, String(data.error || "error"), data); }
+  return data;
+}
+const AUTH_ERRORS = {
+  network: "Connexion impossible. Vérifie ta connexion internet.",
+  no_server: "Le serveur de comptes n'est pas disponible ici.",
+  mail_not_configured: "L'envoi d'e-mails n'est pas encore configuré (BREVO_API_KEY et MAIL_FROM dans Netlify).",
+  mail_send_failed: "L'e-mail n'a pas pu être envoyé. Vérifie l'adresse et réessaie.",
+  invalid_email: "Cette adresse e-mail n'est pas valide.",
+  too_soon: "Patiente 30 secondes avant de redemander un code.",
+  no_code: "Aucun code en cours pour cette adresse : redemande un code.",
+  expired: "Ce code a expiré : redemande un code.",
+  wrong_code: "Code incorrect.",
+  too_many_attempts: "Trop d'essais : redemande un nouveau code.",
+  blocked: "Ce compte est suspendu. Contacte ton formateur."
+};
+function authError(e) {
+  if (e instanceof ApiError) {
+    if (e.code === "wrong_code" && typeof e.data.remaining === "number") return `Code incorrect (${e.data.remaining} essai${e.data.remaining > 1 ? "s" : ""} restant${e.data.remaining > 1 ? "s" : ""}).`;
+    return AUTH_ERRORS[e.code] || `Erreur (${e.status}).`;
+  }
+  return "Erreur inattendue.";
+}
+function setSession(s) { C.session = s; store(SESSION_KEY, s); renderAcct(); }
+
+/* ----- Barrière ----- */
+function lock(step = "email", msg = "") {
+  document.body.classList.add("locked"); document.body.classList.remove("admin-mode");
+  $("#gate").hidden = false;
+  const noServer = C.server === false;
+  $("#gLoading").hidden = step !== "loading";
+  $("#gEmailForm").hidden = step !== "email" || noServer;
+  $("#gCodeForm").hidden = step !== "code" || noServer;
+  $("#gLocal").hidden = !noServer || step === "loading";
+  const err = step === "code" ? $("#gCodeErr") : $("#gEmailErr");
+  err.hidden = !msg; err.textContent = msg;
+  if (step === "email" && !noServer) setTimeout(() => $("#gEmail").focus(), 30);
+  if (step === "code") { $("#gEmailShow").textContent = C.email; setTimeout(() => $("#gCode").focus(), 30); }
+}
+function unlock() {
+  document.body.classList.remove("locked"); $("#gate").hidden = true;
+  if (S.tab === "admin") S.tab = "atelier";
+  setTab(S.tab); renderAcct(); renderAll();
+}
+function busy(btn, on, label) { btn.disabled = on; if (label) btn.textContent = label; }
+async function requestCode() {
+  const email = $("#gEmail").value.trim(), btn = $("#gSend");
+  busy(btn, true, "Envoi du code…");
+  try { await api("auth/send-code", { method: "POST", body: { email } }); C.email = email; $("#gCode").value = ""; lock("code"); startCooldown(30); }
+  catch (e) { const code = $("#gCodeForm").hidden ? "email" : "code"; lock(code, authError(e)); }
+  finally { busy(btn, !$("#gEmail").value.includes("@"), "Recevoir mon code →"); }
+}
+function startCooldown(n) {
+  C.cooldown = n; const b = $("#gResend");
+  const tick = () => { b.disabled = C.cooldown > 0; b.textContent = C.cooldown > 0 ? `Renvoyer un code (${C.cooldown} s)` : "Renvoyer un code"; if (C.cooldown-- > 0) setTimeout(tick, 1000); };
+  tick();
+}
+async function verifyCode(code) {
+  if (code.length !== 6) return;
+  const btn = $("#gVerify"); busy(btn, true, "Vérification…");
+  try {
+    const r = await api("auth/verify", { method: "POST", body: { email: C.email, code } });
+    setSession({ email: r.email, token: r.token }); mergeState(r.state); unlock();
+    toast(r.isNew ? "Bienvenue ! Ton espace personnel est créé." : "Connexion réussie. Ta progression est chargée.");
+  } catch (e) { $("#gCode").value = ""; lock("code", authError(e)); }
+  finally { busy(btn, true, "Me connecter"); }
+}
+$("#gEmail").addEventListener("input", e => $("#gSend").disabled = !e.target.value.includes("@"));
+$("#gEmailForm").addEventListener("submit", e => { e.preventDefault(); requestCode(); });
+$("#gCode").addEventListener("input", e => { const v = e.target.value.replace(/\D/g, "").slice(0, 6); e.target.value = v; $("#gVerify").disabled = v.length !== 6; if (v.length === 6) verifyCode(v); });
+$("#gCodeForm").addEventListener("submit", e => { e.preventDefault(); verifyCode($("#gCode").value); });
+$("#gBack").onclick = () => lock("email");
+$("#gResend").onclick = () => { $("#gEmail").value = C.email; requestCode(); };
+$("#gLocalGo").onclick = () => { setSession({ email: "local", token: "", local: true }); unlock(); };
+
+/* ----- Sauvegarde en ligne ----- */
+const count = o => Object.values(o || {}).filter(Boolean).length;
+const progressScore = o => count(o?.read) + count(o?.done) + Object.keys(o?.quiz || {}).length;
+function cloudState() { return { read: S.read, done: S.done, quiz: S.quiz, lesson: S.lesson, lang: S.lang, stepsBy: Object.fromEntries(Object.entries(S.stepsBy).filter(([k]) => BUILTIN.has(k)).map(([k, v]) => [k, v.map(({ type, on, p }) => ({ type, on, p }))])) }; }
+function summary() {
+  const q = Object.entries(S.quiz || {}), lr = count(S.read), cd = count(S.done), qc = q.filter(([i, a]) => QUIZ[i] && QUIZ[i][2] === a).length;
+  return { lessonsRead: lr, lessonsTotal: LESSONS.length, challengesDone: cd, challengesTotal: CHAL.length, quizAnswered: q.length, quizCorrect: qc, quizTotal: QUIZ.length, pct: Math.round((lr + cd + qc) / (LESSONS.length + CHAL.length + QUIZ.length) * 100) };
+}
+function mergeState(remote) {
+  if (remote && progressScore(remote) >= progressScore(S)) {
+    S.read = remote.read || {}; S.done = remote.done || {}; S.quiz = remote.quiz || {};
+    if (remote.lesson) S.lesson = remote.lesson; if (remote.lang) S.lang = remote.lang;
+    for (const k in remote.stepsBy || {}) if (DS[k]) S.stepsBy[k] = remote.stepsBy[k].map(x => ({ ...x, id: uid++ }));
+    S.sel = null; rawSave(); C.lastSent = JSON.stringify(cloudState());
+  } else pushProgress(true);
+}
+const online = () => C.server && C.session && !C.session.local;
+function pushProgress(now) {
+  if (!online()) return;
+  clearTimeout(C.timer);
+  C.timer = setTimeout(async () => {
+    const state = cloudState(), key = JSON.stringify(state);
+    if (key === C.lastSent) return;
+    C.status = "saving"; renderAcct();
+    try { await api("progress", { method: "PUT", body: { state, summary: summary(), updatedAt: new Date().toISOString() } }); C.lastSent = key; C.status = "saved"; }
+    catch (e) { C.status = "offline"; if (e.code === "blocked") { setSession(null); lock("email", AUTH_ERRORS.blocked); } else if (e.status === 401) lock("email", "Ta session a expiré : reconnecte-toi."); }
+    renderAcct();
+  }, now ? 0 : 2500);
+}
+const rawSave = save;
+save = function () { rawSave(); pushProgress(false); };
+window.addEventListener("pagehide", () => { if (online() && JSON.stringify(cloudState()) !== C.lastSent) { try { fetch("./api/progress", { method: "PUT", keepalive: true, headers: { "Content-Type": "application/json", Authorization: "Bearer " + C.session.token }, body: JSON.stringify({ state: cloudState(), summary: summary() }) }); } catch (e) { } } });
+function renderAcct() {
+  const el = $("#acct"), s = C.session;
+  if (!s || document.body.classList.contains("locked")) { el.hidden = true; return; }
+  el.hidden = false;
+  const st = { saving: ["saving", "Sauvegarde…"], saved: ["saved", "Sauvegardé"], offline: ["offline", "Non sauvegardé"] }[C.status] || ["saved", "Connecté"];
+  el.innerHTML = s.local ? `<span class="dot"></span><span>Sans compte · progression sur cet appareil</span>` : `<span class="dot ${st[0]}" title="${st[1]}"></span><span class="acct-mail" title="${esc(s.email)} · ${st[1]}">${esc(s.email)}</span><button class="btn sm ghost" type="button" id="logout">Déconnexion</button>`;
+  const lo = $("#logout"); if (lo) lo.onclick = async () => { try { await api("me", { method: "DELETE" }); } catch (e) { } setSession(null); lock("email"); };
+}
+
+/* ----- Console admin (#admin, clé ADMIN_KEY) ----- */
+const ADM = { users: null, q: "", key: "" };
+try { ADM.key = sessionStorage.getItem(ADMIN_KEY_STORE) || ""; } catch (e) { }
+function openAdmin() { document.body.classList.remove("locked"); document.body.classList.add("admin-mode"); $("#gate").hidden = true; setTab("admin"); renderAdmin(); }
+async function adminLoad(key) {
+  try { ADM.users = (await api("admin", { key })).users; ADM.key = key; try { sessionStorage.setItem(ADMIN_KEY_STORE, key); } catch (e) { } }
+  catch (e) { toast(e.code === "no_server" ? "Serveur de comptes indisponible ici." : "Clé admin invalide ou serveur indisponible"); }
+  renderAdmin();
+}
+function renderAdmin() {
+  const el = $("#adminBox");
+  if (!ADM.users) {
+    el.innerHTML = `<form class="panel adm-login" id="admForm"><label for="admKey">Clé admin (ADMIN_KEY)</label><div class="addrow"><input type="password" id="admKey" value="${esc(ADM.key)}" autocomplete="current-password"><button class="btn pri" type="submit">Ouvrir</button></div></form>`;
+    $("#admForm").onsubmit = e => { e.preventDefault(); adminLoad($("#admKey").value); };
+    return;
+  }
+  const U = ADM.users, week = new Date(Date.now() - 7 * 864e5).toISOString(), qv = ADM.q.toLowerCase();
+  const sum = k => U.reduce((a, u) => a + (u.summary?.[k] || 0), 0);
+  const list = U.filter(u => u.email.includes(qv));
+  const d = s => new Date(s).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" });
+  el.innerHTML = `<div class="tiles">${[["Comptes", U.length, `${U.filter(u => u.blocked).length} bloqué(s)`], ["Actifs sur 7 jours", U.filter(u => u.lastSeen >= week).length, "dernière visite"], ["Leçons lues", sum("lessonsRead"), "au total"], ["Défis réussis", sum("challengesDone"), "au total"]].map(([l, v, s]) => `<div class="tile"><div class="lbl">${l}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join("")}</div>
+    <div class="memo-tools"><input type="text" id="admQ" placeholder="Rechercher un apprenant…" value="${esc(ADM.q)}" aria-label="Rechercher un apprenant"><button class="btn" type="button" id="admRefresh">Actualiser</button></div>
+    <div class="adm-list">${list.map(u => { const s = u.summary; return `<div class="panel adm-row${u.blocked ? " is-blocked" : ""}"><div class="adm-who"><b>${esc(u.email)}</b><small>Inscrit le ${d(u.createdAt)} · vu le ${d(u.lastSeen)} · ${u.opens} connexion(s)</small></div><div class="adm-chips">${s ? `<span class="pill">${s.lessonsRead}/${s.lessonsTotal} leçons</span><span class="pill">${s.challengesDone}/${s.challengesTotal} défis</span><span class="pill">quiz : ${s.quizCorrect} bonne(s) sur ${s.quizAnswered}</span><span class="pill good">${s.pct} %</span>` : `<span class="pill">aucune progression</span>`}${u.blocked ? `<span class="pill bad">bloqué</span>` : ""}<button class="btn sm${u.blocked ? "" : " danger"}" type="button" data-block="${esc(u.email)}" data-to="${!u.blocked}">${u.blocked ? "Débloquer" : "Bloquer"}</button></div></div>`; }).join("") || `<p class="empty">Aucun apprenant${qv ? " pour cette recherche" : " inscrit pour l'instant"}.</p>`}</div>`;
+  $("#admQ").oninput = e => { ADM.q = e.target.value; const pos = e.target.selectionStart; renderAdmin(); const i = $("#admQ"); i.focus(); i.setSelectionRange(pos, pos); };
+  $("#admRefresh").onclick = () => adminLoad(ADM.key);
+  el.querySelectorAll("[data-block]").forEach(b => b.onclick = async () => { try { await api("admin", { method: "POST", key: ADM.key, body: { email: b.dataset.block, blocked: b.dataset.to === "true" } }); toast(b.dataset.to === "true" ? "Compte bloqué" : "Compte débloqué"); } catch (e) { toast("Action impossible"); } adminLoad(ADM.key); });
+}
+$("#admExit").onclick = () => { try { history.replaceState(null, "", location.pathname + location.search); } catch (e) { } S.tab = "atelier"; cloudBoot(); };
+
+/* ----- Démarrage ----- */
+async function cloudBoot(admin = false) {
+  if (admin || location.hash === "#admin") { openAdmin(); return; }   // console admin : protégée par sa propre clé
+  lock("loading");
+  try { await api("config"); C.server = true; } catch (e) { C.server = e.code === "no_server" || e.status === 404 ? false : null; }
+  if (C.server) { try { navigator.serviceWorker?.register("sw.js").catch(() => { }); } catch (e) { } }
+  if (C.server === false) return C.session?.local ? unlock() : lock("email");        // copie sans serveur : accès local possible
+  if (C.server === null) return C.session && !C.session.local ? unlock() : lock("email", AUTH_ERRORS.network);
+  if (!C.session || C.session.local) { setSession(null); return lock("email"); }     // en ligne : compte obligatoire
+  try { const me = await api("me?state=1"); mergeState(me.state); C.status = "saved"; unlock(); }
+  catch (e) { if (e.code === "blocked") { setSession(null); lock("email", AUTH_ERRORS.blocked); } else if (e.status === 401) lock("email", "Ta session a expiré : reconnecte-toi."); else unlock(); }
+}
+window.addEventListener("hashchange", () => { if (location.hash === "#admin" && S.tab !== "admin") openAdmin(); });
+
 renderAddMenu(); renderDsSel(); renderStatic();
 const h = (location.hash || "").slice(1); if (["atelier", "cours", "explorer", "graphiques", "fonctions", "defis", "memo", "quiz"].includes(h)) S.tab = h;
-setTab(S.tab); renderAll();
+const WANT_ADMIN = location.hash === "#admin";
+if (S.tab === "admin") S.tab = "atelier";
+setTab(S.tab); renderAll(); cloudBoot(WANT_ADMIN);
 </script>
