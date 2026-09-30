@@ -1,0 +1,157 @@
+commande,date,region,vendeur,canal,produit_id,quantite,prix_unitaire,remise
+C1001,2025-01-04,Île-de-France,Aïcha  Diallo,Magasin,P07,3,159,0
+C1002,2025-01-05,Sud,Sophie Martin,Web,P03,6,289,0
+C1003,2025-01-05,Île-de-France,Sophie Martin,Magasin,P05,3,79,0
+C1004,2025-01-07,Île-de-France,Sophie Martin,Magasin,P01,8,49,0.05
+C1005,2025-01-08,Est,Aïcha Diallo,Web,P06,3,1099,
+C1006,2025-01-08,Est,Marie Dupont,Magasin,P01,4,49,0
+C1006,2025-01-08,Est,Marie Dupont,Magasin,P01,4,49,0
+C1007,2025-01-16,Île-de-France,Thomas Petit,Magasin,P06,3,1099,0.05
+C1008,2025-01-16,Île-de-France,THOMAS PETIT,Magasin,P06,3,1099,0
+C1009,2025-01-16,Sud,Aïcha Diallo,Web,P03,4,289,0
+C1009,2025-01-16,Sud,Aïcha Diallo,Web,P03,4,289,0
+C1010,2025-01-23,Île-de-France,Karim Benali,Magasin,P08,1,89,0
+C1011,2025-01-27,Sud,Aïcha Diallo,Magasin,P03,4,289,
+C1012,2025-01-27,Sud,  Karim Benali,Magasin,P03,5,289,0
+C1013,2025-01-30,Île-de-France,Aïcha Diallo,Web,P04,1,119,0.05
+C1014,2025-02-01,Île-de-France,Sophie Martin,Web,P04,4,119,0
+C1015,2025-02-01,Île-de-France,Marie Dupont,Web,P05,4,79,0
+C1016,2025-02-06,Sud,Karim Benali,Magasin,P02,7,35,
+C1016,2025-02-06,Sud,Karim Benali,Magasin,P02,7,35,
+C1017,2025-02-07,Est,Karim Benali,Magasin,P02,7,35,0
+C1018,2025-02-11,Ouest,Karim Benali ,Web,P05,2,79,
+C1019,2025-02-12,Île-de-France,Marie Dupont,Magasin,P08,7,89,0
+C1020,2025-02-21,Île-de-France,Marie Dupont,Web,P01,7,49,0.05
+C1021,2025-02-23,Sud,Thomas Petit,Web,P07,1,159,0.05
+C1022,2025-03-03,Sud,Aïcha Diallo,Web,P01,7,49,0.05
+C1023,2025-03-04,Ouest,Thomas Petit,Magasin,P01,5,49,0
+C1024,2025-03-07,Sud,KARIM BENALI,Magasin,P03,1,289,0
+C1025,2025-03-08,Sud,Karim  Benali,Magasin,P02,4,35,
+C1026,2025-03-10,Sud,Aïcha Diallo,Magasin,P06,1,1099,0
+C1026,2025-03-10,Sud,Aïcha Diallo,Magasin,P06,1,1099,0
+C1027,2025-03-10,Île-de-France,Karim  Benali,Magasin,P01,,49,0
+C1028,2025-03-14,Nord,Karim Benali,Web,P05,6,79,0.1
+C1029,2025-03-18,Île-de-France,Lucas Bernard,Magasin,P07,1,159,0
+C1030,2025-03-18,Île-de-France,Aïcha Diallo,Web,P01,1,49,
+C1031,2025-03-19,Île-de-France,Aïcha Diallo,Magasin,P04,6,119,0
+C1032,2025-03-19,Est,Marie Dupont,Web,P07,8,159,0.05
+C1033,2025-03-21,Île-de-France,Thomas Petit,Magasin,P01,2,49,0.05
+C1034,2025-03-21,Nord,Lucas Bernard,Magasin,P03,8,289,0
+C1034,2025-03-21,Nord,Lucas Bernard,Magasin,P03,8,289,0
+C1035,2025-03-22,Est,Thomas Petit,Magasin,P01,8,49,0
+C1036,2025-03-23,Sud,Marie Dupont,Magasin,P05,8,79,0.05
+C1037,2025-03-24,Nord,Marie Dupont,Web,P08,2,89,0
+C1037,2025-03-24,Nord,Marie Dupont,Web,P08,2,89,0
+C1038,2025-03-25,Est,Marie Dupont,Magasin,P02,8,35,0
+C1039,2025-03-29,Sud,Lucas Bernard,Magasin,P08,1,89,0
+C1040,2025-03-30,Sud,Thomas Petit,Web,P03,4,289,0.1
+C1041,2025-04-02,Sud,THOMAS PETIT,Web,P04,7,119,
+C1042,2025-04-05,Sud,Marie Dupont,Web,P03,1,289,
+C1043,2025-04-06,Sud,Karim Benali ,Web,P02,4,35,0
+C1044,2025-04-07,Île-de-France,Aïcha Diallo,Magasin,P02,4,35,0
+C1045,2025-04-07,Sud,KARIM BENALI,Magasin,P02,3,35,0
+C1046,2025-04-11,Ouest,Lucas Bernard,Web,P08,5,89,
+C1047,2025-04-15,Sud,Thomas Petit,Magasin,P03,6,289,0.05
+C1048,2025-04-17,Est,Marie Dupont,Magasin,P06,,1099,0
+C1049,2025-04-18,Est,Karim Benali,Web,P02,4,35,0
+C1050,2025-04-19,Île-de-France,  Sophie Martin,Web,P05,3,79,0.05
+C1051,2025-04-21,Île-de-France,Aïcha Diallo ,Web,P08,8,89,0.05
+C1052,2025-04-22,Nord,Karim  Benali,Magasin,P08,7,89,0
+C1053,2025-04-23,Nord,Thomas Petit,Web,P05,6,79,0
+C1054,2025-04-24,Nord,Lucas Bernard,Web,P06,2,1099,0
+C1055,2025-04-24,Sud,  Lucas Bernard,Web,P02,4,35,0.05
+C1056,2025-04-25,Île-de-France,Marie Dupont,Magasin,P07,7,159,0
+C1057,2025-04-28,Ouest,Karim Benali,Magasin,P02,5,35,
+C1058,2025-05-06,Ouest,Sophie Martin,Web,P04,5,119,0
+C1059,2025-05-07,Sud,Karim Benali,Web,P06,3,1099,0.05
+C1060,2025-05-07,Sud,Lucas Bernard,Magasin,P08,6,89,0.05
+C1061,2025-05-08,Sud,  Aïcha Diallo,Magasin,P02,1,35,0.1
+C1062,2025-05-10,Ouest,Aïcha Diallo,Web,P03,7,289,0
+C1063,2025-05-10,Sud,Sophie Martin,Magasin,P02,6,35,0.1
+C1064,2025-05-12,Ouest,  Karim Benali,Web,P08,,89,
+C1065,2025-05-15,Île-de-France,Thomas Petit,Magasin,P07,6,159,0.05
+C1066,2025-05-17,Est,  Marie Dupont,Magasin,P04,6,119,
+C1067,2025-05-19,Ouest,SOPHIE MARTIN,Magasin,P02,3,35,0.1
+C1068,2025-05-20,Ouest,Thomas Petit,Magasin,P02,8,35,0
+C1069,2025-05-22,Sud,  Karim Benali,Web,P01,7,49,0.05
+C1070,2025-05-23,Sud,AÏCHA DIALLO,Magasin,P02,3,35,0
+C1071,2025-05-26,Île-de-France,Lucas Bernard ,Web,P06,1,1099,0
+C1072,2025-06-01,Nord,KARIM BENALI,Magasin,P07,,159,0.05
+C1073,2025-06-03,Ouest,Lucas Bernard,Magasin,P02,3,35,0.05
+C1074,2025-06-11,Ouest,Karim Benali,Web,P07,2,159,0
+C1075,2025-06-15,Sud,karim benali,Magasin,P04,5,119,
+C1076,2025-06-16,Île-de-France,Karim Benali ,Web,P06,2,1099,0
+C1077,2025-06-17,Sud,Aïcha Diallo ,Magasin,P06,1,1099,0
+C1078,2025-06-17,Nord,Lucas Bernard,Magasin,P06,1,1099,0
+C1079,2025-06-20,Île-de-France,Sophie Martin ,Magasin,P06,,1099,0
+C1080,2025-06-26,Ouest,Aïcha Diallo,Magasin,P01,3,49,0.05
+C1081,2025-06-26,Ouest,Thomas Petit ,Web,P06,1,1099,0
+C1082,2025-06-28,Nord,Thomas Petit,Web,P08,5,89,0
+C1083,2025-06-29,Est,AÏCHA DIALLO,Web,P03,3,289,0
+C1084,2025-07-01,Sud,Thomas Petit ,Web,P06,1,1099,
+C1085,2025-07-07,Île-de-France,Sophie Martin,Magasin,P06,3,1099,
+C1086,2025-07-20,Nord,Thomas Petit,Magasin,P05,1,79,0.1
+C1087,2025-07-23,Sud,Thomas Petit,Web,P08,2,89,0.1
+C1088,2025-07-30,Sud,Lucas Bernard ,Magasin,P08,8,89,0
+C1089,2025-07-31,Sud,  Sophie Martin,Web,P01,7,49,0.1
+C1090,2025-08-06,Est,Marie Dupont ,Web,P01,6,49,0
+C1091,2025-08-07,Ouest,Lucas Bernard,Web,P05,3,79,0.05
+C1092,2025-08-09,Île-de-France,Sophie Martin,Web,P05,7,79,0.1
+C1093,2025-08-13,Île-de-France,Lucas Bernard ,Magasin,P05,8,79,0
+C1094,2025-08-22,Sud,Sophie Martin,Magasin,P08,8,89,0
+C1095,2025-08-24,Est,Marie Dupont,Web,P03,2,289,0.05
+C1096,2025-08-25,Île-de-France,Aïcha Diallo,Magasin,P05,2,79,0.05
+C1097,2025-08-26,Sud,Sophie Martin,Magasin,P08,8,89,0
+C1098,2025-08-29,Nord,Karim Benali,Web,P02,7,35,0
+C1099,2025-09-01,Est,lucas bernard,Web,P07,2,159,0.05
+C1100,2025-09-04,Île-de-France,Sophie Martin,Web,P06,1,1099,
+C1101,2025-09-04,Nord,Lucas Bernard,Magasin,P06,1,1099,0.1
+C1102,2025-09-07,Île-de-France,sophie martin,Magasin,P06,2,1099,0
+C1103,2025-09-07,Sud,  Aïcha Diallo,Web,P03,1,289,0
+C1104,2025-09-07,Sud,Sophie Martin,Magasin,P03,1,289,0.1
+C1105,2025-09-10,Sud,Aïcha Diallo,Web,P03,1,289,0.05
+C1106,2025-09-11,Sud,Karim Benali,Magasin,P08,2,89,
+C1107,2025-09-13,Île-de-France,Marie Dupont,Magasin,P04,1,119,0.05
+C1108,2025-09-13,Ouest,Thomas Petit,Magasin,P05,4,79,0.05
+C1109,2025-09-17,Ouest,Karim Benali,Magasin,P04,6,119,0.05
+C1110,2025-09-22,Île-de-France,Aïcha Diallo,Magasin,P05,,79,0
+C1111,2025-09-22,Île-de-France,SOPHIE MARTIN,Web,P03,7,289,0.1
+C1112,2025-09-23,Sud,Karim Benali,Magasin,P01,3,49,0
+C1113,2025-09-24,Île-de-France,Marie Dupont,Web,P03,6,289,0.05
+C1114,2025-09-26,Sud,Aïcha Diallo,Magasin,P08,8,89,0
+C1115,2025-09-29,Sud,  Karim Benali,Web,P01,2,49,0
+C1116,2025-10-04,Est,Thomas Petit,Web,P05,4,79,0
+C1117,2025-10-05,Nord,Sophie Martin,Magasin,P02,7,35,0
+C1118,2025-10-08,Sud,Aïcha Diallo,Magasin,P04,1,119,0
+C1119,2025-10-10,Nord,Lucas Bernard,Web,P02,,35,0.05
+C1120,2025-10-11,Sud,Karim  Benali,Magasin,P07,3,159,0
+C1121,2025-10-15,Sud,Marie Dupont,Web,P04,,119,0
+C1122,2025-10-18,Nord,Thomas Petit ,Web,P06,2,1099,0
+C1123,2025-10-20,Ouest,Thomas  Petit,Web,P04,1,119,
+C1124,2025-10-23,Ouest,Lucas  Bernard,Web,P02,7,35,0.05
+C1125,2025-10-24,Île-de-France,Karim Benali,Web,P03,6,289,0
+C1126,2025-10-26,Sud,Sophie Martin,Magasin,P03,5,289,0.05
+C1127,2025-11-01,Ouest,aïcha diallo,Web,P04,7,119,0.05
+C1128,2025-11-02,Île-de-France,Lucas Bernard,Magasin,P08,5,89,0.05
+C1129,2025-11-05,Sud,Aïcha Diallo ,Magasin,P05,1,79,
+C1130,2025-11-09,Sud,Karim Benali,Magasin,P02,,35,0.1
+C1131,2025-11-12,Nord,Lucas Bernard ,Magasin,P08,3,89,
+C1132,2025-11-21,Île-de-France,MARIE DUPONT,Magasin,P04,6,119,0
+C1133,2025-11-22,Nord,  Sophie Martin,Web,P06,2,1099,0.05
+C1134,2025-11-26,Nord,Karim Benali,Web,P03,5,289,0.1
+C1135,2025-11-28,Sud,Marie Dupont ,Web,P08,5,89,0
+C1136,2025-11-29,Île-de-France,aïcha diallo,Web,P03,1,289,0
+C1137,2025-12-01,Est,Sophie Martin,Web,P06,3,1099,0
+C1138,2025-12-01,Sud,Lucas Bernard,Magasin,P01,3,49,
+C1139,2025-12-02,Est,Lucas Bernard,Magasin,P04,,119,0.05
+C1140,2025-12-05,Sud,  Aïcha Diallo,Magasin,P06,1,1099,0.05
+C1141,2025-12-05,Île-de-France,Karim Benali,Magasin,P03,8,289,0.05
+C1142,2025-12-06,Ouest,Sophie Martin,Magasin,P05,7,79,0
+C1143,2025-12-09,Ouest,Sophie  Martin,Web,P03,4,289,0.1
+C1144,2025-12-10,Nord,Marie Dupont,Magasin,P08,5,89,0
+C1145,2025-12-12,Sud,Thomas Petit,Magasin,P07,7,159,0
+C1146,2025-12-14,Sud,Marie Dupont,Web,P02,1,35,0
+C1147,2025-12-22,Ouest,Karim Benali,Magasin,P01,8,49,0.05
+C1148,2025-12-22,Nord,THOMAS PETIT,Web,P05,,79,0
+C1149,2025-12-23,Sud,Aïcha Diallo,Magasin,P05,8,79,0
+C1150,2025-12-31,Île-de-France,Marie Dupont,Web,P05,5,79,0.05

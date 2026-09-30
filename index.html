@@ -1,0 +1,1406 @@
+<title>Atelier Données</title>
+<meta name="description" content="Atelier de formation au traitement de données : chaque manipulation appliquée en direct et traduite en Python, R, SQL, Excel et Power BI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+/* Mise en page : établi à deux panneaux — pipeline d'étapes à gauche, résultat + traductions de code à droite. */
+:root{
+  --bg:#f2f5f3; --surface:#ffffff; --surface-2:#e8eeeb; --ink:#13201b; --ink-2:#46574f; --ink-3:#6f7f78;
+  --line:#d3dcd8; --accent:#0e6a55; --accent-ink:#ffffff; --accent-soft:#d5ebe3;
+  --good:#1a7f37; --good-soft:#dcf1e2; --bad:#c2372f; --bad-soft:#fbe3e1; --warn:#9a6700; --warn-soft:#fbefcf;
+  --t-py:#2a78d6; --t-r:#4a3aa7; --t-sql:#c4531f; --t-xl:#107c41; --t-pbi:#a87400;
+  --s1:#2a78d6; --div-neg:#2a78d6; --div-pos:#e34948; --div-mid:#f0efec;
+  --code-bg:#f7f9f8; --c-k:#7a2e9a; --c-s:#0b6e4f; --c-n:#b35c00; --c-c:#7b8a84; --c-f:#1f5fb4;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Instrument Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+  --r:8px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#0e1513; --surface:#151f1c; --surface-2:#1c2925; --ink:#e6eeea; --ink-2:#a8b8b1; --ink-3:#7a8b84;
+  --line:#2a3833; --accent:#4cc4a0; --accent-ink:#06231b; --accent-soft:#17382f;
+  --good:#5cc47a; --good-soft:#163822; --bad:#f07a72; --bad-soft:#3d1c1a; --warn:#e0b34a; --warn-soft:#3a2f12;
+  --t-py:#5a9ceb; --t-r:#9085e9; --t-sql:#e67f4d; --t-xl:#4cbb7f; --t-pbi:#e0b34a;
+  --s1:#3987e5; --div-neg:#3987e5; --div-pos:#e66767; --div-mid:#383835;
+  --code-bg:#111a17; --c-k:#d49bf0; --c-s:#7fd6b0; --c-n:#f0a860; --c-c:#6f8079; --c-f:#8cb8f5;
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#0e1513; --surface:#151f1c; --surface-2:#1c2925; --ink:#e6eeea; --ink-2:#a8b8b1; --ink-3:#7a8b84;
+  --line:#2a3833; --accent:#4cc4a0; --accent-ink:#06231b; --accent-soft:#17382f;
+  --good:#5cc47a; --good-soft:#163822; --bad:#f07a72; --bad-soft:#3d1c1a; --warn:#e0b34a; --warn-soft:#3a2f12;
+  --t-py:#5a9ceb; --t-r:#9085e9; --t-sql:#e67f4d; --t-xl:#4cbb7f; --t-pbi:#e0b34a;
+  --s1:#3987e5; --div-neg:#3987e5; --div-pos:#e66767; --div-mid:#383835;
+  --code-bg:#111a17; --c-k:#d49bf0; --c-s:#7fd6b0; --c-n:#f0a860; --c-c:#6f8079; --c-f:#8cb8f5;
+  color-scheme:dark }
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--f-body);padding-inline:16px;padding-block:0 48px}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;letter-spacing:-.01em}
+h2{font-size:1.15rem;font-weight:700}
+h3{font-size:1rem;font-weight:700}
+p{margin:0}
+button,select,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+code,pre,.mono{font-family:var(--f-mono);font-size:.84em}
+.wrap{max-width:1440px;margin:0 auto}
+.muted{color:var(--ink-3)}
+.lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);font-weight:600}
+
+/* En-tête */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);margin-inline:-16px;padding:12px 16px 0;border-bottom:1px solid var(--line)}
+.brandrow{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.brand{display:flex;align-items:baseline;gap:10px;margin-right:auto}
+.brand h1{font-size:1.45rem;font-weight:700}
+.brand h1 b{color:var(--accent)}
+.brand span{color:var(--ink-3);font-size:.85rem}
+.dsbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.dsbar select{min-width:0}
+nav.tabs{display:flex;gap:2px;overflow-x:auto;margin-top:10px;scrollbar-width:none}
+nav.tabs button{background:none;border:0;border-bottom:3px solid transparent;padding:8px 14px 9px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+nav.tabs button:hover{color:var(--ink)}
+
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:6px 11px;font-size:.88rem;font-weight:500}
+.btn:hover{border-color:var(--ink-3)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.btn.ghost{background:none;border-color:transparent;color:var(--ink-2)}
+.btn.ghost:hover{background:var(--surface-2)}
+.btn.sm{padding:3px 8px;font-size:.8rem}
+select,input[type=text],input[type=number],textarea{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:.9rem;max-width:100%}
+input[type=number]{width:7em}
+
+.view{padding-top:18px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);min-width:0}
+.phead{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.phead h2{margin-right:auto}
+
+/* Atelier */
+.work{display:grid;grid-template-columns:minmax(300px,380px) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.work{grid-template-columns:minmax(0,1fr)}}
+.pipe{display:flex;flex-direction:column;gap:10px;min-width:0}
+.src{display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--surface);border:1px dashed var(--ink-3);border-radius:var(--r);cursor:pointer;text-align:left;width:100%}
+.src[aria-current="true"]{border-style:solid;border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.src .ico{font-family:var(--f-mono);font-size:.75rem;background:var(--surface-2);border-radius:4px;padding:3px 6px}
+.src .meta{font-size:.82rem;color:var(--ink-3)}
+ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);min-width:0}
+.step[aria-current="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.step.off{opacity:.55}
+.step.err{border-color:var(--bad)}
+.stop{display:flex;align-items:center;gap:8px;padding:8px 8px 8px 10px}
+.num{flex:none;width:24px;height:24px;border-radius:50%;background:var(--surface-2);display:grid;place-items:center;font-size:.78rem;font-weight:700;font-variant-numeric:tabular-nums}
+.step[aria-current="true"] .num{background:var(--accent);color:var(--accent-ink)}
+.stitle{flex:1;min-width:0;background:none;border:0;text-align:left;padding:0}
+.stitle strong{display:block;font-size:.92rem}
+.sline{display:flex;align-items:center;gap:6px;min-width:0;margin-top:2px}
+.stitle small{display:block;min-width:0;color:var(--ink-3);font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.badge{font-size:.72rem;font-variant-numeric:tabular-nums;background:var(--surface-2);color:var(--ink-2);border-radius:99px;padding:2px 8px;white-space:nowrap}
+.badge.bad{background:var(--bad-soft);color:var(--bad)}
+.stools{display:flex;gap:0}
+.stools button{background:none;border:0;border-radius:4px;width:26px;height:26px;color:var(--ink-3);font-size:.85rem;line-height:1}
+.stools button:hover{background:var(--surface-2);color:var(--ink)}
+.sbody{padding:4px 12px 12px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px;padding-top:8px}
+.field{display:flex;flex-direction:column;gap:3px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label,.field .flab{font-size:.75rem;color:var(--ink-2);font-weight:600}
+.field select,.field input{width:100%}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:2px 9px;font-size:.8rem}
+.chip[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--ink);font-weight:600}
+.why{font-size:.84rem;color:var(--ink-2);background:var(--surface-2);border-radius:6px;padding:8px 10px}
+.errmsg{font-size:.84rem;color:var(--bad)}
+.addrow{display:flex;gap:8px;align-items:center}
+.addrow select{flex:1;min-width:0}
+.pipeacts{display:flex;flex-wrap:wrap;gap:6px}
+
+.mainc{display:flex;flex-direction:column;gap:16px;min-width:0}
+.tblwrap{overflow:auto;max-height:430px}
+table.data{border-collapse:separate;border-spacing:0;font-size:.85rem;font-variant-numeric:tabular-nums;width:max-content;min-width:100%}
+table.data th,table.data td{padding:5px 12px;border-bottom:1px solid var(--line);text-align:left;white-space:pre}
+table.data th{position:sticky;top:0;background:var(--surface);z-index:1;font-weight:600}
+table.data th .ty{font-family:var(--f-mono);font-size:.68rem;color:var(--ink-3);margin-left:6px;font-weight:400}
+table.data td.n,table.data th.n{text-align:right}
+table.data td.rn{color:var(--ink-3);text-align:right;padding-right:6px}
+table.data td.na{color:var(--ink-3);font-style:italic}
+table.data tr:hover td{background:var(--surface-2)}
+.tblfoot{padding:8px 14px;font-size:.8rem;color:var(--ink-3);border-top:1px solid var(--line)}
+.count{font-variant-numeric:tabular-nums;color:var(--ink-2);font-size:.88rem}
+.count b{color:var(--ink)}
+.delta{font-size:.8rem;border-radius:99px;padding:1px 8px;background:var(--surface-2)}
+
+/* Panneau de code */
+.ctabs{display:flex;flex-wrap:wrap;align-items:center;gap:4px;padding:8px 10px;border-bottom:1px solid var(--line)}
+.ctab{display:inline-flex;align-items:center;gap:6px;border:1px solid transparent;background:none;border-radius:6px;padding:5px 10px;font-weight:600;font-size:.86rem;color:var(--ink-2)}
+.ctab::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--tc)}
+.ctab[aria-selected="true"]{background:var(--surface-2);border-color:var(--line);color:var(--ink)}
+.t-py{--tc:var(--t-py)}.t-r{--tc:var(--t-r)}.t-sql{--tc:var(--t-sql)}.t-xl{--tc:var(--t-xl)}.t-pbi{--tc:var(--t-pbi)}
+.ctabs .sp{margin-left:auto;display:flex;gap:6px;align-items:center}
+pre.code{margin:0;padding:14px 16px;background:var(--code-bg);overflow:auto;max-height:520px;line-height:1.55;font-size:.82rem;border-radius:0 0 var(--r) var(--r);tab-size:4}
+pre.code .k{color:var(--c-k);font-weight:600}.code .s{color:var(--c-s)}.code .n{color:var(--c-n)}.code .c{color:var(--c-c);font-style:italic}.code .f{color:var(--c-f)}
+.code-note{padding:10px 16px;font-size:.84rem;color:var(--ink-2);border-bottom:1px solid var(--line);background:var(--surface)}
+.xlist{padding:12px 14px;display:flex;flex-direction:column;gap:12px;max-height:560px;overflow:auto;background:var(--code-bg);border-radius:0 0 var(--r) var(--r)}
+.xstep{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.xstep h4{margin:0;font-size:.9rem}
+.xrow{display:grid;grid-template-columns:86px minmax(0,1fr);gap:8px;align-items:baseline}
+.xrow code{display:block;overflow-x:auto;white-space:pre;background:var(--code-bg);padding:4px 8px;border-radius:4px}
+.xrow .txt{font-size:.86rem;color:var(--ink-2)}
+.xlist pre.code{border-radius:6px;max-height:none;border:1px solid var(--line)}
+
+/* Cartes et vues secondaires */
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.tile .v{font-family:var(--f-display);font-size:1.7rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
+.tile .s{font-size:.8rem;color:var(--ink-3)}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:.72rem;font-weight:600;border-radius:99px;padding:2px 8px;background:var(--surface-2);color:var(--ink-2)}
+.pill.good{background:var(--good-soft);color:var(--good)}.pill.bad{background:var(--bad-soft);color:var(--bad)}.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.colcard .top{display:flex;align-items:center;gap:8px}
+.colcard .top h3{margin-right:auto;font-family:var(--f-mono);font-size:.92rem;overflow:hidden;text-overflow:ellipsis}
+dl.kv{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;margin:0;font-size:.84rem}
+dl.kv dt{color:var(--ink-3)}
+dl.kv dd{margin:0;text-align:right;font-variant-numeric:tabular-nums}
+.bars{display:flex;flex-direction:column;gap:3px;font-size:.8rem}
+.bars .b{display:grid;grid-template-columns:minmax(0,1fr) 40px;gap:8px;align-items:center}
+.bars .b span.l{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;position:relative;padding:1px 6px;z-index:0}
+.bars .b span.l i{position:absolute;inset:0 auto 0 0;background:var(--accent-soft);z-index:-1;border-radius:3px}
+.bars .b span.v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.twocol{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:900px){.twocol{grid-template-columns:minmax(0,1fr)}}
+.section-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;margin:22px 0 10px}
+.section-h p{color:var(--ink-3);font-size:.9rem}
+
+.ctl{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:end;padding:12px 14px;border-bottom:1px solid var(--line)}
+.ctl .field{min-width:130px}
+.chartbox{position:relative;padding:8px 10px 12px}
+.chartbox svg{display:block;width:100%;height:auto;overflow:visible}
+.chartbox text{fill:var(--ink-3);font-family:var(--f-body);font-size:11px}
+.chartbox .ttl{fill:var(--ink);font-weight:600;font-size:13px}
+.tip{position:absolute;pointer-events:none;background:var(--surface);border:1px solid var(--line);box-shadow:0 4px 14px rgb(0 0 0 / .12);border-radius:6px;padding:6px 10px;font-size:.82rem;white-space:nowrap;z-index:5}
+.tip b{display:block;font-size:.95rem;font-variant-numeric:tabular-nums}
+.tip span{color:var(--ink-3)}
+
+.heat{border-collapse:separate;border-spacing:2px;font-size:.78rem;font-variant-numeric:tabular-nums}
+.heat th{font-family:var(--f-mono);font-weight:400;color:var(--ink-2);padding:2px 6px;text-align:right;white-space:nowrap}
+.heat thead th{writing-mode:vertical-rl;transform:rotate(180deg);text-align:left;vertical-align:bottom}
+.heat td{width:52px;height:34px;text-align:center;border-radius:4px}
+.legend-div{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--ink-3);margin-top:8px}
+.legend-div i{display:block;width:140px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--div-neg),var(--div-mid),var(--div-pos))}
+
+.chal{border-left:0}
+.chal .top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.chal .top h3{margin-right:auto}
+.chal .acts{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+.banner{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;background:var(--accent-soft);border:1px solid var(--accent);border-radius:var(--r);padding:10px 14px;margin-bottom:14px}
+.banner .q{flex:1 1 320px;min-width:0;font-size:.92rem}
+.banner .q strong{display:block;font-family:var(--f-display)}
+.result-msg{flex-basis:100%;font-size:.88rem;font-weight:600}
+.result-msg.good{color:var(--good)}.result-msg.bad{color:var(--bad)}
+
+.memo-tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.memo-tools input{flex:1 1 240px}
+.memowrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r)}
+table.memo{border-collapse:collapse;font-size:.82rem;min-width:1050px;width:100%}
+table.memo th,table.memo td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}
+table.memo thead th{position:sticky;top:0;background:var(--surface);font-size:.78rem}
+table.memo thead th.t-py,table.memo thead th.t-r,table.memo thead th.t-sql,table.memo thead th.t-xl,table.memo thead th.t-pbi{box-shadow:inset 0 -3px 0 var(--tc)}
+table.memo td code{font-size:.78rem;white-space:pre-wrap;word-break:break-word}
+table.memo tr.cat td{background:var(--surface-2);font-weight:700;font-family:var(--f-display);font-size:.88rem}
+table.memo td:first-child{font-weight:600;width:170px}
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.gloss div{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;font-size:.88rem}
+.gloss b{font-family:var(--f-display);display:block}
+.tool-card h3{display:flex;align-items:center;gap:8px}
+.tool-card h3::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--tc)}
+.tool-card ul{margin:0;padding-left:18px;font-size:.87rem;color:var(--ink-2)}
+
+.quiz{display:flex;flex-direction:column;gap:12px;max-width:820px}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+.qcard h3{font-family:var(--f-body);font-weight:600;font-size:.98rem;margin-bottom:10px}
+.qcard h3 span{color:var(--ink-3);font-weight:500;margin-right:6px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:6px}
+.opt{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:8px 10px;font-size:.88rem}
+.opt:hover:not(:disabled){border-color:var(--ink-3)}
+.opt.ok{border-color:var(--good);background:var(--good-soft)}
+.opt.ko{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.expl{margin-top:8px;font-size:.86rem;color:var(--ink-2)}
+.score{position:sticky;top:calc(env(safe-area-inset-top,0px) + 108px);z-index:3;display:flex;gap:12px;align-items:center;background:var(--bg);padding:6px 0}
+
+.drawer{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-top:12px;display:flex;flex-direction:column;gap:10px}
+.drawer .addrow{flex-wrap:wrap}
+.drawer .addrow input{flex:1 1 180px;min-width:0}
+.drawer textarea{width:100%;min-height:140px;font-family:var(--f-mono);font-size:.8rem}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:6px;font-size:.88rem;z-index:50;max-width:calc(100% - 32px)}
+.empty{padding:28px 16px;text-align:center;color:var(--ink-3);font-size:.9rem}
+@media (max-width:560px){.fields{grid-template-columns:1fr}.brand span{display:none}.xrow{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){.step,.opt,.btn{transition:border-color .15s,background-color .15s}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="brandrow">
+    <div class="brand"><h1>Atelier <b>Données</b></h1><span>Python · R · SQL · Excel · Power BI</span></div>
+    <div class="dsbar">
+      <label class="lbl" for="dsSel">Jeu de données</label>
+      <select id="dsSel"></select>
+      <button class="btn" id="btnImport" type="button">Importer…</button>
+      <button class="btn" id="btnPaste" type="button">Coller</button>
+      <input type="file" id="fileIn" accept=".csv,.tsv,.txt,.xlsx,.xls" hidden>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist" id="tabs">
+    <button role="tab" data-tab="atelier">Atelier</button>
+    <button role="tab" data-tab="explorer">Explorer</button>
+    <button role="tab" data-tab="graphiques">Graphiques</button>
+    <button role="tab" data-tab="defis">Défis</button>
+    <button role="tab" data-tab="memo">Mémo</button>
+    <button role="tab" data-tab="quiz">Quiz</button>
+  </nav>
+</header>
+
+<div class="drawer" id="pasteBox" hidden>
+  <h3>Coller des données</h3>
+  <p class="muted">Copiez une plage depuis Excel ou Google Sheets (avec la ligne d'en-têtes), ou du texte CSV, puis collez-la ici.</p>
+  <textarea id="pasteTxt" placeholder="region	ventes&#10;Nord	120&#10;Sud	95"></textarea>
+  <div class="addrow"><input type="text" id="pasteName" value="mes_donnees" aria-label="Nom du jeu de données"><button class="btn pri" id="pasteGo" type="button">Charger</button><button class="btn ghost" id="pasteCancel" type="button">Annuler</button></div>
+</div>
+
+<main>
+<section class="view" id="v-atelier">
+  <div id="chalBanner"></div>
+  <div class="work">
+    <aside class="pipe" aria-label="Pipeline">
+      <div class="phead" style="padding:0;border:0"><h2>Pipeline</h2><span class="count" id="stepCount"></span></div>
+      <button class="src" id="srcCard" type="button"></button>
+      <ol class="steps" id="steps"></ol>
+      <div class="addrow">
+        <select id="addStep" aria-label="Ajouter une étape"></select>
+        <button class="btn pri" id="addGo" type="button">Ajouter</button>
+      </div>
+      <div class="pipeacts">
+        <button class="btn sm" id="loadDemo" type="button">Charger l'exemple</button>
+        <button class="btn sm ghost" id="clearSteps" type="button">Tout effacer</button>
+      </div>
+    </aside>
+    <div class="mainc">
+      <div class="panel">
+        <div class="phead"><h2 id="resTitle">Résultat</h2><span class="count" id="resCount"></span>
+          <button class="btn sm" id="copyTsv" type="button" title="Collez ensuite directement dans Excel">Copier pour Excel</button>
+          <button class="btn sm" id="copyCsv" type="button">Copier CSV</button></div>
+        <div class="tblwrap" id="resTable"></div>
+        <div class="tblfoot" id="resFoot"></div>
+      </div>
+      <div class="panel" id="codeMain"></div>
+    </div>
+  </div>
+</section>
+
+<section class="view" id="v-explorer" hidden>
+  <div class="section-h" style="margin-top:0"><h2>Explorer les données</h2><p id="exSub"></p></div>
+  <div class="tiles" id="exTiles"></div>
+  <div class="grid" id="exCols"></div>
+  <div class="section-h"><h2>Corrélations</h2><p>Coefficient de Pearson entre colonnes numériques : −1 (varient en sens inverse) à +1 (varient ensemble).</p></div>
+  <div class="twocol">
+    <div class="panel" style="padding:14px;overflow-x:auto" id="exCorr"></div>
+    <div class="panel" id="codeExplore"></div>
+  </div>
+</section>
+
+<section class="view" id="v-graphiques" hidden>
+  <div class="section-h" style="margin-top:0"><h2>Graphiques</h2><p id="chSub"></p></div>
+  <div class="twocol">
+    <div class="panel">
+      <div class="ctl" id="chCtl"></div>
+      <div class="chartbox" id="chBox"></div>
+    </div>
+    <div class="panel" id="codeChart"></div>
+  </div>
+</section>
+
+<section class="view" id="v-defis" hidden>
+  <div class="section-h" style="margin-top:0"><h2>Défis</h2><p>Reproduisez le résultat demandé avec les étapes de l'Atelier, puis cliquez sur « Vérifier ». Le code généré devient votre corrigé dans les 5 outils.</p></div>
+  <div class="grid" id="chalList"></div>
+</section>
+
+<section class="view" id="v-memo" hidden>
+  <div class="section-h" style="margin-top:0"><h2>Mémo : la même opération dans chaque outil</h2></div>
+  <div class="memo-tools"><input type="text" id="memoQ" placeholder="Rechercher : jointure, doublons, moyenne, RECHERCHEX…" aria-label="Rechercher dans le mémo"><div class="chips" id="memoCats"></div></div>
+  <div class="memowrap"><table class="memo" id="memoTbl"></table></div>
+  <div class="section-h"><h2>Quel outil pour quoi ?</h2></div>
+  <div class="grid" id="toolCards"></div>
+  <div class="section-h"><h2>Vocabulaire</h2><p>Un même concept porte souvent un nom différent selon l'outil.</p></div>
+  <div class="gloss" id="gloss"></div>
+</section>
+
+<section class="view" id="v-quiz" hidden>
+  <div class="score"><h2>Quiz</h2><span class="count" id="quizScore"></span><button class="btn sm" id="quizReset" type="button">Recommencer</button></div>
+  <div class="quiz" id="quizList"></div>
+</section>
+</main>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+"use strict";
+/* ============ Utilitaires ============ */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const fmt = v => typeof v === "number" ? v.toLocaleString("fr-FR", { maximumFractionDigits: 2 }) : String(v);
+const isNum = v => typeof v === "number" && isFinite(v);
+let toastT;
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => t.hidden = true, 2600); }
+function copyText(txt, el) {
+  const done = () => toast("Copié dans le presse-papiers");
+  try { navigator.clipboard.writeText(txt).then(done, () => fallback()); } catch (e) { fallback(); }
+  function fallback() { const ta = document.createElement("textarea"); ta.value = txt; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); done(); } catch (e) { toast("Copie refusée : sélectionnez le texte à la main"); } ta.remove(); }
+}
+function store(k, v) { try { if (v === undefined) return JSON.parse(localStorage.getItem(k)); localStorage.setItem(k, JSON.stringify(v)); } catch (e) { return null; } }
+function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const sanitize = n => (n.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\.[a-z0-9]+$/, "").replace(/[^a-z0-9_]+/g, "_").replace(/^_+|_+$/g, "").replace(/^(\d)/, "_$1")) || "donnees";
+
+/* ============ Jeux de données d'exemple (fictifs) ============ */
+function makeData() {
+  const R = rng(20250101), pick = a => a[Math.floor(R() * a.length)];
+  const produits = [
+    { produit_id: "P01", produit: "Clavier sans fil", categorie: "Accessoires", cout_unitaire: 22, prix: 49 },
+    { produit_id: "P02", produit: "Souris ergonomique", categorie: "Accessoires", cout_unitaire: 14, prix: 35 },
+    { produit_id: "P03", produit: "Écran 27 pouces", categorie: "Écrans", cout_unitaire: 190, prix: 289 },
+    { produit_id: "P04", produit: "Casque audio", categorie: "Audio", cout_unitaire: 58, prix: 119 },
+    { produit_id: "P05", produit: "Webcam HD", categorie: "Accessoires", cout_unitaire: 37, prix: 79 },
+    { produit_id: "P06", produit: "Ordinateur portable", categorie: "Ordinateurs", cout_unitaire: 820, prix: 1099 },
+    { produit_id: "P07", produit: "Station d'accueil", categorie: "Accessoires", cout_unitaire: 88, prix: 159 },
+    { produit_id: "P08", produit: "Enceinte Bluetooth", categorie: "Audio", cout_unitaire: 41, prix: 89 }];
+  const vend = ["Marie Dupont", "Karim Benali", "Sophie Martin", "Lucas Bernard", "Aïcha Diallo", "Thomas Petit"];
+  const mess = [s => s.toLowerCase(), s => s.toUpperCase(), s => "  " + s, s => s + " ", s => s.replace(" ", "  ")];
+  const regions = ["Île-de-France", "Île-de-France", "Nord", "Sud", "Sud", "Est", "Ouest"];
+  let rows = [];
+  for (let i = 0; i < 150; i++) {
+    const p = pick(produits);
+    const d = new Date(Date.UTC(2025, 0, 1) + Math.floor(R() * 365) * 864e5).toISOString().slice(0, 10);
+    const q = 1 + Math.floor(R() * (p.prix > 500 ? 3 : 8));
+    const rv = R(), v = pick(vend);
+    rows.push({ date: d, region: pick(regions), vendeur: R() < 0.3 ? pick(mess)(v) : v, canal: R() < 0.45 ? "Web" : "Magasin",
+      produit_id: p.produit_id, quantite: R() < 0.06 ? null : q, prix_unitaire: p.prix,
+      remise: rv < 0.5 ? 0 : rv < 0.75 ? 0.05 : rv < 0.88 ? 0.1 : null });
+  }
+  rows.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+  rows = rows.map((r, i) => Object.assign({ commande: "C" + (1001 + i) }, r));
+  for (let k = 0; k < 6; k++) { const i = Math.floor(R() * rows.length); rows.splice(i + 1, 0, { ...rows[i] }); }
+  const ventes = { name: "ventes", file: "ventes.csv", kind: "csv", sep: ",", cols: ["commande", "date", "region", "vendeur", "canal", "produit_id", "quantite", "prix_unitaire", "remise"], rows };
+  const prod = { name: "produits", file: "produits.csv", kind: "csv", sep: ",", cols: ["produit_id", "produit", "categorie", "cout_unitaire"], rows: produits.map(({ prix, ...r }) => r) };
+  const et = ["Léa", "Hugo", "Inès", "Nathan", "Chloé", "Yanis", "Manon", "Adam", "Jade", "Louis", "Sarah", "Rayan"];
+  const mat = ["maths", "physique", "francais", "anglais", "histoire"];
+  const nrows = et.map((e, i) => { const r = { etudiant: e, classe: i % 2 ? "B" : "A" }; mat.forEach(m => r[m] = R() < 0.05 ? null : Math.round((6 + R() * 13) * 2) / 2); return r; });
+  const notes = { name: "notes", file: "notes.csv", kind: "csv", sep: ",", cols: ["etudiant", "classe", ...mat], rows: nrows };
+  return { ventes, produits: prod, notes };
+}
+
+/* ============ Types ============ */
+const ISO = /^\d{4}-\d{2}-\d{2}$/;
+function inferType(rows, c) {
+  let n = 0, num = 0, dt = 0;
+  for (const r of rows) { const v = r[c]; if (v == null) continue; n++; if (isNum(v)) num++; else if (ISO.test(v)) dt++; }
+  if (!n) return "text"; if (num === n) return "num"; if (dt === n) return "date"; return "text";
+}
+const typesOf = d => Object.fromEntries(d.cols.map(c => [c, inferType(d.rows, c)]));
+const TYL = { num: "123", text: "abc", date: "date" };
+function coerce(raw, t) {
+  if (raw == null) return raw; const s = String(raw).trim();
+  if (t === "num" && s !== "" && !isNaN(Number(s.replace(",", ".")))) return Number(s.replace(",", "."));
+  return s;
+}
+const autoVal = s => { s = String(s ?? ""); const n = Number(s.replace(",", ".")); return s.trim() !== "" && !isNaN(n) ? n : s; };
+
+/* ============ Syntaxe par langage ============ */
+const q = s => JSON.stringify(String(s));
+const rid = c => /^[A-Za-z.][A-Za-z0-9._]*$/.test(c) ? c : "`" + c + "`";
+const sid = c => /^[a-z_][a-z0-9_]*$/.test(c) ? c : '"' + c.replace(/"/g, '""') + '"';
+const xr = c => /^\w+$/.test(c) ? c : "[" + c + "]";
+const pyc = c => `df[${q(c)}]`;
+const pyKw = (name, val) => /^[A-Za-z_]\w*$/.test(name) ? `${name}=${val}` : `**{${q(name)}: ${val}}`;
+function L(v, lang, t) {
+  if (typeof v === "number") return String(v);
+  if (t === "date" && ISO.test(v)) {
+    const [y, m, d] = v.split("-").map(Number);
+    return { py: `pd.Timestamp(${q(v)})`, r: `as.Date(${q(v)})`, sql: `DATE '${v}'`, m: `#date(${y}, ${m}, ${d})`, xl: `DATE(${y},${m},${d})`, dax: `DATE(${y}, ${m}, ${d})` }[lang];
+  }
+  if (lang === "sql") return "'" + String(v).replace(/'/g, "''") + "'";
+  return q(v);
+}
+const OPS = [["eq", "="], ["ne", "≠"], ["gt", ">"], ["ge", "≥"], ["lt", "<"], ["le", "≤"], ["contains", "contient"], ["starts", "commence par"], ["null", "est vide"], ["notnull", "n'est pas vide"]];
+const OPL = Object.fromEntries(OPS);
+const noVal = op => op === "null" || op === "notnull";
+function test(v, op, val) {
+  if (op === "null") return v == null; if (op === "notnull") return v != null; if (v == null) return false;
+  if (op === "contains") return String(v).toLowerCase().includes(String(val).toLowerCase());
+  if (op === "starts") return String(v).startsWith(String(val));
+  const c = isNum(v) && isNum(val) ? v - val : (String(v) < String(val) ? -1 : String(v) > String(val) ? 1 : 0);
+  return { eq: c === 0, ne: c !== 0, gt: c > 0, ge: c >= 0, lt: c < 0, le: c <= 0 }[op];
+}
+function condExpr(lang, c, op, v, t, T) {
+  const lv = L(v, lang, t), sy = { eq: "==", ne: "!=", gt: ">", ge: ">=", lt: "<", le: "<=" }, sq = { ...sy, eq: "=", ne: "<>" };
+  const len = String(v).length;
+  switch (lang) {
+    case "py": { const s = pyc(c);
+      if (op === "null") return `${s}.isna()`; if (op === "notnull") return `${s}.notna()`;
+      if (op === "contains") return `${s}.str.contains(${lv}, case=False, na=False)`;
+      if (op === "starts") return `${s}.str.startswith(${lv}, na=False)`;
+      return `${s} ${sy[op]} ${lv}`; }
+    case "r": { const s = rid(c);
+      if (op === "null") return `is.na(${s})`; if (op === "notnull") return `!is.na(${s})`;
+      if (op === "contains") return `str_detect(${s}, regex(${lv}, ignore_case = TRUE))`;
+      if (op === "starts") return `str_starts(${s}, ${lv})`;
+      return `${s} ${sy[op]} ${lv}`; }
+    case "sql": { const s = sid(c), raw = String(v).replace(/'/g, "''");
+      if (op === "null") return `${s} IS NULL`; if (op === "notnull") return `${s} IS NOT NULL`;
+      if (op === "contains") return `${s} ILIKE '%${raw}%'`; if (op === "starts") return `${s} LIKE '${raw}%'`;
+      return `${s} ${sq[op]} ${lv}`; }
+    case "m": { const s = `[${c}]`;
+      if (op === "null") return `${s} = null`; if (op === "notnull") return `${s} <> null`;
+      if (op === "contains") return `${s} <> null and Text.Contains(${s}, ${lv}, Comparer.OrdinalIgnoreCase)`;
+      if (op === "starts") return `${s} <> null and Text.StartsWith(${s}, ${lv})`;
+      if (op === "eq" || op === "ne") return `${s} ${sq[op]} ${lv}`;
+      return `${s} <> null and ${s} ${sq[op]} ${lv}`; }
+    case "xlrow": case "xlarr": { const s = lang === "xlrow" ? `[@${xr(c)}]` : `${T}[${xr(c)}]`, xv = L(v, "xl", t);
+      if (op === "null") return lang === "xlrow" ? `ISBLANK(${s})` : `${s}=""`;
+      if (op === "notnull") return lang === "xlrow" ? `NOT(ISBLANK(${s}))` : `${s}<>""`;
+      if (op === "contains") return `ISNUMBER(SEARCH(${xv},${s}))`; if (op === "starts") return `LEFT(${s},${len})=${xv}`;
+      return `${s}${sq[op]}${xv}`; }
+    case "dax": { const s = `${T}[${c}]`, dv = L(v, "dax", t);
+      if (op === "null") return `ISBLANK(${s})`; if (op === "notnull") return `NOT ISBLANK(${s})`;
+      if (op === "contains") return `CONTAINSSTRING(${s}, ${dv})`; if (op === "starts") return `LEFT(${s}, ${len}) = ${dv}`;
+      return `${s} ${sq[op]} ${dv}`; }
+  }
+}
+/* Excel : écrit en anglais, traduit vers le français (noms de fonctions, « ; », virgule décimale) */
+const XLFR = { FILTER: "FILTRE", SORT: "TRIER", SORTBY: "TRIERPAR", CHOOSECOLS: "CHOISIRCOLS", TAKE: "PRENDRE", IF: "SI", ISBLANK: "ESTVIDE", AVERAGE: "MOYENNE", MEDIAN: "MEDIANE", "MODE.SNGL": "MODE.SIMPLE", TRIM: "SUPPRESPACE", UPPER: "MAJUSCULE", LOWER: "MINUSCULE", PROPER: "NOMPROPRE", VALUE: "CNUM", TEXT: "TEXTE", YEAR: "ANNEE", MONTH: "MOIS", DAY: "JOUR", WEEKDAY: "JOURSEM", ROUNDUP: "ARRONDI.SUP", ROUND: "ARRONDI", XLOOKUP: "RECHERCHEX", GROUPBY: "GROUPER.PAR", PIVOTBY: "PIVOTER.PAR", SUM: "SOMME", COUNT: "NB", COUNTA: "NBVAL", COUNTBLANK: "NB.VIDE", SUMIFS: "SOMME.SI.ENS", AVERAGEIFS: "MOYENNE.SI.ENS", COUNTIFS: "NB.SI.ENS", ISNUMBER: "ESTNUM", SEARCH: "CHERCHE", LEFT: "GAUCHE", AND: "ET", OR: "OU", NOT: "NON", HSTACK: "ASSEMB.H", VSTACK: "ASSEMB.V", ROWS: "LIGNES", COLUMNS: "COLONNES", IFERROR: "SIERREUR", "STDEV.S": "ECARTYPE.STANDARD", CORREL: "COEFFICIENT.CORRELATION", "QUARTILE.INC": "QUARTILE.INCLURE", TRUE: "VRAI", FALSE: "FAUX", DATE: "DATE", MIN: "MIN", MAX: "MAX", UNIQUE: "UNIQUE", LAMBDA: "LAMBDA", SUBSTITUTE: "SUBSTITUE" };
+function xlFR(f) {
+  let o = "", i = 0;
+  while (i < f.length) {
+    const ch = f[i], prev = f[i - 1] || "";
+    if (ch === '"') { let j = f.indexOf('"', i + 1); if (j < 0) j = f.length - 1; o += f.slice(i, j + 1); i = j + 1; continue; }
+    if (ch === "[") { let d = 0, j = i; do { if (f[j] === "[") d++; else if (f[j] === "]") d--; j++; } while (j < f.length && d > 0); o += f.slice(i, j); i = j; continue; }
+    if (/[A-Z]/.test(ch) && !/[A-Za-z0-9_]/.test(prev)) { const m = /^[A-Z][A-Z0-9.]*/.exec(f.slice(i))[0]; if (/[a-z0-9_]/.test(f[i + m.length] || "")) { const w = /^\w+/.exec(f.slice(i))[0]; o += w; i += w.length; continue; } o += XLFR[m] || m; i += m.length; continue; }
+    if (/\d/.test(ch) && !/[A-Za-z_]/.test(prev)) { const m = /^\d+(\.\d+)?/.exec(f.slice(i))[0]; o += m.replace(".", ","); i += m.length; continue; }
+    if (/[a-z_]/i.test(ch)) { const w = /^\w+/.exec(f.slice(i))[0]; o += w; i += w.length; continue; }
+    o += ch === "," ? ";" : ch; i++;
+  }
+  return o;
+}
+
+/* ============ Agrégations ============ */
+const FN = { sum: ["somme", "Somme"], mean: ["moyenne", "Moyenne"], count: ["nb", "Nombre (non vides)"], min: ["min", "Minimum"], max: ["max", "Maximum"], median: ["mediane", "Médiane"], nunique: ["nb_distinct", "Nb de valeurs distinctes"] };
+const FNOPTS = Object.entries(FN).map(([k, v]) => [k, v[1]]);
+const aggName = (fn, c) => FN[fn][0] + "_" + c;
+function agg(vals, fn) {
+  const nn = vals.filter(v => v != null), nums = nn.filter(isNum);
+  switch (fn) {
+    case "sum": return nums.reduce((a, b) => a + b, 0);
+    case "mean": return nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : null;
+    case "count": return nn.length;
+    case "nunique": return new Set(nn.map(String)).size;
+    case "min": return nn.length ? nn.reduce((a, b) => (a < b ? a : b)) : null;
+    case "max": return nn.length ? nn.reduce((a, b) => (a > b ? a : b)) : null;
+    case "median": return median(nums);
+  }
+}
+function median(a) { if (!a.length) return null; const s = [...a].sort((x, y) => x - y), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; }
+function quant(s, p) { const i = (s.length - 1) * p, lo = Math.floor(i), hi = Math.ceil(i); return s[lo] + (s[hi] - s[lo]) * (i - lo); }
+const PYAGG = { sum: "sum", mean: "mean", count: "count", min: "min", max: "max", median: "median", nunique: "nunique" };
+const RAGG = (fn, c) => ({ sum: `sum(${c}, na.rm = TRUE)`, mean: `mean(${c}, na.rm = TRUE)`, count: `sum(!is.na(${c}))`, min: `min(${c}, na.rm = TRUE)`, max: `max(${c}, na.rm = TRUE)`, median: `median(${c}, na.rm = TRUE)`, nunique: `n_distinct(${c}, na.rm = TRUE)` })[fn];
+const SQLAGG = (fn, c) => ({ sum: `SUM(${c})`, mean: `AVG(${c})`, count: `COUNT(${c})`, min: `MIN(${c})`, max: `MAX(${c})`, median: `MEDIAN(${c})`, nunique: `COUNT(DISTINCT ${c})` })[fn];
+const MAGG = (fn, c) => ({ sum: `List.Sum([${c}])`, mean: `List.Average([${c}])`, count: `List.NonNullCount([${c}])`, min: `List.Min([${c}])`, max: `List.Max([${c}])`, median: `List.Median([${c}])`, nunique: `List.Count(List.Distinct(List.RemoveNulls([${c}])))` })[fn];
+const XLAGG = { sum: "SUM", mean: "AVERAGE", count: "COUNTA", min: "MIN", max: "MAX", median: "MEDIAN", nunique: "LAMBDA(x,ROWS(UNIQUE(x)))" };
+const DAXAGG = (fn, x) => ({ sum: `SUM(${x})`, mean: `AVERAGE(${x})`, count: `COUNT(${x})`, min: `MIN(${x})`, max: `MAX(${x})`, median: `MEDIAN(${x})`, nunique: `DISTINCTCOUNTNOBLANK(${x})` })[fn];
+const listSel = (T, cols) => "{" + cols.map(q).join(", ") + "}";
+const pick = (r, cols) => Object.fromEntries(cols.map(c => [c, r[c]]));
+function selectReplace(cols, c, expr) { return "SELECT " + cols.map(x => x === c ? `${expr} AS ${sid(c)}` : sid(x)).join(", "); }
+const need = (cond, msg) => { if (!cond) throw new Error(msg); };
+const hasCol = (d, c, what = "la colonne") => need(c && d.cols.includes(c), `Choisissez ${what}` + (c ? ` (« ${c} » n'existe plus à cette étape)` : ""));
+function titleCase(s) { return s.toLowerCase().replace(/(^|[^\p{L}])(\p{L})/gu, (m, a, b) => a + b.toUpperCase()); }
+
+/* ============ Catalogue des étapes ============ */
+const STEPS = {
+  select: {
+    cat: "Sélectionner", name: "Choisir des colonnes",
+    why: "Garder seulement les colonnes utiles : un tableau plus léger est plus lisible et plus rapide à traiter.",
+    fields: [{ k: "cols", t: "cols", label: "Colonnes à garder", full: 1 }],
+    init: d => ({ cols: d.cols.slice(0, 3) }), label: p => p.cols.join(", "),
+    apply(d, p) { const cols = p.cols.filter(c => d.cols.includes(c)); need(cols.length, "Choisissez au moins une colonne"); return { cols, rows: d.rows.map(r => pick(r, cols)) }; },
+    py: p => `df = df[[${p.cols.map(q).join(", ")}]]`,
+    r: p => `select(${p.cols.map(rid).join(", ")})`,
+    sql: (p, c) => `SELECT ${p.cols.map(sid).join(", ")} FROM ${c.prev}`,
+    m: p => `Table.SelectColumns($prev, ${listSel(0, p.cols)})`,
+    xl: (p, c) => ({ f: `CHOOSECOLS(${c.T},${p.cols.map(x => c.inCols.indexOf(x) + 1).join(",")})`, ui: "Masquer les colonnes inutiles (clic droit › Masquer), ou Power Query › Accueil › Choisir les colonnes." }),
+    pbi: () => ({ ui: "Power Query › Accueil › Choisir les colonnes (ou clic droit › Supprimer les autres colonnes)." })
+  },
+  filter: {
+    cat: "Sélectionner", name: "Filtrer des lignes",
+    why: "Ne garder que les lignes qui respectent une condition. Pour combiner plusieurs conditions (ET), enchaînez plusieurs filtres.",
+    fields: [{ k: "col", t: "col", label: "Colonne" }, { k: "op", t: "sel", label: "Condition", opts: OPS }, { k: "val", t: "text", label: "Valeur", show: p => !noVal(p.op), full: 1 }],
+    init: (d, ty) => { const u = c => new Set(d.rows.map(r => r[c])).size, tx = d.cols.filter(x => ty[x] === "text" && u(x) > 1).sort((a, b) => u(a) - u(b)), c = tx[0] || d.cols[0]; return { col: c, op: "eq", val: String(d.rows.find(r => r[c] != null)?.[c] ?? "") }; },
+    label: p => `${p.col} ${OPL[p.op]} ${noVal(p.op) ? "" : p.val}`,
+    apply(d, p, x) { hasCol(d, p.col); const v = coerce(p.val, x.types[p.col]); return { cols: d.cols, rows: d.rows.filter(r => test(r[p.col], p.op, v)) }; },
+    py: (p, c) => `df = df[${condExpr("py", p.col, p.op, coerce(p.val, c.types[p.col]), c.types[p.col])}]`,
+    r: (p, c) => `filter(${condExpr("r", p.col, p.op, coerce(p.val, c.types[p.col]), c.types[p.col])})`,
+    sql: (p, c) => `SELECT * FROM ${c.prev}\n  WHERE ${condExpr("sql", p.col, p.op, coerce(p.val, c.types[p.col]), c.types[p.col])}`,
+    m: (p, c) => `Table.SelectRows($prev, each ${condExpr("m", p.col, p.op, coerce(p.val, c.types[p.col]), c.types[p.col])})`,
+    xl: (p, c) => ({ f: `FILTER(${c.T},${condExpr("xlarr", p.col, p.op, coerce(p.val, c.types[p.col]), c.types[p.col], c.T)})`, ui: `Données › Filtrer (Ctrl+Maj+L), puis flèche de « ${p.col} » › Filtres ${c.types[p.col] === "num" ? "numériques" : "textuels"}.` }),
+    pbi: (p, c) => ({ ui: `Power Query : flèche de l'en-tête « ${p.col} » › Filtres. Dans un rapport : volet Filtres.`, dax: `// Table filtrée (Modélisation › Nouvelle table)\n${c.T}_filtre = FILTER(${c.T}, ${condExpr("dax", p.col, p.op, coerce(p.val, c.types[p.col]), c.types[p.col], c.T)})\n// Ou dans une mesure :\nCA filtré = CALCULATE([Total], ${condExpr("dax", p.col, p.op, coerce(p.val, c.types[p.col]), c.types[p.col], c.T)})` })
+  },
+  sort: {
+    cat: "Sélectionner", name: "Trier",
+    why: "Ordonner les lignes. Les valeurs vides sont placées à la fin.",
+    fields: [{ k: "col", t: "col", label: "Colonne" }, { k: "dir", t: "sel", label: "Ordre", opts: [["asc", "Croissant (A→Z, 0→9)"], ["desc", "Décroissant (Z→A, 9→0)"]] }],
+    init: (d, ty) => ({ col: d.cols.find(x => ty[x] === "num") || d.cols[0], dir: "desc" }),
+    label: p => `${p.col} ${p.dir === "asc" ? "↑" : "↓"}`,
+    apply(d, p) { hasCol(d, p.col); const s = p.dir === "asc" ? 1 : -1; return { cols: d.cols, rows: d.rows.map((r, i) => [r, i]).sort(([a, i], [b, j]) => { const x = a[p.col], y = b[p.col]; if (x == null && y == null) return i - j; if (x == null) return 1; if (y == null) return -1; return (x < y ? -1 : x > y ? 1 : 0) * s || i - j; }).map(z => z[0]) }; },
+    py: p => `df = df.sort_values(${q(p.col)}, ascending=${p.dir === "asc" ? "True" : "False"})`,
+    r: p => p.dir === "asc" ? `arrange(${rid(p.col)})` : `arrange(desc(${rid(p.col)}))`,
+    sql: (p, c) => `SELECT * FROM ${c.prev}\n  ORDER BY ${sid(p.col)} ${p.dir === "asc" ? "ASC" : "DESC"} NULLS LAST`,
+    m: p => `Table.Sort($prev, {{${q(p.col)}, Order.${p.dir === "asc" ? "Ascending" : "Descending"}}})`,
+    xl: (p, c) => ({ f: `SORTBY(${c.T},${c.T}[${xr(p.col)}],${p.dir === "asc" ? 1 : -1})`, ui: "Données › Trier › choisir la colonne et l'ordre." }),
+    pbi: p => ({ ui: `Dans un visuel : « … » › Trier par › ${p.col}. En Power Query : flèche de l'en-tête › Tri.` })
+  },
+  topn: {
+    cat: "Sélectionner", name: "Garder les N premières lignes",
+    why: "Utile après un tri pour obtenir un « Top N » (les 5 meilleurs produits, par exemple).",
+    fields: [{ k: "n", t: "num", label: "Nombre de lignes" }],
+    init: () => ({ n: 5 }), label: p => `${p.n} lignes`,
+    apply(d, p) { need(+p.n > 0, "Indiquez un nombre positif"); return { cols: d.cols, rows: d.rows.slice(0, +p.n) }; },
+    py: p => `df = df.head(${+p.n})`, r: p => `slice_head(n = ${+p.n})`,
+    sql: (p, c) => `SELECT * FROM ${c.prev}\n  LIMIT ${+p.n}`, m: p => `Table.FirstN($prev, ${+p.n})`,
+    xl: (p, c) => ({ f: `TAKE(${c.T},${+p.n})`, ui: "Sélectionnez les premières lignes, ou Filtre › Filtres numériques › 10 premiers." }),
+    pbi: (p, c) => ({ ui: `Volet Filtres › Type de filtre « N premiers » › Afficher les éléments : Haut ${+p.n}.`, dax: `Top = TOPN(${+p.n}, ${c.T}, ${c.T}[${c.inCols.find(x => c.types[x] === "num") || c.inCols[0]}], DESC)` })
+  },
+  dedupe: {
+    cat: "Nettoyer", name: "Supprimer les doublons",
+    why: "Retirer les lignes répétées. Sans colonne choisie, deux lignes sont des doublons si toutes leurs valeurs sont identiques ; sinon seules les colonnes choisies comptent (la 1re occurrence est gardée).",
+    fields: [{ k: "cols", t: "cols", label: "Colonnes à comparer (aucune = toutes)", full: 1 }],
+    init: () => ({ cols: [] }), label: p => p.cols.length ? "sur " + p.cols.join(", ") : "lignes identiques",
+    apply(d, p) { const k = p.cols.filter(c => d.cols.includes(c)), ks = k.length ? k : d.cols, seen = new Set(); return { cols: d.cols, rows: d.rows.filter(r => { const key = JSON.stringify(ks.map(c => r[c])); if (seen.has(key)) return false; seen.add(key); return true; }) }; },
+    py: p => p.cols.length ? `df = df.drop_duplicates(subset=[${p.cols.map(q).join(", ")}], keep="first")` : `df = df.drop_duplicates()`,
+    r: p => p.cols.length ? `distinct(${p.cols.map(rid).join(", ")}, .keep_all = TRUE)` : `distinct()`,
+    sql: (p, c) => p.cols.length ? `SELECT * FROM ${c.prev}\n  QUALIFY ROW_NUMBER() OVER (PARTITION BY ${p.cols.map(sid).join(", ")}) = 1` : `SELECT DISTINCT * FROM ${c.prev}`,
+    m: p => p.cols.length ? `Table.Distinct($prev, ${listSel(0, p.cols)})` : `Table.Distinct($prev)`,
+    xl: (p, c) => ({ f: p.cols.length ? null : `UNIQUE(${c.T})`, ui: "Données › Supprimer les doublons › cocher les colonnes à comparer.", note: p.cols.length ? "La fonction UNIQUE ne sait comparer que des lignes entières : utilisez le ruban." : null }),
+    pbi: (p, c) => ({ ui: "Power Query : sélectionner les colonnes › Accueil › Supprimer les lignes › Supprimer les doublons.", dax: `${c.T}_sans_doublons = DISTINCT(${c.T})` })
+  },
+  missing: {
+    cat: "Nettoyer", name: "Traiter les valeurs manquantes",
+    why: "Une cellule vide (NaN, NA, null, BLANK selon l'outil) fausse les calculs. On peut supprimer la ligne ou la remplacer : par une valeur fixe, la moyenne, la médiane (robuste aux valeurs extrêmes), la valeur la plus fréquente, ou la valeur précédente.",
+    fields: [{ k: "col", t: "col", label: "Colonne" }, { k: "how", t: "sel", label: "Méthode", opts: [["drop", "Supprimer les lignes vides"], ["value", "Remplacer par une valeur"], ["mean", "Remplacer par la moyenne"], ["median", "Remplacer par la médiane"], ["mode", "Remplacer par la valeur la plus fréquente"], ["ffill", "Recopier la valeur précédente"]] }, { k: "val", t: "text", label: "Valeur de remplacement", show: p => p.how === "value", full: 1 }],
+    init: (d) => ({ col: d.cols.find(c => d.rows.some(r => r[c] == null)) || d.cols[0], how: "median", val: "0" }),
+    label: p => `${p.col} : ${{ drop: "supprimer", value: "→ " + p.val, mean: "→ moyenne", median: "→ médiane", mode: "→ plus fréquente", ffill: "→ précédente" }[p.how]}`,
+    apply(d, p, x) {
+      hasCol(d, p.col); const c = p.col;
+      if (p.how === "drop") return { cols: d.cols, rows: d.rows.filter(r => r[c] != null) };
+      let fill;
+      const nn = d.rows.map(r => r[c]).filter(v => v != null);
+      if (p.how === "value") fill = coerce(p.val, x.types[c]);
+      if (p.how === "mean" || p.how === "median") { need(x.types[c] === "num", "Moyenne et médiane demandent une colonne numérique"); fill = agg(nn, p.how); }
+      if (p.how === "mode") { const cnt = new Map(); nn.forEach(v => cnt.set(v, (cnt.get(v) || 0) + 1)); const mx = Math.max(...cnt.values()); fill = [...cnt].filter(e => e[1] === mx).map(e => e[0]).sort((a, b) => a < b ? -1 : 1)[0]; }
+      let last = null;
+      return { cols: d.cols, rows: d.rows.map(r => { if (p.how === "ffill") { if (r[c] != null) { last = r[c]; return r; } return { ...r, [c]: last }; } return r[c] == null ? { ...r, [c]: fill } : r; }) };
+    },
+    py: (p, c) => { const s = pyc(p.col); const v = L(coerce(p.val, c.types[p.col]), "py");
+      return { drop: `df = df.dropna(subset=[${q(p.col)}])`, value: `${s} = ${s}.fillna(${v})`, mean: `${s} = ${s}.fillna(${s}.mean())`, median: `${s} = ${s}.fillna(${s}.median())`, mode: `${s} = ${s}.fillna(${s}.mode()[0])`, ffill: `${s} = ${s}.ffill()` }[p.how]; },
+    r: (p, c) => { const s = rid(p.col), v = L(coerce(p.val, c.types[p.col]), "r"), num = c.types[p.col] === "num";
+      return { drop: `drop_na(${s})`, value: `mutate(${s} = replace_na(${s}, ${v}))`, mean: `mutate(${s} = replace_na(${s}, mean(${s}, na.rm = TRUE)))`, median: `mutate(${s} = replace_na(${s}, median(${s}, na.rm = TRUE)))`, mode: `mutate(${s} = replace_na(${s}, ${num ? "as.numeric(" : ""}names(which.max(table(${s})))${num ? ")" : ""}))`, ffill: `fill(${s}, .direction = "down")` }[p.how]; },
+    sql: (p, c) => { const s = sid(p.col), v = L(coerce(p.val, c.types[p.col]), "sql");
+      if (p.how === "drop") return `SELECT * FROM ${c.prev}\n  WHERE ${s} IS NOT NULL`;
+      const e = { value: `COALESCE(${s}, ${v})`, mean: `COALESCE(${s}, (SELECT AVG(${s}) FROM ${c.prev}))`, median: `COALESCE(${s}, (SELECT MEDIAN(${s}) FROM ${c.prev}))`, mode: `COALESCE(${s}, (SELECT MODE(${s}) FROM ${c.prev}))`, ffill: `COALESCE(${s}, LAST_VALUE(${s} IGNORE NULLS) OVER (ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW))` }[p.how];
+      return selectReplace(c.inCols, p.col, e) + ` FROM ${c.prev}`; },
+    m: (p, c) => { const v = L(coerce(p.val, c.types[p.col]), "m"), R = (x) => `Table.ReplaceValue($prev, null, ${x}, Replacer.ReplaceValue, {${q(p.col)}})`;
+      return { drop: `Table.SelectRows($prev, each [${p.col}] <> null)`, value: R(v), mean: R(`List.Average($prev[${p.col}])`), median: R(`List.Median($prev[${p.col}])`), mode: R(`List.Mode(List.RemoveNulls($prev[${p.col}]))`), ffill: `Table.FillDown($prev, {${q(p.col)}})` }[p.how]; },
+    xl: (p, c) => { const s = `[@${xr(p.col)}]`, a = `${c.T}[${xr(p.col)}]`, v = L(coerce(p.val, c.types[p.col]), "xl");
+      const f = { drop: `FILTER(${c.T},${a}<>"")`, value: `IF(ISBLANK(${s}),${v},${s})`, mean: `IF(ISBLANK(${s}),AVERAGE(${a}),${s})`, median: `IF(ISBLANK(${s}),MEDIAN(${a}),${s})`, mode: c.types[p.col] === "num" ? `IF(ISBLANK(${s}),MODE.SNGL(${a}),${s})` : null, ffill: null }[p.how];
+      return { f, col: p.how !== "drop", ui: { drop: `Filtre sur « ${p.col} » › décocher (Vides), ou Power Query › Supprimer les lignes vides.`, ffill: "Power Query › Transformer › Remplir › Vers le bas.", mode: "Formule dans une nouvelle colonne du tableau." }[p.how] || `Nouvelle colonne dans le tableau avec cette formule, puis Copier › Collage spécial › Valeurs sur « ${p.col} ».` }; },
+    pbi: (p, c) => ({ ui: { drop: "Power Query : flèche de l'en-tête › décocher (null).", ffill: "Power Query › Transformer › Remplir › Vers le bas.", value: "Power Query › Transformer › Remplacer les valeurs (null → valeur)." }[p.how] || "Power Query : Remplacer les valeurs, avec la statistique calculée dans le code M ci-dessus.",
+      dax: p.how === "drop" || p.how === "ffill" ? null : `${p.col}_complet = COALESCE(${c.T}[${p.col}], ${{ value: L(coerce(p.val, c.types[p.col]), "dax"), mean: `AVERAGE(${c.T}[${p.col}])`, median: `MEDIAN(${c.T}[${p.col}])`, mode: `"<valeur la plus fréquente>"` }[p.how]})` })
+  },
+  text: {
+    cat: "Nettoyer", name: "Nettoyer du texte",
+    why: "Uniformiser l'écriture : « marie dupont », « MARIE DUPONT » et « Marie  Dupont » doivent devenir la même valeur, sinon ils comptent comme 3 personnes.",
+    fields: [{ k: "col", t: "col", label: "Colonne", kind: "text" }, { k: "fn", t: "sel", label: "Transformation", opts: [["clean", "Espaces + Nom Propre"], ["trim", "Supprimer les espaces en trop"], ["upper", "MAJUSCULES"], ["lower", "minuscules"], ["proper", "Nom Propre"]] }],
+    init: (d, ty) => ({ col: d.cols.includes("vendeur") ? "vendeur" : d.cols.find(c => ty[c] === "text") || d.cols[0], fn: "clean" }),
+    label: p => `${p.col} : ${{ clean: "espaces + Nom Propre", trim: "espaces", upper: "MAJUSCULES", lower: "minuscules", proper: "Nom Propre" }[p.fn]}`,
+    apply(d, p) { hasCol(d, p.col); const t = s => s.replace(/\s+/g, " ").trim(); const f = { trim: t, upper: s => s.toUpperCase(), lower: s => s.toLowerCase(), proper: titleCase, clean: s => titleCase(t(s)) }[p.fn]; return { cols: d.cols, rows: d.rows.map(r => r[p.col] == null ? r : { ...r, [p.col]: f(String(r[p.col])) }) }; },
+    py: p => { const s = pyc(p.col), tr = `.str.replace(r"\\s+", " ", regex=True).str.strip()`; return `${s} = ${s}` + { trim: tr, upper: ".str.upper()", lower: ".str.lower()", proper: ".str.title()", clean: tr + ".str.title()" }[p.fn]; },
+    r: p => { const s = rid(p.col); return `mutate(${s} = ${{ trim: `str_squish(${s})`, upper: `str_to_upper(${s})`, lower: `str_to_lower(${s})`, proper: `str_to_title(${s})`, clean: `str_to_title(str_squish(${s}))` }[p.fn]})`; },
+    sql: (p, c) => { const s = sid(p.col), t = `TRIM(REGEXP_REPLACE(${s}, '\\s+', ' ', 'g'))`, P = x => `ARRAY_TO_STRING(LIST_TRANSFORM(STRING_SPLIT(LOWER(${x}), ' '), lambda w: UPPER(w[1]) || w[2:]), ' ')`; return selectReplace(c.inCols, p.col, { trim: t, upper: `UPPER(${s})`, lower: `LOWER(${s})`, proper: P(s), clean: P(t) }[p.fn]) + ` FROM ${c.prev}` + (p.fn === "proper" || p.fn === "clean" ? `\n  -- PostgreSQL : INITCAP(${p.fn === "clean" ? t : s})` : ""); },
+    m: p => { const t = `Text.Combine(List.Select(Text.Split(Text.Trim(_), " "), each _ <> ""), " ")`; return `Table.TransformColumns($prev, {{${q(p.col)}, each if _ = null then null else ${{ trim: t, upper: "Text.Upper(_)", lower: "Text.Lower(_)", proper: "Text.Proper(_)", clean: `Text.Proper(${t})` }[p.fn]}, type text}})`; },
+    xl: p => { const s = `[@${xr(p.col)}]`; return { f: { trim: `TRIM(${s})`, upper: `UPPER(${s})`, lower: `LOWER(${s})`, proper: `PROPER(${s})`, clean: `PROPER(TRIM(${s}))` }[p.fn], col: 1, ui: "Nouvelle colonne avec la formule, puis collage spécial › Valeurs. Ou Power Query › Transformer › Format." }; },
+    pbi: (p, c) => ({ ui: "Power Query › Transformer › Format › Supprimer les espaces / MAJUSCULES / Mettre en majuscule chaque mot.", dax: p.fn === "proper" || p.fn === "clean" ? "// Pas d'équivalent « Nom Propre » en DAX : faites-le dans Power Query." : `${p.col}_propre = ${{ trim: "TRIM", upper: "UPPER", lower: "LOWER" }[p.fn]}(${c.T}[${p.col}])` })
+  },
+  cast: {
+    cat: "Nettoyer", name: "Changer le type",
+    why: "Un nombre stocké comme texte ne peut pas être additionné. Convertir en nombre transforme les valeurs illisibles en vides.",
+    fields: [{ k: "col", t: "col", label: "Colonne" }, { k: "to", t: "sel", label: "Convertir en", opts: [["num", "Nombre"], ["text", "Texte"]] }],
+    init: d => ({ col: d.cols[0], to: "text" }), label: p => `${p.col} → ${p.to === "num" ? "nombre" : "texte"}`,
+    apply(d, p) { hasCol(d, p.col); return { cols: d.cols, rows: d.rows.map(r => { const v = r[p.col]; if (v == null) return r; let n; if (p.to === "num") { n = Number(String(v).replace(",", ".").replace(/\s/g, "")); n = isNaN(n) ? null : n; } else n = String(v); return { ...r, [p.col]: n }; }) }; },
+    py: p => p.to === "num" ? `${pyc(p.col)} = pd.to_numeric(${pyc(p.col)}, errors="coerce")` : `${pyc(p.col)} = ${pyc(p.col)}.astype("string")`,
+    r: p => `mutate(${rid(p.col)} = ${p.to === "num" ? "as.numeric" : "as.character"}(${rid(p.col)}))`,
+    sql: (p, c) => selectReplace(c.inCols, p.col, p.to === "num" ? `TRY_CAST(${sid(p.col)} AS DOUBLE)` : `CAST(${sid(p.col)} AS VARCHAR)`) + ` FROM ${c.prev}`,
+    m: p => `Table.TransformColumnTypes($prev, {{${q(p.col)}, ${p.to === "num" ? "type number" : "type text"}}})`,
+    xl: p => ({ f: p.to === "num" ? `IFERROR(VALUE([@${xr(p.col)}]),"")` : `TEXT([@${xr(p.col)}],"0")`, col: 1, ui: "Accueil › Nombre › choisir le format. Pour des nombres stockés en texte : Données › Convertir › Terminer." }),
+    pbi: (p, c) => ({ ui: "Power Query : icône de type à gauche de l'en-tête (ABC / 1.2).", dax: p.to === "num" ? `${p.col}_nombre = VALUE(${c.T}[${p.col}])` : `${p.col}_texte = FORMAT(${c.T}[${p.col}], "0")` })
+  },
+  rename: {
+    cat: "Transformer", name: "Renommer une colonne",
+    why: "Des noms courts, sans espaces ni accents (ex. chiffre_affaires) évitent les erreurs dans tous les outils.",
+    fields: [{ k: "col", t: "col", label: "Colonne" }, { k: "to", t: "text", label: "Nouveau nom" }],
+    init: d => ({ col: d.cols[0], to: d.cols[0] + "_2" }), label: p => `${p.col} → ${p.to}`,
+    apply(d, p) { hasCol(d, p.col); need(p.to && p.to.trim(), "Indiquez un nouveau nom"); need(p.to === p.col || !d.cols.includes(p.to), `« ${p.to} » existe déjà`); return { cols: d.cols.map(c => c === p.col ? p.to : c), rows: d.rows.map(r => { const o = {}; d.cols.forEach(c => o[c === p.col ? p.to : c] = r[c]); return o; }) }; },
+    py: p => `df = df.rename(columns={${q(p.col)}: ${q(p.to)}})`, r: p => `rename(${rid(p.to)} = ${rid(p.col)})`,
+    sql: (p, c) => "SELECT " + c.inCols.map(x => x === p.col ? `${sid(x)} AS ${sid(p.to)}` : sid(x)).join(", ") + ` FROM ${c.prev}`,
+    m: p => `Table.RenameColumns($prev, {{${q(p.col)}, ${q(p.to)}}})`,
+    xl: p => ({ ui: `Double-cliquez sur l'en-tête « ${p.col} » et tapez « ${p.to} ». Les formules qui utilisent le tableau suivent automatiquement.` }),
+    pbi: () => ({ ui: "Power Query : double-clic sur l'en-tête. Dans le modèle : clic droit › Renommer." })
+  },
+  compute: {
+    cat: "Transformer", name: "Colonne calculée",
+    why: "Créer une nouvelle colonne à partir d'autres, ligne par ligne. Exemple : chiffre d'affaires = quantité × prix unitaire.",
+    fields: [{ k: "name", t: "text", label: "Nom de la nouvelle colonne", full: 1 }, { k: "a", t: "col", label: "Colonne A", kind: "num" }, { k: "op", t: "sel", label: "Opération", opts: [["*", "× multiplier"], ["+", "+ ajouter"], ["-", "− soustraire"], ["/", "÷ diviser"]] }, { k: "b", t: "colc", label: "B : colonne ou constante", kind: "num" }, { k: "n", t: "text", label: "Constante", show: p => p.b === "" }, { k: "dec", t: "sel", label: "Arrondi", opts: [["", "Aucun"], ["0", "0 décimale"], ["1", "1 décimale"], ["2", "2 décimales"]] }],
+    init: (d, ty) => { const n = d.cols.filter(c => ty[c] === "num"); return { name: "ca", a: n.includes("quantite") ? "quantite" : n[0] || d.cols[0], op: "*", b: n.includes("prix_unitaire") ? "prix_unitaire" : n[1] || "", n: "2", dec: "" }; },
+    label: p => `${p.name} = ${p.a} ${p.op} ${p.b || p.n}`,
+    apply(d, p) { hasCol(d, p.a, "la colonne A"); need(p.name, "Nommez la nouvelle colonne"); if (p.b) hasCol(d, p.b, "la colonne B"); const k = +String(p.n).replace(",", "."); if (!p.b) need(!isNaN(k), "La constante doit être un nombre");
+      const cols = d.cols.includes(p.name) ? d.cols : [...d.cols, p.name];
+      return { cols, rows: d.rows.map(r => { const x = r[p.a], y = p.b ? r[p.b] : k; let v = null; if (isNum(x) && isNum(y)) { v = { "*": x * y, "+": x + y, "-": x - y, "/": y === 0 ? null : x / y }[p.op]; if (v != null && p.dec !== "") v = +v.toFixed(+p.dec); } return { ...r, [p.name]: v }; }) }; },
+    expr(p, lang, T) { const k = String(+String(p.n).replace(",", "."));
+      const A = { py: pyc(p.a), r: rid(p.a), sql: sid(p.a), m: `[${p.a}]`, xl: `[@${xr(p.a)}]`, dax: `${T}[${p.a}]` }[lang];
+      const B = p.b ? { py: pyc(p.b), r: rid(p.b), sql: sid(p.b), m: `[${p.b}]`, xl: `[@${xr(p.b)}]`, dax: `${T}[${p.b}]` }[lang] : k;
+      let e = p.op === "/" && lang === "sql" ? `${A} / NULLIF(${B}, 0)` : p.op === "/" && lang === "dax" ? `DIVIDE(${A}, ${B})` : lang === "xl" ? `${A}${p.op}${B}` : `${A} ${p.op} ${B}`;
+      if (p.dec !== "") e = { py: `(${e}).round(${p.dec})`, r: `round(${e}, ${p.dec})`, sql: `ROUND(${e}, ${p.dec})`, m: `Number.Round(${e}, ${p.dec})`, xl: `ROUND(${e},${p.dec})`, dax: `ROUND(${e}, ${p.dec})` }[lang];
+      return e; },
+    py(p) { return `${pyc(p.name)} = ${this.expr(p, "py")}`; }, r(p) { return `mutate(${rid(p.name)} = ${this.expr(p, "r")})`; },
+    sql(p, c) { return `SELECT *, ${this.expr(p, "sql")} AS ${sid(p.name)} FROM ${c.prev}`; },
+    m(p) { return `Table.AddColumn($prev, ${q(p.name)}, each ${this.expr(p, "m")}, type number)`; },
+    xl(p) { return { f: this.expr(p, "xl"), col: 1, ui: `Tapez « ${p.name} » dans l'en-tête de la 1re colonne vide à droite du tableau, puis la formule : elle se recopie seule sur toutes les lignes.` }; },
+    pbi(p, c) { return { ui: "Power Query › Ajouter une colonne › Colonne personnalisée. Ou, dans le modèle, Nouvelle colonne (DAX).", dax: `${p.name} = ${this.expr(p, "dax", c.T)}\n// Mesure équivalente (recommandé pour un total) :\nTotal ${p.name} = SUMX(${c.T}, ${this.expr(p, "dax", c.T)})` }; }
+  },
+  cond: {
+    cat: "Transformer", name: "Colonne conditionnelle",
+    why: "Créer une catégorie selon une règle SI … ALORS … SINON. Exemple : « Grosse commande » si la quantité ≥ 5.",
+    fields: [{ k: "name", t: "text", label: "Nom de la nouvelle colonne", full: 1 }, { k: "col", t: "col", label: "SI la colonne" }, { k: "op", t: "sel", label: "Condition", opts: OPS }, { k: "val", t: "text", label: "Valeur", show: p => !noVal(p.op) }, { k: "then", t: "text", label: "ALORS" }, { k: "else", t: "text", label: "SINON" }],
+    init: (d, ty) => ({ name: "taille", col: d.cols.includes("quantite") ? "quantite" : d.cols.find(c => ty[c] === "num") || d.cols[0], op: "ge", val: "5", then: "Grosse", else: "Petite" }),
+    label: p => `${p.name} : si ${p.col} ${OPL[p.op]} ${noVal(p.op) ? "" : p.val}`,
+    apply(d, p, x) { hasCol(d, p.col); need(p.name, "Nommez la nouvelle colonne"); const v = coerce(p.val, x.types[p.col]), a = autoVal(p.then), b = autoVal(p.else); const cols = d.cols.includes(p.name) ? d.cols : [...d.cols, p.name]; return { cols, rows: d.rows.map(r => ({ ...r, [p.name]: test(r[p.col], p.op, v) ? a : b })) }; },
+    c(p, c, lang) { return condExpr(lang, p.col, p.op, coerce(p.val, c.types[p.col]), c.types[p.col], c.T); },
+    py(p, c) { return `${pyc(p.name)} = np.where(${this.c(p, c, "py")}, ${L(autoVal(p.then), "py")}, ${L(autoVal(p.else), "py")})`; },
+    r(p, c) { return `mutate(${rid(p.name)} = case_when(${this.c(p, c, "r")} ~ ${L(autoVal(p.then), "r")}, .default = ${L(autoVal(p.else), "r")}))`; },
+    sql(p, c) { return `SELECT *,\n    CASE WHEN ${this.c(p, c, "sql")} THEN ${L(autoVal(p.then), "sql")} ELSE ${L(autoVal(p.else), "sql")} END AS ${sid(p.name)}\n  FROM ${c.prev}`; },
+    m(p, c) { return `Table.AddColumn($prev, ${q(p.name)}, each if ${this.c(p, c, "m")} then ${L(autoVal(p.then), "m")} else ${L(autoVal(p.else), "m")})`; },
+    xl(p, c) { return { f: `IF(${this.c(p, c, "xlrow")},${L(autoVal(p.then), "xl")},${L(autoVal(p.else), "xl")})`, col: 1, ui: "Nouvelle colonne du tableau avec la formule. Pour plusieurs cas : SI.CONDITIONS (IFS)." }; },
+    pbi(p, c) { return { ui: "Power Query › Ajouter une colonne › Colonne conditionnelle (assistant sans code).", dax: `${p.name} = IF(${this.c(p, c, "dax")}, ${L(autoVal(p.then), "dax")}, ${L(autoVal(p.else), "dax")})` }; }
+  },
+  date: {
+    cat: "Transformer", name: "Extraire d'une date",
+    why: "Tirer l'année, le mois, le trimestre ou le jour de la semaine d'une date pour analyser la saisonnalité.",
+    fields: [{ k: "col", t: "col", label: "Colonne date", kind: "date" }, { k: "part", t: "sel", label: "Élément", opts: [["year", "Année"], ["quarter", "Trimestre (1–4)"], ["month", "Mois (1–12)"], ["day", "Jour du mois"], ["weekday", "Jour de semaine (1 = lundi)"]] }, { k: "name", t: "text", label: "Nom de la nouvelle colonne", full: 1 }],
+    init: (d, ty) => ({ col: d.cols.find(c => ty[c] === "date") || d.cols[0], part: "month", name: "mois" }),
+    label: p => `${p.name} ← ${p.col}`,
+    apply(d, p) { hasCol(d, p.col); need(p.name, "Nommez la nouvelle colonne"); const cols = d.cols.includes(p.name) ? d.cols : [...d.cols, p.name];
+      return { cols, rows: d.rows.map(r => { const v = r[p.col]; let o = null; if (v != null && ISO.test(String(v).slice(0, 10))) { const [y, m, dd] = String(v).slice(0, 10).split("-").map(Number); o = { year: y, month: m, quarter: Math.ceil(m / 3), day: dd, weekday: ((new Date(Date.UTC(y, m - 1, dd)).getUTCDay() + 6) % 7) + 1 }[p.part]; } else need(v == null, `« ${p.col} » ne contient pas des dates AAAA-MM-JJ`); return { ...r, [p.name]: o }; }) }; },
+    py: p => `${pyc(p.name)} = ${pyc(p.col)}.dt.${{ year: "year", month: "month", quarter: "quarter", day: "day", weekday: "dayofweek + 1" }[p.part]}`,
+    r: p => `mutate(${rid(p.name)} = ${{ year: "year", month: "month", quarter: "quarter", day: "day", weekday: "wday" }[p.part]}(${rid(p.col)}${p.part === "weekday" ? ", week_start = 1" : ""}))`,
+    sql: (p, c) => `SELECT *, ${p.part === "weekday" ? `ISODOW(${sid(p.col)})` : `EXTRACT(${{ year: "YEAR", month: "MONTH", quarter: "QUARTER", day: "DAY" }[p.part]} FROM ${sid(p.col)})`} AS ${sid(p.name)} FROM ${c.prev}`,
+    m: p => `Table.AddColumn($prev, ${q(p.name)}, each ${{ year: `Date.Year([${p.col}])`, month: `Date.Month([${p.col}])`, quarter: `Date.QuarterOfYear([${p.col}])`, day: `Date.Day([${p.col}])`, weekday: `Date.DayOfWeek([${p.col}], Day.Monday) + 1` }[p.part]}, Int64.Type)`,
+    xl: p => { const s = `[@${xr(p.col)}]`; return { f: { year: `YEAR(${s})`, month: `MONTH(${s})`, quarter: `ROUNDUP(MONTH(${s})/3,0)`, day: `DAY(${s})`, weekday: `WEEKDAY(${s},2)` }[p.part], col: 1, ui: "Nouvelle colonne du tableau avec la formule." }; },
+    pbi: (p, c) => ({ ui: "Power Query › Ajouter une colonne › Date › Année / Mois / Trimestre / Jour. Mieux : une table Calendrier reliée à vos faits.", dax: `${p.name} = ${{ year: "YEAR", month: "MONTH", quarter: "QUARTER", day: "DAY", weekday: "WEEKDAY" }[p.part]}(${c.T}[${p.col}]${p.part === "weekday" ? ", 2" : ""})` })
+  },
+  groupby: {
+    cat: "Agréger", name: "Regrouper et résumer",
+    why: "Le cœur de l'analyse : une ligne par groupe (par région, par mois…) avec un calcul résumé (somme, moyenne, nombre…). C'est un tableau croisé dynamique dans Excel, un GROUP BY en SQL.",
+    fields: [{ k: "keys", t: "cols", label: "Regrouper par", full: 1 }, { k: "a1c", t: "col", label: "Calcul 1 : colonne" }, { k: "a1f", t: "sel", label: "Fonction", opts: FNOPTS }, { k: "a2c", t: "colopt", label: "Calcul 2 : colonne (facultatif)" }, { k: "a2f", t: "sel", label: "Fonction", opts: FNOPTS, show: p => !!p.a2c }],
+    init: (d, ty) => { const k = d.cols.find(c => ty[c] === "text" && new Set(d.rows.map(r => r[c])).size <= 12) || d.cols[0]; const n = d.cols.find(c => ty[c] === "num") || d.cols[1] || d.cols[0]; return { keys: [k], a1c: n, a1f: "sum", a2c: "", a2f: "mean" }; },
+    label: p => `par ${p.keys.join(", ")} : ${FN[p.a1f][0]}(${p.a1c})${p.a2c ? ", " + FN[p.a2f][0] + "(" + p.a2c + ")" : ""}`,
+    aggs: p => [[p.a1c, p.a1f], ...(p.a2c ? [[p.a2c, p.a2f]] : [])],
+    apply(d, p) { const keys = p.keys.filter(k => d.cols.includes(k)); need(keys.length, "Choisissez au moins une colonne de regroupement"); const A = this.aggs(p); A.forEach(([c]) => hasCol(d, c));
+      const g = new Map(); d.rows.forEach(r => { const k = JSON.stringify(keys.map(c => r[c])); if (!g.has(k)) g.set(k, []); g.get(k).push(r); });
+      const out = [...g.values()].map(rs => { const o = pick(rs[0], keys); A.forEach(([c, f]) => o[aggName(f, c)] = agg(rs.map(r => r[c]), f)); return o; });
+      out.sort((a, b) => { for (const k of keys) { const x = a[k], y = b[k]; if (x === y) continue; if (x == null) return 1; if (y == null) return -1; return x < y ? -1 : 1; } return 0; });
+      return { cols: [...keys, ...A.map(([c, f]) => aggName(f, c))], rows: out }; },
+    py(p) { return `df = (df.groupby([${p.keys.map(q).join(", ")}], as_index=False, dropna=False)\n        .agg(${this.aggs(p).map(([c, f]) => pyKw(aggName(f, c), `(${q(c)}, ${q(PYAGG[f])})`)).join(", ")}))`; },
+    r(p) { return `group_by(${p.keys.map(rid).join(", ")}) |>\n  summarise(${this.aggs(p).map(([c, f]) => `${rid(aggName(f, c))} = ${RAGG(f, rid(c))}`).join(", ")}, .groups = "drop")`; },
+    sql(p, c) { return `SELECT ${p.keys.map(sid).join(", ")},\n    ${this.aggs(p).map(([x, f]) => `${SQLAGG(f, sid(x))} AS ${sid(aggName(f, x))}`).join(",\n    ")}\n  FROM ${c.prev}\n  GROUP BY ${p.keys.map(sid).join(", ")}`; },
+    m(p) { return `Table.Group($prev, ${listSel(0, p.keys)}, {${this.aggs(p).map(([c, f]) => `{${q(aggName(f, c))}, each ${MAGG(f, c)}, type number}`).join(", ")}})`; },
+    xl(p, c) { const keys = p.keys.length > 1 ? `HSTACK(${p.keys.map(k => `${c.T}[${xr(k)}]`).join(",")})` : `${c.T}[${xr(p.keys[0])}]`;
+      const f = this.aggs(p).map(([x, fn]) => `GROUPBY(${keys},${c.T}[${xr(x)}],${XLAGG[fn]})`);
+      return { f: f[0], f2: f[1], ui: `Insertion › Tableau croisé dynamique : ${p.keys.join(", ")} en Lignes, ${this.aggs(p).map(([x, fn]) => FN[fn][1] + " de " + x).join(" et ")} en Valeurs.`, note: p.keys.length === 1 && p.a1f === "sum" ? `Version classique : =UNIQUE(${c.T}[${xr(p.keys[0])}]) puis à côté =SUMIFS(${c.T}[${xr(p.a1c)}],${c.T}[${xr(p.keys[0])}],A2#)` : "GROUPBY : Excel 365 (2024+)." }; },
+    pbi(p, c) { return { ui: `Visuel Tableau ou Matrice : glisser ${p.keys.join(", ")} puis la ou les mesures. En Power Query : Transformer › Regrouper par.`, dax: this.aggs(p).map(([x, f]) => `${FN[f][1]} ${x} = ${DAXAGG(f, `${c.T}[${x}]`)}`).join("\n") + `\n\n// Table résumée (Modélisation › Nouvelle table)\nResume = SUMMARIZECOLUMNS(${p.keys.map(k => `${c.T}[${k}]`).join(", ")}, ${this.aggs(p).map(([x, f]) => `${q(aggName(f, x))}, ${DAXAGG(f, `${c.T}[${x}]`)}`).join(", ")})` }; }
+  },
+  pivot: {
+    cat: "Remodeler", name: "Tableau croisé (pivoter)",
+    why: "Passer au format « large » : les valeurs d'une colonne (ex. les canaux) deviennent des en-têtes de colonnes. Pratique pour lire et comparer, moins pour calculer.",
+    fields: [{ k: "index", t: "col", label: "Lignes" }, { k: "columns", t: "col", label: "Colonnes" }, { k: "values", t: "col", label: "Valeurs", kind: "num" }, { k: "fn", t: "sel", label: "Fonction", opts: FNOPTS }],
+    init: (d, ty) => { const tx = d.cols.filter(c => ty[c] === "text" && new Set(d.rows.map(r => r[c])).size <= 12); return { index: tx[0] || d.cols[0], columns: tx[1] || tx[0] || d.cols[1], values: d.cols.find(c => ty[c] === "num") || d.cols[0], fn: "sum" }; },
+    label: p => `${p.index} × ${p.columns} : ${FN[p.fn][0]}(${p.values})`,
+    apply(d, p) { [p.index, p.columns, p.values].forEach(c => hasCol(d, c)); need(p.index !== p.columns, "Lignes et colonnes doivent être différentes");
+      const cv = [...new Set(d.rows.map(r => r[p.columns]).filter(v => v != null))].sort((a, b) => a < b ? -1 : 1).map(String);
+      need(cv.length <= 40, "Trop de valeurs distinctes pour en faire des colonnes (max 40)");
+      const iv = [...new Set(d.rows.map(r => r[p.index]).filter(v => v != null))].sort((a, b) => a < b ? -1 : 1);
+      const rows = iv.map(i => { const o = { [p.index]: i }; const rs = d.rows.filter(r => r[p.index] === i); cv.forEach(c => { const s = rs.filter(r => String(r[p.columns]) === c); o[c] = s.length ? agg(s.map(r => r[p.values]), p.fn) : null; }); return o; });
+      return { cols: [p.index, ...cv], rows }; },
+    py: p => `df = (df.pivot_table(index=${q(p.index)}, columns=${q(p.columns)}, values=${q(p.values)}, aggfunc=${q(PYAGG[p.fn])})\n        .reset_index())\ndf.columns.name = None`,
+    r: p => `pivot_wider(id_cols = ${rid(p.index)}, names_from = ${rid(p.columns)}, values_from = ${rid(p.values)},\n              values_fn = \\(x) ${RAGG(p.fn, "x")})`,
+    sql: (p, c) => { const cv = [...new Set(c.inRows.map(r => r[p.columns]).filter(v => v != null))].sort((a, b) => a < b ? -1 : 1);
+      return `SELECT ${sid(p.index)},\n    ${cv.map(v => `${SQLAGG(p.fn, `CASE WHEN ${sid(p.columns)} = ${L(v, "sql")} THEN ${sid(p.values)} END`)} AS ${sid(String(v))}`).join(",\n    ")}\n  FROM ${c.prev}\n  GROUP BY ${sid(p.index)}\n  -- DuckDB : PIVOT ${c.prev} ON ${sid(p.columns)} USING ${SQLAGG(p.fn, sid(p.values))} GROUP BY ${sid(p.index)}`; },
+    m: p => [`Table.SelectColumns($prev, {${[p.index, p.columns, p.values].map(q).join(", ")}})`, `Table.Pivot($prev, List.Distinct($prev[${p.columns}]), ${q(p.columns)}, ${q(p.values)}, ${{ sum: "List.Sum", mean: "List.Average", count: "List.NonNullCount", min: "List.Min", max: "List.Max", median: "List.Median", nunique: "each List.Count(List.Distinct(_))" }[p.fn]})`],
+    xl: (p, c) => ({ f: `PIVOTBY(${c.T}[${xr(p.index)}],${c.T}[${xr(p.columns)}],${c.T}[${xr(p.values)}],${XLAGG[p.fn]})`, ui: `Insertion › Tableau croisé dynamique : ${p.index} en Lignes, ${p.columns} en Colonnes, ${p.values} en Valeurs (${FN[p.fn][1]}).`, note: "PIVOTBY : Excel 365 (2024+)." }),
+    pbi: (p, c) => ({ ui: `Visuel Matrice : ${p.index} en Lignes, ${p.columns} en Colonnes, la mesure en Valeurs. Power Query : sélectionner « ${p.columns} » › Transformer › Colonne pivot.`, dax: `${FN[p.fn][1]} ${p.values} = ${DAXAGG(p.fn, `${c.T}[${p.values}]`)}` })
+  },
+  unpivot: {
+    cat: "Remodeler", name: "Dépivoter (large → long)",
+    why: "L'inverse du tableau croisé : des colonnes « maths, physique, … » deviennent deux colonnes « matiere » et « note ». C'est le format « tidy » attendu par ggplot2, seaborn et Power BI.",
+    fields: [{ k: "ids", t: "cols", label: "Colonnes à garder telles quelles (identifiants)", full: 1 }, { k: "name", t: "text", label: "Nom de la colonne des en-têtes" }, { k: "value", t: "text", label: "Nom de la colonne des valeurs" }],
+    init: (d, ty) => ({ ids: d.cols.filter(c => ty[c] !== "num"), name: "variable", value: "valeur" }),
+    label: p => `garder ${p.ids.join(", ")} → ${p.name}, ${p.value}`,
+    apply(d, p) { const ids = p.ids.filter(c => d.cols.includes(c)), other = d.cols.filter(c => !ids.includes(c)); need(other.length, "Il ne reste aucune colonne à dépivoter"); need(p.name && p.value, "Nommez les deux nouvelles colonnes");
+      const rows = []; d.rows.forEach(r => other.forEach(c => rows.push({ ...pick(r, ids), [p.name]: c, [p.value]: r[c] }))); return { cols: [...ids, p.name, p.value], rows }; },
+    py: p => `df = df.melt(id_vars=[${p.ids.map(q).join(", ")}], var_name=${q(p.name)}, value_name=${q(p.value)})`,
+    r: p => `pivot_longer(cols = ${p.ids.length ? "-c(" + p.ids.map(rid).join(", ") + ")" : "everything()"}, names_to = ${q(p.name)}, values_to = ${q(p.value)})`,
+    sql: (p, c) => { const other = c.inCols.filter(x => !p.ids.includes(x)); return other.map(o => `SELECT ${[...p.ids.map(sid), `'${o.replace(/'/g, "''")}' AS ${sid(p.name)}`, `${sid(o)} AS ${sid(p.value)}`].join(", ")} FROM ${c.prev}`).join("\n  UNION ALL\n  ") + `\n  -- DuckDB : UNPIVOT ${c.prev} ON COLUMNS(* EXCLUDE (${p.ids.map(sid).join(", ")})) INTO NAME ${sid(p.name)} VALUE ${sid(p.value)}`; },
+    m: p => `Table.UnpivotOtherColumns($prev, {${p.ids.map(q).join(", ")}}, ${q(p.name)}, ${q(p.value)})  // les valeurs null sont retirées`,
+    xl: p => ({ ui: `Données › À partir d'un tableau (Power Query) › sélectionner ${p.ids.join(", ")} › Transformer › Dépivoter les autres colonnes › Fermer et charger.` }),
+    pbi: p => ({ ui: `Power Query : sélectionner ${p.ids.join(", ")} › Transformer › Dépivoter les autres colonnes. Indispensable avant de construire des visuels par ${p.name}.` })
+  },
+  join: {
+    cat: "Combiner", name: "Joindre une autre table",
+    why: "Ajouter des colonnes venant d'une autre table grâce à une clé commune (ex. produit_id). Jointure gauche : on garde toutes les lignes de gauche ; interne : seulement celles qui ont une correspondance. C'est le RECHERCHEX d'Excel.",
+    fields: [{ k: "ds", t: "ds", label: "Table à joindre", full: 1 }, { k: "lk", t: "col", label: "Clé (ici)" }, { k: "rk", t: "rcol", label: "Clé (autre table)" }, { k: "how", t: "sel", label: "Type", opts: [["left", "Gauche (garder tout)"], ["inner", "Interne (correspondances)"]], full: 1 }],
+    init: (d) => { const o = Object.keys(DS).find(n => n !== S.ds && DS[n].cols.some(c => d.cols.includes(c))) || Object.keys(DS).find(n => n !== S.ds) || S.ds; const k = DS[o].cols.find(c => d.cols.includes(c)) || DS[o].cols[0]; return { ds: o, lk: d.cols.includes(k) ? k : d.cols[0], rk: k, how: "left" }; },
+    label: p => `${p.how === "left" ? "gauche" : "interne"} avec ${p.ds} sur ${p.lk}`,
+    rcols(p, d) { const R = DS[p.ds]; return R.cols.filter(c => c !== p.rk).map(c => [c, d.cols.includes(c) ? c + "_2" : c]); },
+    apply(d, p) { const R = DS[p.ds]; need(R, "Choisissez une table"); hasCol(d, p.lk, "la clé"); need(R.cols.includes(p.rk), "Choisissez la clé de l'autre table");
+      const idx = new Map(); R.rows.forEach(r => { const k = String(r[p.rk]); if (!idx.has(k)) idx.set(k, []); idx.get(k).push(r); });
+      const rc = this.rcols(p, d), rows = [];
+      d.rows.forEach(r => { const m = r[p.lk] == null ? null : idx.get(String(r[p.lk])); if (m) m.forEach(x => { const o = { ...r }; rc.forEach(([c, n]) => o[n] = x[c]); rows.push(o); }); else if (p.how === "left") { const o = { ...r }; rc.forEach(([, n]) => o[n] = null); rows.push(o); } });
+      return { cols: [...d.cols, ...rc.map(z => z[1])], rows }; },
+    py: p => `df = df.merge(${sanitize(p.ds)}, how=${q(p.how)}, ${p.lk === p.rk ? `on=${q(p.lk)}` : `left_on=${q(p.lk)}, right_on=${q(p.rk)}`}, suffixes=("", "_2"))${p.lk === p.rk ? "" : `.drop(columns=${q(p.rk)})`}`,
+    r: p => `${p.how}_join(${sanitize(p.ds)}, by = join_by(${rid(p.lk)} == ${rid(p.rk)}), suffix = c("", "_2"))`,
+    sql(p, c) { const t = sanitize(p.ds); return `SELECT a.*, ${this.rcols(p, { cols: c.inCols }).map(([x, n]) => `b.${sid(x)}${x !== n ? " AS " + sid(n) : ""}`).join(", ")}\n  FROM ${c.prev} AS a\n  ${p.how === "left" ? "LEFT" : "INNER"} JOIN ${t} AS b ON a.${sid(p.lk)} = b.${sid(p.rk)}`; },
+    m(p, c) { const t = sanitize(p.ds), rc = this.rcols(p, { cols: c.inCols }); return [`Table.NestedJoin($prev, {${q(p.lk)}}, ${t}, {${q(p.rk)}}, ${q(t)}, JoinKind.${p.how === "left" ? "LeftOuter" : "Inner"})`, `Table.ExpandTableColumn($prev, ${q(t)}, {${rc.map(z => q(z[0])).join(", ")}}, {${rc.map(z => q(z[1])).join(", ")}})`]; },
+    xl(p, c) { const t = sanitize(p.ds), rc = this.rcols(p, { cols: c.inCols }); return { f: `XLOOKUP([@${xr(p.lk)}],${t}[${xr(p.rk)}],${t}[${xr(rc[0]?.[0] || p.rk)}],"")`, col: 1, ui: `Mettez « ${p.ds} » dans un tableau nommé « ${t} ». Une colonne RECHERCHEX par information à rapatrier (${rc.map(z => z[0]).join(", ")}). Ou Power Query › Combiner › Fusionner des requêtes.`, note: p.how === "inner" ? "Pour une jointure interne, filtrez ensuite les lignes où la recherche renvoie vide." : null }; },
+    pbi(p, c) { const t = sanitize(p.ds), rc = this.rcols(p, { cols: c.inCols }); return { ui: `Vue Modèle : glisser ${c.T}[${p.lk}] sur ${t}[${p.rk}] pour créer une relation plusieurs-à-un. Les colonnes de ${t} sont alors utilisables directement dans les visuels, sans fusion.`, dax: rc.map(([x, n]) => `${n} = RELATED(${t}[${x}])`).join("\n") }; }
+  }
+};
+const CATS = ["Sélectionner", "Nettoyer", "Transformer", "Agréger", "Remodeler", "Combiner"];
+
+/* ============ État ============ */
+let DS = makeData();
+const BUILTIN = new Set(Object.keys(DS));
+let uid = 1;
+const mk = (type, p) => ({ id: uid++, type, on: true, p });
+const DEMO = () => [
+  mk("dedupe", { cols: [] }), mk("text", { col: "vendeur", fn: "clean" }),
+  mk("missing", { col: "quantite", how: "median", val: "0" }),
+  mk("compute", { name: "ca", a: "quantite", op: "*", b: "prix_unitaire", n: "2", dec: "" }),
+  mk("join", { ds: "produits", lk: "produit_id", rk: "produit_id", how: "left" }),
+  mk("groupby", { keys: ["categorie"], a1c: "ca", a1f: "sum", a2c: "commande", a2f: "count" }),
+  mk("sort", { col: "somme_ca", dir: "desc" })];
+const S = { ds: "ventes", stepsBy: { ventes: DEMO() }, sel: null, tab: "atelier", lang: "py", codeMode: "all", chal: null, chart: null, quiz: {}, done: {} };
+(function restore() {
+  const s = store("atelier-donnees-v1"); if (!s) return;
+  if (s.stepsBy) for (const k in s.stepsBy) if (DS[k]) S.stepsBy[k] = s.stepsBy[k].map(x => ({ ...x, id: uid++ }));
+  if (s.ds && DS[s.ds]) S.ds = s.ds; ["lang", "tab", "quiz", "done"].forEach(k => { if (s[k] != null) S[k] = s[k]; });
+  if (s.chal && CHAL_IDS().includes(s.chal)) S.chal = s.chal;
+})();
+function CHAL_IDS() { return ["d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9"]; }
+function save() { store("atelier-donnees-v1", { ds: S.ds, stepsBy: Object.fromEntries(Object.entries(S.stepsBy).filter(([k]) => BUILTIN.has(k))), lang: S.lang, tab: S.tab, quiz: S.quiz, done: S.done, chal: S.chal }); }
+const steps = () => S.stepsBy[S.ds] || (S.stepsBy[S.ds] = []);
+const base = () => DS[S.ds];
+
+/* ============ Exécution du pipeline ============ */
+function run(ds, list) {
+  const b = DS[ds]; const st = [{ rows: b.rows, cols: b.cols, types: typesOf(b) }];
+  list.forEach(s => {
+    const cur = st[st.length - 1];
+    if (!s.on) { st.push({ ...cur, skip: true }); return; }
+    try { const o = STEPS[s.type].apply(cur, s.p, cur); st.push({ ...o, types: typesOf(o) }); }
+    catch (e) { st.push({ ...cur, err: e.message }); }
+  });
+  return st;
+}
+let STAGES = [];
+const viewIdx = () => S.sel == null ? STAGES.length - 1 : steps().findIndex(s => s.id === S.sel) + 1;
+const viewData = () => STAGES[Math.max(0, viewIdx())];
+
+/* ============ Génération du code complet ============ */
+function ctxs() { const T = sanitize(base().name); return steps().map((s, i) => ({ s, i, T, inCols: STAGES[i].cols, inRows: STAGES[i].rows, types: STAGES[i].types, ok: s.on && !STAGES[i + 1].err })); }
+function readLine(lang, d) {
+  const t = sanitize(d.name), types = typesOf(d), dates = d.cols.filter(c => types[c] === "date");
+  if (lang === "py") return d.kind === "xlsx" ? `${t} = pd.read_excel(${q(d.file)})` : `${t} = pd.read_csv(${q(d.file)}${d.sep !== "," ? `, sep=${q(d.sep)}` : ""}${d.decimal === "," ? ', decimal=","' : ""}${dates.length ? `, parse_dates=[${dates.map(q).join(", ")}]` : ""})`;
+  if (lang === "r") return d.kind === "xlsx" ? `${t} <- readxl::read_excel(${q(d.file)})` : d.decimal === "," ? `${t} <- read_csv2(${q(d.file)})` : `${t} <- read_${d.sep === "\t" ? "tsv" : "csv"}(${q(d.file)})`;
+  if (lang === "sql") return `CREATE TABLE ${t} AS SELECT * FROM ${d.kind === "xlsx" ? `read_xlsx('${d.file}')` : `read_csv_auto('${d.file}')`};`;
+}
+function joinsUsed() { return [...new Set(steps().filter(s => s.on && s.type === "join").map(s => s.p.ds))].filter(n => DS[n] && n !== S.ds); }
+function header(n, s) { return `${n}. ${STEPS[s.type].name} : ${STEPS[s.type].label(s.p)}`; }
+function selectedOnly() { return S.codeMode === "one" && S.sel > 0; }
+function visibleCtxs() { const all = ctxs(); return selectedOnly() ? all.filter(c => c.s.id === S.sel) : all; }
+
+function genPy() {
+  const T = sanitize(base().name), cs = visibleCtxs(), L = [];
+  if (!selectedOnly()) {
+    L.push("import pandas as pd"); if (cs.some(c => c.s.type === "cond")) L.push("import numpy as np");
+    L.push("", readLine("py", base()).replace(new RegExp("^" + T + " ="), "df ="));
+    joinsUsed().forEach(n => L.push(readLine("py", DS[n])));
+  }
+  cs.forEach(c => { L.push("", "# " + header(c.i + 1, c.s)); L.push(c.ok ? STEPS[c.s.type].py(c.s.p, c) : "# (étape ignorée : " + (c.s.on ? "erreur" : "désactivée") + ")"); });
+  if (!selectedOnly()) L.push("", "print(df.head(10))", "# df.to_excel(\"resultat.xlsx\", index=False)");
+  return L.join("\n");
+}
+function genR() {
+  const T = sanitize(base().name), cs = visibleCtxs().filter(c => c.ok), L = [];
+  if (!selectedOnly()) { L.push("library(tidyverse)  # dplyr, tidyr, stringr, lubridate, readr", "", readLine("r", base())); joinsUsed().forEach(n => L.push(readLine("r", DS[n]))); L.push(""); }
+  if (!cs.length) { L.push(selectedOnly() ? "# Étape ignorée" : `resultat <- ${T}`); return L.join("\n"); }
+  L.push(selectedOnly() ? "df |>" : `resultat <- ${T} |>`);
+  cs.forEach((c, k) => { L.push("  # " + header(c.i + 1, c.s)); L.push("  " + STEPS[c.s.type].r(c.s.p, c).replace(/\n/g, "\n  ") + (k < cs.length - 1 ? " |>" : "")); });
+  if (!selectedOnly()) L.push("", "print(resultat)", "# write_csv(resultat, \"resultat.csv\")");
+  return L.join("\n");
+}
+function genSQL() {
+  const T = sanitize(base().name), all = ctxs(), L = [];
+  if (!selectedOnly()) { L.push("-- DuckDB (quasi identique sous PostgreSQL)", readLine("sql", base())); joinsUsed().forEach(n => L.push(readLine("sql", DS[n]))); L.push(""); }
+  let prev = T; const parts = [];
+  all.forEach(c => { if (!c.ok) return; const name = "etape" + (c.i + 1); parts.push({ c, name, sql: STEPS[c.s.type].sql(c.s.p, { ...c, prev }) }); prev = name; });
+  if (selectedOnly()) { const p = parts.find(x => x.c.s.id === S.sel); L.push(p ? "-- " + header(p.c.i + 1, p.c.s) + "\n" + p.sql + ";" : "-- Étape ignorée"); return L.join("\n"); }
+  if (!parts.length) { L.push(`SELECT * FROM ${T};`); return L.join("\n"); }
+  L.push("WITH");
+  parts.forEach((p, k) => L.push(`-- ${header(p.c.i + 1, p.c.s)}\n${p.name} AS (\n  ${p.sql.replace(/\n/g, "\n")}\n)${k < parts.length - 1 ? "," : ""}`));
+  L.push(`SELECT * FROM ${prev};`);
+  return L.join("\n");
+}
+function genM() {
+  const d = base(), T = sanitize(d.name), types = typesOf(d), lines = [];
+  const src = d.kind === "xlsx" ? `Excel.Workbook(File.Contents("C:\\Donnees\\${d.file}"), true){0}[Data]` : `Csv.Document(File.Contents("C:\\Donnees\\${d.file}"), [Delimiter = ${q(d.sep)}, Encoding = 65001, QuoteStyle = QuoteStyle.Csv])`;
+  lines.push(["Source", src]);
+  if (d.kind !== "xlsx") lines.push(['#"En-têtes promus"', `Table.PromoteHeaders(Source, [PromoteAllScalars = true])`]);
+  lines.push(['#"Type modifié"', `Table.TransformColumnTypes(${lines[lines.length - 1][0]}, {${d.cols.map(c => `{${q(c)}, ${{ num: "type number", date: "type date", text: "type text" }[types[c]]}}`).join(", ")}}${d.decimal === "," ? ', "fr-FR"' : ""})`]);
+  let prev = lines[lines.length - 1][0];
+  const cs = ctxs().filter(c => c.ok);
+  cs.forEach(c => { let e = STEPS[c.s.type].m(c.s.p, c); if (!Array.isArray(e)) e = [e]; e.forEach((x, k) => { const n = `#"${c.i + 1}${e.length > 1 ? "abc"[k] : ""}. ${STEPS[c.s.type].name}"`; lines.push([n, x.split("$prev").join(prev)]); prev = n; }); });
+  if (selectedOnly()) { const c = cs.find(x => x.s.id === S.sel); return c ? lines.filter(l => new RegExp(`^#"${c.i + 1}[abc]?\\. `).test(l[0])).map(l => `${l[0]} = ${l[1]}`).join(",\n") : "// Étape ignorée"; }
+  return "// Power Query (M) : Accueil › Éditeur avancé\nlet\n" + lines.map(l => `    ${l[0]} = ${l[1]}`).join(",\n") + "\nin\n    " + prev;
+}
+function xlBlock(fEN, label) { if (!fEN) return ""; return `<div class="xrow"><span class="lbl">${label} FR</span><code>=${esc(xlFR(fEN))}</code></div><div class="xrow"><span class="lbl">${label} EN</span><code>=${esc(fEN)}</code></div>`; }
+function genXL() {
+  const T = sanitize(base().name), cs = visibleCtxs(); let h = "", t = "";
+  if (!selectedOnly()) { h += `<div class="xstep"><h4>0. Préparer les données</h4><div class="xrow"><span class="lbl">Ruban</span><span class="txt">Ouvrez ${esc(base().file)}, cliquez dans les données, Insertion › Tableau (Ctrl+L), puis Création de tableau › Nom du tableau : <b>${esc(T)}</b>. Les formules ci-dessous utilisent ce nom.</span></div></div>`; t += `0. Convertir en tableau nommé ${T}\n`; }
+  cs.forEach(c => {
+    const n = header(c.i + 1, c.s);
+    if (!c.ok) { h += `<div class="xstep"><h4>${esc(n)}</h4><p class="muted">Étape ignorée.</p></div>`; return; }
+    const x = STEPS[c.s.type].xl(c.s.p, c);
+    h += `<div class="xstep"><h4>${esc(n)}</h4>` + xlBlock(x.f, x.col ? "Colonne" : "Formule") + xlBlock(x.f2, "Formule 2") +
+      `<div class="xrow"><span class="lbl">Ruban</span><span class="txt">${esc(x.ui)}</span></div>` + (x.note ? `<div class="xrow"><span class="lbl">Note</span><span class="txt">${esc(x.note)}</span></div>` : "") + `</div>`;
+    t += `${n}\n${x.f ? "  =" + xlFR(x.f) + "\n  (EN) =" + x.f + "\n" : ""}  ${x.ui}\n`;
+  });
+  if (!selectedOnly()) h += `<p class="muted" style="font-size:.84rem">Les formules « Colonne » s'écrivent dans une nouvelle colonne du tableau ([@col] = la valeur de la ligne). Les autres renvoient une plage dynamique (Excel 365) : pour enchaîner, remplacez <code>${esc(T)}</code> par la cellule du résultat précédent suivie de # (ex. <code>H2#</code>). Les mêmes étapes existent dans Power Query (Données › À partir d'un tableau), avec le code M de l'onglet Power BI.</p>`;
+  return { html: h, text: t };
+}
+function genPBI() {
+  const m = genM(), cs = visibleCtxs().filter(c => c.ok); let h = `<pre class="code">${hl(m, "m")}</pre>`, t = m + "\n\n";
+  cs.forEach(c => { const x = STEPS[c.s.type].pbi(c.s.p, c), n = header(c.i + 1, c.s);
+    h += `<div class="xstep"><h4>${esc(n)}</h4><div class="xrow"><span class="lbl">Interface</span><span class="txt">${esc(x.ui)}</span></div>${x.dax ? `<div class="xrow"><span class="lbl">DAX</span><code>${hl(x.dax, "dax")}</code></div>` : ""}</div>`;
+    t += `// ${n}\n// ${x.ui}\n${x.dax ? x.dax + "\n" : ""}\n`; });
+  return { html: h, text: t };
+}
+
+/* ============ Coloration syntaxique légère ============ */
+const KW = { py: "import as from def return if else for in and or not None True False lambda", r: "library function if else TRUE FALSE NA NULL in", sql: "SELECT FROM WHERE GROUP BY ORDER HAVING AS WITH JOIN LEFT INNER ON AND OR NOT NULL IS CASE WHEN THEN ELSE END DISTINCT LIMIT DESC ASC CREATE TABLE UNION ALL OVER PARTITION QUALIFY LIKE ILIKE NULLS LAST IGNORE ROWS BETWEEN UNBOUNDED PRECEDING CURRENT ROW PIVOT UNPIVOT USING INTO NAME VALUE COLUMNS EXCLUDE SUMMARIZE COPY TO", m: "let in each if then else and or not null type true false number text date", dax: "VAR RETURN TRUE FALSE DESC ASC" };
+function hl(src, lang) {
+  const cm = { py: "#", r: "#", sql: "--", m: "//", dax: "//" }[lang], kw = new Set((KW[lang] || "").split(" "));
+  let out = "", i = 0, buf = "";
+  const flush = () => { out += esc(buf).replace(/\b([A-Za-z_][\w.]*)\b(\s*\()?|\b(\d+(?:\.\d+)?)\b/g, (m, w, par, n) => n ? `<span class="n">${n}</span>` : par ? `<span class="f">${w}</span>${par}` : kw.has(w) ? `<span class="k">${w}</span>` : w); buf = ""; };
+  while (i < src.length) {
+    if (cm && src.startsWith(cm, i)) { flush(); const j = src.indexOf("\n", i), e = j < 0 ? src.length : j; out += `<span class="c">${esc(src.slice(i, e))}</span>`; i = e; continue; }
+    const ch = src[i];
+    if (ch === '"' || (ch === "'" && lang !== "dax")) { flush(); let j = i + 1; while (j < src.length && src[j] !== ch && src[j] !== "\n") { if (src[j] === "\\" && (lang === "py" || lang === "r")) j++; j++; } out += `<span class="s">${esc(src.slice(i, j + 1))}</span>`; i = j + 1; continue; }
+    buf += ch; i++;
+  }
+  flush(); return out;
+}
+
+/* ============ Panneau de code partagé ============ */
+const LANGS = [["py", "Python"], ["r", "R"], ["sql", "SQL"], ["xl", "Excel"], ["pbi", "Power BI"]];
+function codePanel(el, gen, extra = "") {
+  const o = gen(S.lang);
+  el.innerHTML = `<div class="ctabs" role="tablist">${LANGS.map(([k, l]) => `<button role="tab" type="button" class="ctab t-${k}" aria-selected="${k === S.lang}" data-lang="${k}">${l}</button>`).join("")}<span class="sp">${extra}<button class="btn sm" type="button" data-copy>Copier</button></span></div>` +
+    (o.note ? `<div class="code-note">${o.note}</div>` : "") + (o.code != null ? `<pre class="code">${hl(o.code, o.hl || S.lang)}</pre>` : `<div class="xlist">${o.html}</div>`);
+  el._text = o.code != null ? o.code : o.text;
+}
+document.addEventListener("click", e => {
+  const l = e.target.closest("[data-lang]"); if (l) { S.lang = l.dataset.lang; save(); renderCode(); return; }
+  const c = e.target.closest("[data-copy]"); if (c) { const p = c.closest(".panel"); copyText(p._text || "", c); }
+});
+function renderCode() { if (S.tab === "atelier") renderAtelierCode(); if (S.tab === "explorer") renderExploreCode(); if (S.tab === "graphiques") renderChartCode(); }
+function renderAtelierCode() {
+  const sel = S.sel > 0;
+  const extra = sel ? `<select id="codeMode" aria-label="Étendue du code"><option value="all"${S.codeMode === "all" ? " selected" : ""}>Tout le pipeline</option><option value="one"${S.codeMode === "one" ? " selected" : ""}>Étape sélectionnée</option></select>` : "";
+  codePanel($("#codeMain"), lang => ({ py: () => ({ code: genPy() }), r: () => ({ code: genR() }), sql: () => ({ code: genSQL() }), xl: () => genXL(), pbi: () => genPBI() })[lang](), extra);
+  const cm = $("#codeMode"); if (cm) cm.onchange = () => { S.codeMode = cm.value; renderAtelierCode(); };
+}
+
+/* ============ Rendu : Atelier ============ */
+function colOptions(cols, cur, kind, types) {
+  return cols.map(c => `<option value="${esc(c)}"${c === cur ? " selected" : ""}>${esc(c)}${types && kind && types[c] !== kind ? "" : ""}</option>`).join("") + (cur && !cols.includes(cur) ? `<option value="${esc(cur)}" selected>${esc(cur)} (absente)</option>` : "");
+}
+function fieldHTML(s, f, d) {
+  const id = `s${s.id}-${f.k}`, v = s.p[f.k];
+  const lab = `<label for="${id}">${esc(f.label)}</label>`;
+  let inner = "";
+  switch (f.t) {
+    case "col": inner = lab + `<select id="${id}" data-k="${f.k}">${colOptions(d.cols, v, f.kind, d.types)}</select>`; break;
+    case "colopt": inner = lab + `<select id="${id}" data-k="${f.k}"><option value="">— aucun —</option>${colOptions(d.cols, v)}</select>`; break;
+    case "colc": inner = lab + `<select id="${id}" data-k="${f.k}"><option value=""${!v ? " selected" : ""}>— constante —</option>${colOptions(d.cols, v || null)}</select>`; break;
+    case "sel": inner = lab + `<select id="${id}" data-k="${f.k}">${f.opts.map(([a, b]) => `<option value="${esc(a)}"${a === v ? " selected" : ""}>${esc(b)}</option>`).join("")}</select>`; break;
+    case "text": inner = lab + `<input type="text" id="${id}" data-k="${f.k}" value="${esc(v ?? "")}">`; break;
+    case "num": inner = lab + `<input type="number" min="1" id="${id}" data-k="${f.k}" value="${esc(v ?? "")}">`; break;
+    case "ds": inner = lab + `<select id="${id}" data-k="${f.k}">${Object.keys(DS).filter(n => n !== S.ds).map(n => `<option value="${esc(n)}"${n === v ? " selected" : ""}>${esc(n)}</option>`).join("")}</select>`; break;
+    case "rcol": inner = lab + `<select id="${id}" data-k="${f.k}">${colOptions(DS[s.p.ds]?.cols || [], v)}</select>`; break;
+    case "cols": inner = `<span class="flab" id="${id}-l">${esc(f.label)}</span><div class="chips" role="group" aria-labelledby="${id}-l">${d.cols.map(c => `<button type="button" class="chip" data-k="${f.k}" data-v="${esc(c)}" aria-pressed="${v.includes(c)}" id="${id}-${esc(c)}">${esc(c)}</button>`).join("")}</div>`; break;
+  }
+  return `<div class="field${f.full || f.t === "cols" ? " full" : ""}">${inner}</div>`;
+}
+function renderSteps() {
+  const list = steps(), b = base();
+  $("#stepCount").textContent = list.length ? `${list.length} étape${list.length > 1 ? "s" : ""}` : "";
+  const src = $("#srcCard"); src.setAttribute("aria-current", S.sel === 0 ? "true" : "false");
+  src.innerHTML = `<span class="ico">${b.kind === "xlsx" ? "xlsx" : "csv"}</span><span><strong>${esc(b.file)}</strong><br><span class="meta">${b.rows.length} lignes · ${b.cols.length} colonnes · données source</span></span>`;
+  $("#steps").innerHTML = list.map((s, i) => {
+    const d = STAGES[i], o = STAGES[i + 1], spec = STEPS[s.type], cur = S.sel === s.id;
+    const badge = o.err ? `<span class="badge bad">erreur</span>` : !s.on ? `<span class="badge">désactivée</span>` : `<span class="badge">${d.rows.length} → ${o.rows.length} l.</span>`;
+    return `<li class="step${s.on ? "" : " off"}${o.err ? " err" : ""}" aria-current="${cur}" data-id="${s.id}">
+      <div class="stop"><span class="num">${i + 1}</span><button type="button" class="stitle" data-act="sel"><strong>${esc(spec.name)}</strong><span class="sline">${badge}<small>${esc(spec.label(s.p))}</small></span></button>
+      <span class="stools"><button type="button" data-act="up" title="Monter" aria-label="Monter">↑</button><button type="button" data-act="down" title="Descendre" aria-label="Descendre">↓</button><button type="button" data-act="tog" title="${s.on ? "Désactiver" : "Activer"}" aria-label="${s.on ? "Désactiver" : "Activer"}">${s.on ? "◉" : "○"}</button><button type="button" data-act="del" title="Supprimer" aria-label="Supprimer">✕</button></span></div>
+      ${cur ? `<div class="sbody"><div class="fields">${spec.fields.filter(f => !f.show || f.show(s.p)).map(f => fieldHTML(s, f, d)).join("")}</div>${o.err ? `<p class="errmsg">${esc(o.err)}</p>` : ""}<p class="why">${esc(spec.why)}</p></div>` : ""}
+    </li>`;
+  }).join("");
+}
+function renderTable(el, d, max = 200) {
+  if (!d.cols.length) { el.innerHTML = `<p class="empty">Aucune colonne.</p>`; return; }
+  const ty = d.types || typesOf(d);
+  el.innerHTML = `<table class="data"><thead><tr><th></th>${d.cols.map(c => `<th class="${ty[c] === "num" ? "n" : ""}">${esc(c)}<span class="ty">${TYL[ty[c]]}</span></th>`).join("")}</tr></thead><tbody>${d.rows.slice(0, max).map((r, i) => `<tr><td class="rn">${i + 1}</td>${d.cols.map(c => { const v = r[c]; return v == null ? `<td class="na">vide</td>` : `<td class="${isNum(v) ? "n" : ""}">${esc(fmt(v))}</td>`; }).join("")}</tr>`).join("")}</tbody></table>` + (d.rows.length ? "" : `<p class="empty">Aucune ligne ne passe cette étape.</p>`);
+}
+function renderResult() {
+  const i = viewIdx(), d = viewData(), list = steps();
+  $("#resTitle").textContent = i === 0 ? "Données source" : i === list.length ? "Résultat final" : `Résultat après l'étape ${i}`;
+  const b = base();
+  $("#resCount").innerHTML = `<b>${d.rows.length}</b> lignes · <b>${d.cols.length}</b> colonnes` + (i > 0 ? ` <span class="delta">source : ${b.rows.length} × ${b.cols.length}</span>` : "");
+  renderTable($("#resTable"), d);
+  $("#resFoot").textContent = (d.rows.length > 200 ? `200 premières lignes affichées sur ${d.rows.length}. ` : "") + (i === 0 ? "Cliquez sur une étape pour voir le tableau à ce moment du pipeline." : "Chiffres affichés au format français ; le code utilise le point décimal.");
+}
+function renderAddMenu() {
+  $("#addStep").innerHTML = CATS.map(c => `<optgroup label="${c}">${Object.entries(STEPS).filter(([, s]) => s.cat === c).map(([k, s]) => `<option value="${k}">${esc(s.name)}</option>`).join("")}</optgroup>`).join("");
+}
+function renderBanner() {
+  const el = $("#chalBanner"); const ch = S.chal && CHAL.find(c => c.id === S.chal);
+  if (!ch) { el.innerHTML = ""; return; }
+  el.innerHTML = `<div class="banner"><div class="q"><strong>Défi : ${esc(ch.t)}</strong>${esc(ch.q)}</div><button class="btn pri" type="button" id="chCheck">Vérifier</button><button class="btn" type="button" id="chHint">Indice</button><button class="btn" type="button" id="chSol">Solution</button><button class="btn ghost" type="button" id="chQuit">Quitter</button><div class="result-msg" id="chMsg"></div></div>`;
+  $("#chCheck").onclick = () => checkChal(ch); $("#chHint").onclick = () => { const m = $("#chMsg"); m.className = "result-msg"; m.textContent = "Indice : " + ch.hint; };
+  $("#chSol").onclick = () => { S.stepsBy[S.ds] = ch.steps.map(([t, p]) => mk(t, JSON.parse(JSON.stringify(p)))); S.sel = null; renderAll(); toast("Solution chargée : lisez le code généré"); };
+  $("#chQuit").onclick = () => { S.chal = null; save(); renderBanner(); };
+}
+function renderAtelier() { renderBanner(); renderSteps(); renderResult(); renderAtelierCode(); }
+
+function onStepsClick(e) {
+  const li = e.target.closest(".step"); if (!li) return; const id = +li.dataset.id, list = steps(), i = list.findIndex(s => s.id === id), s = list[i];
+  const chip = e.target.closest(".chip");
+  if (chip) { const k = chip.dataset.k, v = chip.dataset.v; s.p[k] = s.p[k].includes(v) ? s.p[k].filter(x => x !== v) : [...s.p[k], v]; changed(true, chip.id); return; }
+  const a = e.target.closest("[data-act]")?.dataset.act; if (!a) return;
+  if (a === "sel") S.sel = S.sel === id ? null : id;
+  if (a === "up" && i > 0) [list[i - 1], list[i]] = [list[i], list[i - 1]];
+  if (a === "down" && i < list.length - 1) [list[i + 1], list[i]] = [list[i], list[i + 1]];
+  if (a === "tog") s.on = !s.on;
+  if (a === "del") { list.splice(i, 1); if (S.sel === id) S.sel = null; }
+  changed(true);
+}
+function onStepsInput(e, full) {
+  const inp = e.target.closest("[data-k]"); if (!inp || inp.classList.contains("chip")) return;
+  const li = inp.closest(".step"), s = steps().find(x => x.id === +li.dataset.id), k = inp.dataset.k;
+  s.p[k] = inp.value;
+  if (k === "ds") { const R = DS[inp.value]; s.p.rk = R.cols.find(c => STAGES[steps().indexOf(s)].cols.includes(c)) || R.cols[0]; }
+  if (s.type === "date" && k === "part") s.p.name = { year: "annee", month: "mois", quarter: "trimestre", day: "jour", weekday: "jour_semaine" }[inp.value];
+  changed(full || inp.tagName === "SELECT", inp.id);
+}
+function changed(full, focusId) {
+  STAGES = run(S.ds, steps()); save();
+  if (full) { const y = window.scrollY; renderSteps(); if (focusId) { const el = document.getElementById(focusId); if (el) el.focus({ preventScroll: true }); } window.scrollTo(0, y); }
+  else { // mise à jour légère : badges + résumé
+    steps().forEach((s, i) => { const li = document.querySelector(`.step[data-id="${s.id}"]`); if (!li) return; li.querySelector(".stitle small").textContent = STEPS[s.type].label(s.p); const o = STAGES[i + 1]; const b = li.querySelector(".badge"); b.className = "badge" + (o.err ? " bad" : ""); b.textContent = o.err ? "erreur" : !s.on ? "désactivée" : `${STAGES[i].rows.length} → ${o.rows.length} l.`; li.classList.toggle("err", !!o.err); });
+  }
+  renderResult(); renderAtelierCode();
+}
+
+/* ============ Explorer ============ */
+function profile(d) {
+  return d.cols.map(c => {
+    const t = d.types[c], vals = d.rows.map(r => r[c]), nn = vals.filter(v => v != null), o = { c, t, n: d.rows.length, miss: vals.length - nn.length, uniq: new Set(nn.map(String)).size };
+    if (t === "num") { const s = nn.slice().sort((a, b) => a - b); if (s.length) { const m = s.reduce((a, b) => a + b, 0) / s.length; Object.assign(o, { mean: m, std: s.length > 1 ? Math.sqrt(s.reduce((a, b) => a + (b - m) ** 2, 0) / (s.length - 1)) : 0, min: s[0], q1: quant(s, .25), med: quant(s, .5), q3: quant(s, .75), max: s[s.length - 1], s }); } }
+    else { const cnt = new Map(); nn.forEach(v => cnt.set(String(v), (cnt.get(String(v)) || 0) + 1)); o.top = [...cnt].sort((a, b) => b[1] - a[1]).slice(0, 5); if (t === "date" && nn.length) { const s = nn.map(String).sort(); o.min = s[0]; o.max = s[s.length - 1]; } }
+    return o;
+  });
+}
+function miniHist(s) {
+  if (!s || !s.length) return ""; const lo = s[0], hi = s[s.length - 1], k = 14, w = 280, h = 46, bins = Array(k).fill(0);
+  s.forEach(v => bins[Math.min(k - 1, hi === lo ? 0 : Math.floor((v - lo) / (hi - lo) * k))]++);
+  const mx = Math.max(...bins), bw = w / k;
+  return `<svg viewBox="0 0 ${w} ${h + 14}" role="img" aria-label="Distribution"><line x1="0" x2="${w}" y1="${h}" y2="${h}" stroke="var(--line)"/>${bins.map((b, i) => { const bh = b ? Math.max(2, b / mx * (h - 2)) : 0; return bh ? `<rect x="${i * bw + 1}" y="${h - bh}" width="${bw - 2}" height="${bh}" rx="1.5" fill="var(--s1)"><title>${fmt(lo + (hi - lo) * i / k)} – ${fmt(lo + (hi - lo) * (i + 1) / k)} : ${b}</title></rect>` : ""; }).join("")}<text x="0" y="${h + 12}" font-size="10" fill="var(--ink-3)">${fmt(lo)}</text><text x="${w}" y="${h + 12}" font-size="10" text-anchor="end" fill="var(--ink-3)">${fmt(hi)}</text></svg>`;
+}
+function corr(a, b) { const n = a.length; if (n < 3) return null; const ma = a.reduce((x, y) => x + y, 0) / n, mb = b.reduce((x, y) => x + y, 0) / n; let sab = 0, saa = 0, sbb = 0; for (let i = 0; i < n; i++) { const x = a[i] - ma, y = b[i] - mb; sab += x * y; saa += x * x; sbb += y * y; } return saa && sbb ? sab / Math.sqrt(saa * sbb) : null; }
+function mix(h1, h2, t) { const p = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16)); const a = p(h1), b = p(h2); return "#" + a.map((x, i) => Math.round(x + (b[i] - x) * t).toString(16).padStart(2, "0")).join(""); }
+function cssv(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+function renderExplorer() {
+  const d = viewData(), P = profile(d), i = viewIdx();
+  $("#exSub").textContent = i === 0 ? `Données source : ${base().file}` : `Tableau obtenu à l'étape ${i} du pipeline (changez d'étape dans l'Atelier).`;
+  const miss = P.reduce((a, p) => a + p.miss, 0), cells = d.rows.length * d.cols.length;
+  const dup = d.rows.length - new Set(d.rows.map(r => JSON.stringify(d.cols.map(c => r[c])))).size;
+  $("#exTiles").innerHTML = [["Lignes", d.rows.length, "observations"], ["Colonnes", d.cols.length, `${P.filter(p => p.t === "num").length} numériques · ${P.filter(p => p.t === "text").length} texte · ${P.filter(p => p.t === "date").length} date`],
+    ["Cellules vides", miss, cells ? `${fmt(miss / cells * 100)} % des cellules` : ""], ["Lignes en double", dup, dup ? "à traiter : Supprimer les doublons" : "aucune"]]
+    .map(([l, v, s]) => `<div class="tile"><div class="lbl">${l}</div><div class="v">${fmt(v)}</div><div class="s">${esc(s)}</div></div>`).join("");
+  $("#exCols").innerHTML = P.map(p => {
+    const mp = p.n ? p.miss / p.n * 100 : 0, pill = p.miss ? `<span class="pill ${mp > 10 ? "bad" : "warn"}">${p.miss} vide${p.miss > 1 ? "s" : ""}</span>` : `<span class="pill good">complète</span>`;
+    let body = "";
+    if (p.t === "num" && p.s) body = `<dl class="kv"><dt>Moyenne</dt><dd>${fmt(p.mean)}</dd><dt>Écart-type</dt><dd>${fmt(p.std)}</dd><dt>Min · Max</dt><dd>${fmt(p.min)} · ${fmt(p.max)}</dd><dt>Q1 · Médiane · Q3</dt><dd>${fmt(p.q1)} · ${fmt(p.med)} · ${fmt(p.q3)}</dd><dt>Valeurs distinctes</dt><dd>${p.uniq}</dd></dl>${miniHist(p.s)}`;
+    else if (p.top) { const mx = p.top[0]?.[1] || 1; body = `<dl class="kv"><dt>Valeurs distinctes</dt><dd>${p.uniq}</dd>${p.min ? `<dt>Du · au</dt><dd>${p.min} · ${p.max}</dd>` : ""}</dl><div class="bars">${p.top.map(([v, n]) => `<div class="b"><span class="l"><i style="width:${n / mx * 100}%"></i>${esc(v)}</span><span class="v">${n}</span></div>`).join("")}</div>`; }
+    return `<div class="card colcard"><div class="top"><h3 title="${esc(p.c)}">${esc(p.c)}</h3><span class="pill">${TYL[p.t]}</span>${pill}</div>${body}</div>`;
+  }).join("");
+  const nc = P.filter(p => p.t === "num" && p.uniq > 1).map(p => p.c).slice(0, 8);
+  if (nc.length < 2) $("#exCorr").innerHTML = `<p class="empty">Il faut au moins deux colonnes numériques.</p>`;
+  else {
+    const neg = cssv("--div-neg"), pos = cssv("--div-pos"), mid = cssv("--div-mid"), ink = cssv("--ink");
+    const cell = (a, b) => { const rs = d.rows.filter(r => isNum(r[a]) && isNum(r[b])); return corr(rs.map(r => r[a]), rs.map(r => r[b])); };
+    $("#exCorr").innerHTML = `<table class="heat"><thead><tr><th></th>${nc.map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${nc.map(a => `<tr><th>${esc(a)}</th>${nc.map(b => { const r = cell(a, b); if (r == null) return `<td style="background:${mid}">–</td>`; const bg = mix(mid, r < 0 ? neg : pos, Math.min(1, Math.abs(r))); return `<td style="background:${bg};color:${Math.abs(r) > .55 ? "#fff" : ink}" title="${esc(a)} × ${esc(b)} : ${r.toFixed(2)}">${r.toFixed(2).replace(".", ",")}</td>`; }).join("")}</tr>`).join("")}</tbody></table><div class="legend-div"><span>−1</span><i></i><span>+1</span></div><p class="muted" style="font-size:.82rem;margin-top:8px">Une corrélation mesure une relation linéaire, pas une causalité.</p>`;
+  }
+  renderExploreCode();
+}
+function renderExploreCode() {
+  const d = viewData(), ty = d.types, num = d.cols.filter(c => ty[c] === "num"), tx = d.cols.find(c => ty[c] === "text") || d.cols[0], n1 = num[0] || d.cols[0], n2 = num[1] || n1, T = "df";
+  codePanel($("#codeExplore"), lang => ({
+    py: () => ({ code: `df.shape                      # (lignes, colonnes)\ndf.info()                     # types et nombre de valeurs non vides\ndf.describe(include="all")    # statistiques descriptives\ndf.isna().sum()               # valeurs manquantes par colonne\ndf.duplicated().sum()         # lignes en double\ndf[${q(tx)}].value_counts()   # fréquences\ndf.select_dtypes("number").corr()   # matrice de corrélation\n\n# Rapport complet en une ligne (pip install ydata-profiling)\n# from ydata_profiling import ProfileReport; ProfileReport(df).to_file("profil.html")` }),
+    r: () => ({ code: `dim(df)                         # lignes, colonnes\nglimpse(df)                     # types et aperçu\nsummary(df)                     # statistiques descriptives\ncolSums(is.na(df))              # valeurs manquantes\nsum(duplicated(df))             # lignes en double\ncount(df, ${rid(tx)}, sort = TRUE)   # fréquences\ncor(select(df, where(is.numeric)), use = "complete.obs")\n\n# Rapport détaillé : skimr::skim(df)` }),
+    sql: () => ({ code: `SELECT COUNT(*) AS lignes FROM ${T};\nSUMMARIZE ${T};                       -- DuckDB : profil de chaque colonne\nSELECT ${num.slice(0, 3).map(c => `COUNT(*) - COUNT(${sid(c)}) AS vides_${c}`).join(",\n       ") || "COUNT(*)"}\nFROM ${T};\nSELECT ${sid(tx)}, COUNT(*) AS n FROM ${T} GROUP BY ${sid(tx)} ORDER BY n DESC;\nSELECT AVG(${sid(n1)}), STDDEV(${sid(n1)}), MEDIAN(${sid(n1)}) FROM ${T};\nSELECT CORR(${sid(n1)}, ${sid(n2)}) FROM ${T};` }),
+    xl: () => { const rows = [["Lignes", `ROWS(T)`], ["Cellules vides", `COUNTBLANK(T[${xr(n1)}])`], ["Moyenne", `AVERAGE(T[${xr(n1)}])`], ["Médiane", `MEDIAN(T[${xr(n1)}])`], ["Écart-type", `STDEV.S(T[${xr(n1)}])`], ["1er quartile", `QUARTILE.INC(T[${xr(n1)}],1)`], ["Nb distincts", `ROWS(UNIQUE(T[${xr(tx)}]))`], ["Corrélation", `CORREL(T[${xr(n1)}],T[${xr(n2)}])`]];
+      return { html: `<div class="xstep"><h4>Formules (tableau nommé T)</h4>${rows.map(([l, f]) => `<div class="xrow"><span class="lbl">${l}</span><code>=${esc(xlFR(f))}   ·   =${esc(f)}</code></div>`).join("")}</div><div class="xstep"><h4>Sans formule</h4><div class="xrow"><span class="lbl">Ruban</span><span class="txt">Fichier › Options › Compléments › activer « Analysis ToolPak », puis Données › Analyse de données › Statistiques descriptives. Pour les fréquences : Tableau croisé dynamique. Pour repérer les doublons : Accueil › Mise en forme conditionnelle › Valeurs en double.</span></div></div>`, text: rows.map(([l, f]) => `${l}: =${xlFR(f)}`).join("\n") }; },
+    pbi: () => { const dax = `Nb lignes = COUNTROWS(T)\nVides ${n1} = COUNTBLANK(T[${n1}])\nMoyenne ${n1} = AVERAGE(T[${n1}])\nMédiane ${n1} = MEDIAN(T[${n1}])\nÉcart-type ${n1} = STDEV.S(T[${n1}])\nNb ${tx} distincts = DISTINCTCOUNT(T[${tx}])`;
+      return { html: `<div class="xstep"><h4>Power Query</h4><div class="xrow"><span class="lbl">Interface</span><span class="txt">Onglet Affichage › cocher Qualité de colonne, Distribution de colonne, Profil de colonne. En bas à gauche, passer « Profilage de colonne basé sur les 1000 premières lignes » à « l'ensemble du jeu de données ».</span></div></div><div class="xstep"><h4>Mesures DAX</h4><pre class="code">${hl(dax, "dax")}</pre></div>`, text: dax }; }
+  })[lang]());
+}
+
+/* ============ Graphiques ============ */
+function chartDefaults(d) { const ty = d.types, tx = d.cols.filter(c => ty[c] !== "num"), nm = d.cols.filter(c => ty[c] === "num"); return { type: tx.length ? "bar" : "scatter", x: tx[0] || nm[0] || d.cols[0], y: nm[0] || "", agg: "sum", sort: "desc" }; }
+function chartData(d, C) {
+  const ty = d.types;
+  if (C.type === "scatter") return d.rows.filter(r => isNum(r[C.x]) && isNum(r[C.y])).map(r => ({ x: r[C.x], y: r[C.y] }));
+  if (C.type === "hist") { const s = d.rows.map(r => r[C.x]).filter(isNum).sort((a, b) => a - b); if (!s.length) return []; const k = Math.min(15, Math.max(5, Math.ceil(Math.sqrt(s.length)))), lo = s[0], hi = s[s.length - 1], w = (hi - lo) / k || 1, b = Array.from({ length: k }, (_, i) => ({ lo: lo + i * w, hi: lo + (i + 1) * w, y: 0 })); s.forEach(v => b[Math.min(k - 1, Math.floor((v - lo) / w))].y++); return b.map(x => ({ ...x, k: `${fmt(x.lo)} – ${fmt(x.hi)}` })); }
+  const g = new Map(); d.rows.forEach(r => { const k = r[C.x]; if (k == null) return; if (!g.has(k)) g.set(k, []); g.get(k).push(C.agg === "count" ? 1 : r[C.y]); });
+  let out = [...g].map(([k, v]) => ({ k: String(k), raw: k, y: agg(v, C.agg === "count" ? "count" : C.agg) ?? 0 }));
+  if (C.type === "line" || C.sort === "x") out.sort((a, b) => a.raw < b.raw ? -1 : 1); else out.sort((a, b) => b.y - a.y);
+  return out.slice(0, C.type === "line" ? 400 : 25);
+}
+function niceScale(lo, hi, n = 5) { if (lo === hi) { hi = lo + 1; } const raw = (hi - lo) / n, p = 10 ** Math.floor(Math.log10(raw)), f = raw / p, st = (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * p; const a = Math.floor(lo / st) * st, b = Math.ceil(hi / st) * st, t = []; for (let v = a; v <= b + st / 2; v += st) t.push(+v.toFixed(10)); return { lo: a, hi: b, ticks: t }; }
+function shortNum(v) { const a = Math.abs(v); return a >= 1e6 ? fmt(v / 1e6) + " M" : a >= 1e4 ? fmt(v / 1e3) + " k" : fmt(v); }
+function renderCharts() {
+  const d = viewData(); const ty = d.types;
+  if (!S.chart || !d.cols.includes(S.chart.x) || (S.chart.y && !d.cols.includes(S.chart.y))) S.chart = chartDefaults(d);
+  const C = S.chart, nm = d.cols.filter(c => ty[c] === "num"), i = viewIdx();
+  $("#chSub").textContent = i === 0 ? `Données source : ${base().file}` : `Tableau obtenu à l'étape ${i} du pipeline.`;
+  const opt = (arr, v) => arr.map(([a, b]) => `<option value="${esc(a)}"${a === v ? " selected" : ""}>${esc(b)}</option>`).join("");
+  const needY = C.type !== "hist" && !(C.agg === "count" && C.type !== "scatter");
+  $("#chCtl").innerHTML = `<div class="field"><label for="ch-type">Type</label><select id="ch-type">${opt([["bar", "Barres"], ["line", "Courbe"], ["scatter", "Nuage de points"], ["hist", "Histogramme"]], C.type)}</select></div>
+    <div class="field"><label for="ch-x">${C.type === "hist" ? "Variable" : "Axe X"}</label><select id="ch-x">${opt((C.type === "scatter" || C.type === "hist" ? nm : d.cols).map(c => [c, c]), C.x)}</select></div>
+    ${C.type === "bar" || C.type === "line" ? `<div class="field"><label for="ch-agg">Calcul</label><select id="ch-agg">${opt([["sum", "Somme"], ["mean", "Moyenne"], ["count", "Nombre de lignes"], ["median", "Médiane"], ["max", "Maximum"]], C.agg)}</select></div>` : ""}
+    ${needY ? `<div class="field"><label for="ch-y">Axe Y</label><select id="ch-y">${opt(nm.map(c => [c, c]), C.y)}</select></div>` : ""}
+    ${C.type === "bar" ? `<div class="field"><label for="ch-sort">Ordre</label><select id="ch-sort">${opt([["desc", "Valeur décroissante"], ["x", "Libellé"]], C.sort)}</select></div>` : ""}`;
+  $("#chCtl").querySelectorAll("select").forEach(s => s.onchange = () => { const k = s.id.slice(3); C[k] = s.value; if (k === "type") { if ((s.value === "scatter" || s.value === "hist") && !nm.includes(C.x)) C.x = nm[0] || C.x; if (s.value === "scatter" && C.y === C.x) C.y = nm[1] || nm[0]; if ((s.value === "bar" || s.value === "line") && nm.includes(C.x) && d.cols.some(c => ty[c] !== "num")) C.x = d.cols.find(c => ty[c] !== "num"); } if (!C.y) C.y = nm[0] || ""; renderCharts(); });
+  drawChart(d, C); renderChartCode();
+}
+function drawChart(d, C) {
+  const box = $("#chBox"), data = chartData(d, C), W = 720, H = 360, m = { l: 62, r: 16, t: 34, b: C.type === "scatter" || C.type === "hist" ? 44 : 78 };
+  const ylab = C.type === "hist" ? "Nombre de lignes" : C.type === "scatter" ? C.y : C.agg === "count" ? "Nombre de lignes" : `${{ sum: "Somme", mean: "Moyenne", median: "Médiane", max: "Maximum" }[C.agg]} de ${C.y}`;
+  if (!data.length || (C.type !== "hist" && C.agg !== "count" && !C.y && C.type !== "scatter")) { box.innerHTML = `<p class="empty">Pas de données numériques à représenter avec ces choix.</p>`; return; }
+  const pw = W - m.l - m.r, ph = H - m.t - m.b;
+  let ys = C.type === "scatter" ? data.map(p => p.y) : data.map(p => p.y);
+  const Y = C.type === "scatter" ? niceScale(Math.min(...ys), Math.max(...ys)) : niceScale(Math.min(0, ...ys), Math.max(0, ...ys)); const sy = v => m.t + ph - (v - Y.lo) / (Y.hi - Y.lo) * ph;
+  let g = `<text class="ttl" x="${m.l}" y="18">${esc(ylab)}${C.type === "hist" ? "" : C.type === "scatter" ? " selon " + esc(C.x) : " par " + esc(C.x)}</text>`;
+  Y.ticks.forEach(t => g += `<line x1="${m.l}" x2="${W - m.r}" y1="${sy(t)}" y2="${sy(t)}" stroke="var(--line)" stroke-width="${t === 0 ? 1.2 : .6}"/><text x="${m.l - 8}" y="${sy(t) + 4}" text-anchor="end">${shortNum(t)}</text>`);
+  const hits = [];
+  if (C.type === "scatter") {
+    const xs = data.map(p => p.x), X = niceScale(Math.min(...xs), Math.max(...xs)), sx = v => m.l + (v - X.lo) / (X.hi - X.lo) * pw;
+    X.ticks.forEach(t => g += `<text x="${sx(t)}" y="${H - m.b + 18}" text-anchor="middle">${shortNum(t)}</text>`);
+    g += `<text x="${m.l + pw / 2}" y="${H - 6}" text-anchor="middle">${esc(C.x)}</text>`;
+    data.forEach((p, i) => { g += `<circle cx="${sx(p.x)}" cy="${sy(p.y)}" r="4.5" fill="var(--s1)" fill-opacity=".75" stroke="var(--surface)" stroke-width="1.5"/>`; hits.push(`<circle data-i="${i}" cx="${sx(p.x)}" cy="${sy(p.y)}" r="12" fill="transparent"/>`); });
+    box._tip = i => [fmt(data[i].y), `${C.x} : ${fmt(data[i].x)}`];
+  } else {
+    const n = data.length, bw = pw / n, rot = C.type !== "hist" && (n > 6 || data.some(p => p.k.length > 10));
+    const lab = (p, i) => { const x = m.l + bw * (i + .5), t = p.k.length > 16 ? p.k.slice(0, 15) + "…" : p.k; return rot ? `<text transform="translate(${x},${H - m.b + 14}) rotate(-40)" text-anchor="end">${esc(t)}</text>` : `<text x="${x}" y="${H - m.b + 18}" text-anchor="middle">${esc(t)}</text>`; };
+    if (C.type === "line") {
+      const step = Math.ceil(n / 12), pts = data.map((p, i) => [m.l + bw * (i + .5), sy(p.y)]);
+      g += `<path d="M${pts[0][0]},${sy(Math.max(0, Y.lo))}${pts.map(p => `L${p[0]},${p[1]}`).join("")}L${pts[n - 1][0]},${sy(Math.max(0, Y.lo))}Z" fill="var(--s1)" fill-opacity=".1"/><path d="M${pts.map(p => p.join(",")).join("L")}" fill="none" stroke="var(--s1)" stroke-width="2" stroke-linejoin="round"/>`;
+      if (n <= 40) pts.forEach(p => g += `<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="var(--s1)" stroke="var(--surface)" stroke-width="1.5"/>`);
+      data.forEach((p, i) => { if (i % step === 0) g += lab(p, i); });
+      g += `<line id="xh" x1="0" x2="0" y1="${m.t}" y2="${m.t + ph}" stroke="var(--ink-3)" stroke-width="1" visibility="hidden"/>`;
+      data.forEach((p, i) => hits.push(`<rect data-i="${i}" data-x="${pts[i][0]}" x="${m.l + bw * i}" y="${m.t}" width="${bw}" height="${ph}" fill="transparent"/>`));
+    } else {
+      const gap = C.type === "hist" ? 2 : Math.min(bw * .3, 24);
+      data.forEach((p, i) => { const x = m.l + bw * i + gap / 2, w = Math.max(1, bw - gap), y0 = sy(0), y1 = sy(p.y), h = Math.abs(y0 - y1), r = Math.min(4, w / 2, h);
+        const top = Math.min(y0, y1); g += p.y >= 0 ? `<path d="M${x},${y0}V${top + r}Q${x},${top} ${x + r},${top}H${x + w - r}Q${x + w},${top} ${x + w},${top + r}V${y0}Z" fill="var(--s1)"/>` : `<rect x="${x}" y="${y0}" width="${w}" height="${h}" fill="var(--s1)"/>`;
+        if (C.type !== "hist") g += lab(p, i); hits.push(`<rect data-i="${i}" x="${m.l + bw * i}" y="${m.t}" width="${bw}" height="${ph}" fill="transparent"/>`); });
+      if (C.type === "hist") { const X = niceScale(data[0].lo, data[n - 1].hi), sx = v => m.l + (v - data[0].lo) / (data[n - 1].hi - data[0].lo) * pw; X.ticks.filter(t => t >= data[0].lo && t <= data[n - 1].hi).forEach(t => g += `<text x="${sx(t)}" y="${H - m.b + 18}" text-anchor="middle">${shortNum(t)}</text>`); g += `<text x="${m.l + pw / 2}" y="${H - 6}" text-anchor="middle">${esc(C.x)}</text>`; }
+      if (n <= 12 && C.type === "bar") data.forEach((p, i) => g += `<text x="${m.l + bw * (i + .5)}" y="${sy(Math.max(0, p.y)) - 6}" text-anchor="middle" style="fill:var(--ink-2);font-variant-numeric:tabular-nums">${shortNum(p.y)}</text>`);
+    }
+    box._tip = i => [fmt(data[i].y), data[i].k];
+  }
+  box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(ylab)}">${g}<g id="hits">${hits.join("")}</g></svg><div class="tip" hidden></div>`;
+  const tip = box.querySelector(".tip"), svg = box.querySelector("svg"), xh = svg.querySelector("#xh");
+  svg.querySelector("#hits").addEventListener("pointermove", e => { const t = e.target.closest("[data-i]"); if (!t) return; const [v, l] = box._tip(+t.dataset.i); tip.innerHTML = ""; const b = document.createElement("b"); b.textContent = v; const s = document.createElement("span"); s.textContent = l; tip.append(b, s); tip.hidden = false; const r = box.getBoundingClientRect(); let x = e.clientX - r.left + 14; if (x > r.width - 160) x -= 180; tip.style.left = x + "px"; tip.style.top = (e.clientY - r.top - 10) + "px"; if (xh) { xh.setAttribute("x1", t.dataset.x); xh.setAttribute("x2", t.dataset.x); xh.setAttribute("visibility", "visible"); } });
+  svg.addEventListener("pointerleave", () => { tip.hidden = true; if (xh) xh.setAttribute("visibility", "hidden"); });
+}
+function renderChartCode() {
+  const C = S.chart; if (!C) return; const A = C.agg, x = C.x, y = C.y, cnt = A === "count";
+  const pyAgg = cnt ? `df.groupby(${q(x)}).size()` : `df.groupby(${q(x)})[${q(y)}].${A}()`;
+  const rS = cnt ? `count(${rid(x)}, name = "valeur")` : `group_by(${rid(x)}) |>\n  summarise(valeur = ${RAGG(A, rid(y))})`;
+  const lbl = cnt ? "Nombre" : `${{ sum: "Somme", mean: "Moyenne", median: "Médiane", max: "Maximum" }[A]} de ${y}`;
+  codePanel($("#codeChart"), lang => ({
+    py: () => ({ code: { bar: `import matplotlib.pyplot as plt\n\ng = ${pyAgg}${C.sort === "x" ? ".sort_index()" : ".sort_values(ascending=False)"}\nfig, ax = plt.subplots(figsize=(9, 4))\nax.bar(g.index.astype(str), g.values, color="#2a78d6")\nax.set_ylabel(${q(lbl)})\nax.set_title(${q(lbl + " par " + x)})\nax.spines[["top", "right"]].set_visible(False)\nplt.xticks(rotation=40, ha="right")\nplt.tight_layout()\nplt.show()\n\n# Variante seaborn :\n# import seaborn as sns; sns.barplot(data=df, x=${q(x)}, y=${q(y)}, estimator="${A === "count" ? "sum" : A}")`,
+      line: `import matplotlib.pyplot as plt\n\ng = ${pyAgg}.sort_index()\nfig, ax = plt.subplots(figsize=(9, 4))\nax.plot(g.index, g.values, linewidth=2, marker="o")\nax.fill_between(g.index, g.values, alpha=.1)\nax.set_ylabel(${q(lbl)})\nax.spines[["top", "right"]].set_visible(False)\nplt.show()`,
+      scatter: `import matplotlib.pyplot as plt\n\nfig, ax = plt.subplots(figsize=(7, 5))\nax.scatter(df[${q(x)}], df[${q(y)}], alpha=.7)\nax.set_xlabel(${q(x)}); ax.set_ylabel(${q(y)})\nplt.show()\n\nprint(df[${q(x)}].corr(df[${q(y)}]))   # coefficient de corrélation`,
+      hist: `import matplotlib.pyplot as plt\n\nfig, ax = plt.subplots(figsize=(8, 4))\nax.hist(df[${q(x)}].dropna(), bins=12, edgecolor="white")\nax.set_xlabel(${q(x)}); ax.set_ylabel("Nombre de lignes")\nplt.show()` }[C.type] }),
+    r: () => ({ code: "library(ggplot2)\n\n" + { bar: `df |>\n  ${rS} |>\n  ggplot(aes(x = ${C.sort === "x" ? rid(x) : `reorder(${rid(x)}, -valeur)`}, y = valeur)) +\n  geom_col(fill = "#2a78d6") +\n  labs(x = ${q(x)}, y = ${q(lbl)}) +\n  theme_minimal() +\n  theme(axis.text.x = element_text(angle = 40, hjust = 1))`,
+      line: `df |>\n  ${rS} |>\n  ggplot(aes(x = ${rid(x)}, y = valeur, group = 1)) +\n  geom_line(linewidth = 1, colour = "#2a78d6") +\n  geom_point() +\n  labs(x = ${q(x)}, y = ${q(lbl)}) +\n  theme_minimal()`,
+      scatter: `ggplot(df, aes(x = ${rid(x)}, y = ${rid(y)})) +\n  geom_point(alpha = .7, colour = "#2a78d6") +\n  geom_smooth(method = "lm", se = FALSE) +   # droite de tendance\n  theme_minimal()`,
+      hist: `ggplot(df, aes(x = ${rid(x)})) +\n  geom_histogram(bins = 12, fill = "#2a78d6", colour = "white") +\n  theme_minimal()` }[C.type] }),
+    sql: () => ({ code: C.type === "scatter" ? `-- Le SQL prépare les données ; le graphique se fait dans un outil de visualisation\nSELECT ${sid(x)}, ${sid(y)} FROM df;\nSELECT CORR(${sid(x)}, ${sid(y)}) FROM df;` : C.type === "hist" ? `-- Classes de l'histogramme (DuckDB)\nSELECT FLOOR(${sid(x)} / 10) * 10 AS classe, COUNT(*) AS n\nFROM df\nGROUP BY classe\nORDER BY classe;\n-- DuckDB : SELECT * FROM histogram(df, ${sid(x)});` : `-- Données du graphique\nSELECT ${sid(x)}, ${cnt ? "COUNT(*)" : SQLAGG(A, sid(y))} AS valeur\nFROM df\nGROUP BY ${sid(x)}\nORDER BY ${C.type === "line" || C.sort === "x" ? sid(x) : "valeur DESC"};` }),
+    xl: () => { const ui = { bar: `Insertion › Tableau croisé dynamique (${x} en Lignes, ${lbl} en Valeurs), puis Analyse du tableau croisé › Graphique croisé dynamique › Histogramme groupé. Trier : clic droit sur une barre › Trier › Du plus grand au plus petit.`, line: `Tableau croisé (${x} en Lignes, ${lbl} en Valeurs) › Graphique croisé dynamique › Courbe. Pour des dates : clic droit › Grouper › Mois.`, scatter: `Sélectionnez les colonnes ${x} et ${y} › Insertion › Nuage de points. Clic droit sur un point › Ajouter une courbe de tendance (cocher « Afficher le R² »).`, hist: `Sélectionnez la colonne ${x} › Insertion › Graphiques statistiques › Histogramme. Format de l'axe › Nombre de classes.` }[C.type];
+      const f = C.type === "bar" || C.type === "line" ? (cnt ? `GROUPBY(T[${xr(x)}],T[${xr(x)}],COUNTA)` : `GROUPBY(T[${xr(x)}],T[${xr(y)}],${XLAGG[A]})`) : C.type === "scatter" ? `CORREL(T[${xr(x)}],T[${xr(y)}])` : null;
+      return { html: `<div class="xstep"><h4>Créer le graphique</h4><div class="xrow"><span class="lbl">Ruban</span><span class="txt">${esc(ui)}</span></div>${f ? xlBlock(f, C.type === "scatter" ? "Corrél." : "Données") : ""}</div>`, text: ui + (f ? "\n=" + xlFR(f) : "") }; },
+    pbi: () => { const vis = { bar: "Histogramme groupé", line: "Graphique en courbes", scatter: "Nuage de points", hist: "Histogramme groupé (sur une colonne de classes)" }[C.type];
+      const dax = C.type === "hist" ? `// Colonne de classes (Modélisation › Nouvelle colonne)\nClasse ${x} = FLOOR(T[${x}], 10)` : cnt ? `Nb lignes = COUNTROWS(T)` : C.type === "scatter" ? `// Aucun calcul : glisser les colonnes, agrégation « Ne pas résumer »` : `${lbl} = ${DAXAGG(A === "count" ? "count" : A, `T[${y}]`)}`;
+      const ui = `Volet Visualisations › ${vis}. ${C.type === "scatter" ? `Axe X : ${x}, Axe Y : ${y} (Ne pas résumer). Volet Analyse › Ligne de tendance.` : C.type === "hist" ? `Axe X : Classe ${x}, Axe Y : Nb lignes. Ou clic droit sur ${x} › Nouveau groupe › Type Emplacement.` : `Axe X : ${x}, Axe Y : la mesure « ${lbl} ».`}`;
+      return { html: `<div class="xstep"><h4>Visuel</h4><div class="xrow"><span class="lbl">Interface</span><span class="txt">${esc(ui)}</span></div><div class="xrow"><span class="lbl">DAX</span><code>${hl(dax, "dax")}</code></div></div>`, text: ui + "\n" + dax }; }
+  })[lang]());
+}
+
+/* ============ Défis ============ */
+const CHAL = [
+  { id: "d1", ds: "ventes", lvl: "Débutant", t: "Des commandes saisies deux fois", q: "Certaines lignes ont été saisies deux fois. Supprimez les doublons exacts : combien de commandes restent ?", hint: "Nettoyer › Supprimer les doublons, sans choisir de colonne.", steps: [["dedupe", { cols: [] }]] },
+  { id: "d2", ds: "ventes", lvl: "Débutant", t: "Grosses commandes web", q: "Gardez uniquement les commandes passées sur le Web avec une quantité supérieure ou égale à 4.", hint: "Deux filtres à la suite : canal = Web, puis quantite ≥ 4.", steps: [["filter", { col: "canal", op: "eq", val: "Web" }], ["filter", { col: "quantite", op: "ge", val: "4" }]] },
+  { id: "d3", ds: "ventes", lvl: "Débutant", t: "Liste propre des vendeurs", q: "Les noms des vendeurs sont mal saisis (espaces, majuscules). Obtenez la liste des vendeurs distincts : une seule colonne, un nom par ligne, bien écrit.", hint: "Nettoyer du texte (Espaces + Nom Propre), Choisir la colonne vendeur, puis Supprimer les doublons.", steps: [["text", { col: "vendeur", fn: "clean" }], ["select", { cols: ["vendeur"] }], ["dedupe", { cols: [] }]] },
+  { id: "d4", ds: "ventes", lvl: "Intermédiaire", t: "Chiffre d'affaires par région", q: "Calculez ca = quantite × prix_unitaire, puis la somme du CA par région, de la plus forte à la plus faible.", hint: "Colonne calculée, Regrouper et résumer (region, Somme de ca), puis Trier décroissant.", ordered: true, steps: [["compute", { name: "ca", a: "quantite", op: "*", b: "prix_unitaire", n: "2", dec: "" }], ["groupby", { keys: ["region"], a1c: "ca", a1f: "sum", a2c: "", a2f: "mean" }], ["sort", { col: "somme_ca", dir: "desc" }]] },
+  { id: "d5", ds: "ventes", lvl: "Intermédiaire", t: "Quantités manquantes", q: "Remplacez les quantités manquantes par la médiane, puis calculez la quantité totale vendue par canal.", hint: "Traiter les valeurs manquantes (médiane), puis Regrouper par canal avec la Somme de quantite.", steps: [["missing", { col: "quantite", how: "median", val: "0" }], ["groupby", { keys: ["canal"], a1c: "quantite", a1f: "sum", a2c: "", a2f: "mean" }]] },
+  { id: "d6", ds: "ventes", lvl: "Intermédiaire", t: "Commandes du 4e trimestre", q: "Ajoutez le trimestre de chaque commande, puis comptez les commandes par région pour le 4e trimestre uniquement.", hint: "Extraire d'une date (Trimestre), Filtrer trimestre = 4, Regrouper par region avec le Nombre de commande.", steps: [["date", { col: "date", part: "quarter", name: "trimestre" }], ["filter", { col: "trimestre", op: "eq", val: "4" }], ["groupby", { keys: ["region"], a1c: "commande", a1f: "count", a2c: "", a2f: "mean" }]] },
+  { id: "d7", ds: "notes", lvl: "Intermédiaire", t: "Moyenne par matière", q: "Le tableau des notes est au format large (une colonne par matière). Passez-le au format long, puis calculez la moyenne par matière.", hint: "Dépivoter en gardant etudiant et classe, puis Regrouper par la nouvelle colonne des matières avec la Moyenne.", steps: [["unpivot", { ids: ["etudiant", "classe"], name: "matiere", value: "note" }], ["groupby", { keys: ["matiere"], a1c: "note", a1f: "mean", a2c: "", a2f: "mean" }]] },
+  { id: "d8", ds: "ventes", lvl: "Avancé", t: "Tableau croisé région × canal", q: "Construisez un tableau croisé : une ligne par région, une colonne par canal, avec la quantité totale.", hint: "Remodeler › Tableau croisé : Lignes = region, Colonnes = canal, Valeurs = quantite, Somme.", steps: [["pivot", { index: "region", columns: "canal", values: "quantite", fn: "sum" }]] },
+  { id: "d9", ds: "ventes", lvl: "Avancé", t: "Top 3 des catégories", q: "Rattachez chaque vente à sa catégorie (table produits), calculez ca = quantite × prix_unitaire, puis gardez les 3 catégories au plus fort CA, de la plus forte à la plus faible.", hint: "Joindre produits sur produit_id, Colonne calculée ca, Regrouper par categorie (Somme de ca), Trier décroissant, Garder 3 lignes.", ordered: true, steps: [["join", { ds: "produits", lk: "produit_id", rk: "produit_id", how: "left" }], ["compute", { name: "ca", a: "quantite", op: "*", b: "prix_unitaire", n: "2", dec: "" }], ["groupby", { keys: ["categorie"], a1c: "ca", a1f: "sum", a2c: "", a2f: "mean" }], ["sort", { col: "somme_ca", dir: "desc" }], ["topn", { n: 3 }]] }];
+function canon(d) { const n = v => v == null ? "∅" : isNum(v) ? String(Math.round(v * 100) / 100) : String(v); return d.rows.map(r => d.cols.map(c => n(r[c])).sort().join("¦")); }
+function checkChal(ch) {
+  const m = $("#chMsg");
+  if (S.ds !== ch.ds) { m.className = "result-msg bad"; m.textContent = `Ce défi se fait sur le jeu « ${ch.ds} » : sélectionnez-le en haut de page.`; return; }
+  const exp = run(ch.ds, ch.steps.map(([t, p]) => mk(t, p))).pop(), cur = STAGES[STAGES.length - 1];
+  const a = canon(cur), b = canon(exp); let ok = false, why = "";
+  if (STAGES.some(s => s.err)) why = "Une étape est en erreur : corrigez-la d'abord.";
+  else if (cur.cols.length !== exp.cols.length) why = `Votre résultat a ${cur.cols.length} colonne(s), la réponse attendue en a ${exp.cols.length}.`;
+  else if (a.length !== b.length) why = `Votre résultat a ${a.length} ligne(s), la réponse attendue en a ${b.length}.`;
+  else { ok = ch.ordered ? a.every((x, i) => x === b[i]) : JSON.stringify([...a].sort()) === JSON.stringify([...b].sort()); if (!ok) why = ch.ordered && JSON.stringify([...a].sort()) === JSON.stringify([...b].sort()) ? "Les bonnes valeurs, mais pas dans le bon ordre." : "Le nombre de lignes et de colonnes est bon, mais certaines valeurs diffèrent."; }
+  m.className = "result-msg " + (ok ? "good" : "bad");
+  m.textContent = ok ? `Réussi ! Ouvrez le panneau de code : c'est votre solution en Python, R, SQL, Excel et Power BI.` : why;
+  if (ok) { S.done[ch.id] = true; save(); }
+}
+function renderDefis() {
+  $("#chalList").innerHTML = CHAL.map(c => `<div class="card chal"><div class="top"><h3>${esc(c.t)}</h3>${S.done[c.id] ? `<span class="pill good">✓ réussi</span>` : ""}</div><div><span class="pill ${c.lvl === "Débutant" ? "" : c.lvl === "Avancé" ? "warn" : ""}">${c.lvl}</span> <span class="pill">jeu : ${c.ds}</span></div><p style="font-size:.9rem">${esc(c.q)}</p><div class="acts"><button class="btn pri" type="button" data-start="${c.id}">Commencer</button></div></div>`).join("");
+}
+$("#chalList").addEventListener("click", e => { const b = e.target.closest("[data-start]"); if (!b) return; const ch = CHAL.find(c => c.id === b.dataset.start); S.chal = ch.id; S.ds = ch.ds; S.stepsBy[ch.ds] = []; S.sel = null; S.chart = null; setTab("atelier"); renderAll(); window.scrollTo(0, 0); });
+
+/* ============ Mémo ============ */
+const MEMO = [
+  ["Importer & exporter", [
+    ["Lire un CSV", 'pd.read_csv("f.csv", sep=";", decimal=",")', 'read_csv2("f.csv")   # ; et virgule décimale', "SELECT * FROM read_csv_auto('f.csv')", "Données › À partir d'un fichier texte/CSV", "Obtenir les données › Texte/CSV"],
+    ["Lire un fichier Excel", 'pd.read_excel("f.xlsx", sheet_name="Feuil1")', 'readxl::read_excel("f.xlsx", sheet = 1)', "SELECT * FROM read_xlsx('f.xlsx')", "Fichier › Ouvrir, ou Données › À partir d'un classeur", "Obtenir les données › Classeur Excel"],
+    ["Exporter le résultat", 'df.to_csv("out.csv", index=False)\ndf.to_excel("out.xlsx", index=False)', 'write_csv(df, "out.csv")\nwritexl::write_xlsx(df, "out.xlsx")', "COPY t TO 'out.csv' (HEADER)", "Fichier › Enregistrer sous › CSV UTF-8", "Visuel › … › Exporter les données"]]],
+  ["Explorer", [
+    ["Voir les premières lignes", "df.head(10)", "head(df, 10)\nglimpse(df)", "SELECT * FROM t LIMIT 10", "=PRENDRE(T;10)", "Vue Données, ou aperçu Power Query"],
+    ["Nombre de lignes / colonnes", "df.shape", "dim(df)", "SELECT COUNT(*) FROM t", "=LIGNES(T)  =COLONNES(T)", "Nb = COUNTROWS(T)"],
+    ["Types des colonnes", "df.dtypes\ndf.info()", "str(df)", "DESCRIBE t", "Accueil › Nombre (format)", "Icône de type dans l'en-tête (Power Query)"],
+    ["Statistiques descriptives", 'df.describe(include="all")', "summary(df)\nskimr::skim(df)", "SUMMARIZE t   -- DuckDB", "Données › Analyse de données › Statistiques descriptives", "Affichage › Profil de colonne"],
+    ["Compter les vides", "df.isna().sum()", "colSums(is.na(df))", "SELECT COUNT(*) - COUNT(col) FROM t", "=NB.VIDE(T[col])", "Affichage › Qualité de colonne\nCOUNTBLANK(T[col])"],
+    ["Fréquences d'une variable", 'df["col"].value_counts()', "count(df, col, sort = TRUE)", "SELECT col, COUNT(*) FROM t\nGROUP BY col ORDER BY 2 DESC", "Tableau croisé : col en Lignes et en Valeurs (Nombre)", "Visuel + mesure COUNTROWS(T)"]]],
+  ["Sélectionner & filtrer", [
+    ["Choisir des colonnes", 'df[["a", "b"]]', "select(df, a, b)", "SELECT a, b FROM t", "=CHOISIRCOLS(T;1;2)", "Power Query › Choisir les colonnes"],
+    ["Filtrer des lignes", 'df[df["a"] > 10]\ndf.query("a > 10")', "filter(df, a > 10)", "SELECT * FROM t WHERE a > 10", "=FILTRE(T;T[a]>10)", "Volet Filtres\nCALCULATE([m]; T[a] > 10)"],
+    ["Conditions ET / OU", '(df.a > 10) & (df.b == "x")\n(df.a > 10) | (df.b == "x")', 'filter(df, a > 10, b == "x")\nfilter(df, a > 10 | b == "x")', "WHERE a > 10 AND b = 'x'", '=FILTRE(T;(T[a]>10)*(T[b]="x"))   ET\n=FILTRE(T;(T[a]>10)+(T[b]="x"))   OU', 'T[a] > 10 && T[b] = "x"\nT[a] > 10 || T[b] = "x"'],
+    ["Valeur dans une liste", 'df[df["r"].isin(["Nord", "Sud"])]', 'filter(df, r %in% c("Nord", "Sud"))', "WHERE r IN ('Nord', 'Sud')", '=FILTRE(T;ESTNUM(EQUIV(T[r];{"Nord";"Sud"};0)))', 'T[r] IN {"Nord", "Sud"}'],
+    ["Trier", 'df.sort_values("a", ascending=False)', "arrange(df, desc(a))", "ORDER BY a DESC", "=TRIERPAR(T;T[a];-1)", "Visuel › Trier par"],
+    ["Top N", 'df.nlargest(5, "a")', "slice_max(df, a, n = 5)", "ORDER BY a DESC LIMIT 5", "=PRENDRE(TRIERPAR(T;T[a];-1);5)", "Filtre « N premiers »\nTOPN(5; T; T[a])"]]],
+  ["Nettoyer", [
+    ["Supprimer les doublons", "df.drop_duplicates()", "distinct(df)", "SELECT DISTINCT * FROM t", "Données › Supprimer les doublons\n=UNIQUE(T)", "Power Query › Supprimer les doublons"],
+    ["Remplacer les vides", 'df["a"].fillna(0)', "replace_na(a, 0)\ncoalesce(a, 0)", "COALESCE(a, 0)", "=SI(ESTVIDE([@a]);0;[@a])", "Remplacer les valeurs (null → 0)\nCOALESCE(T[a]; 0)"],
+    ["Supprimer les lignes vides", 'df.dropna(subset=["a"])', "drop_na(df, a)", "WHERE a IS NOT NULL", "Filtre › décocher (Vides)", "Power Query › Supprimer les lignes vides"],
+    ["Espaces en trop", 'df["a"].str.strip()', "str_squish(a)", "TRIM(a)", "=SUPPRESPACE([@a])", "Transformer › Format › Supprimer les espaces"],
+    ["Majuscules / Nom propre", ".str.upper()  .str.title()", "str_to_upper(a)  str_to_title(a)", "UPPER(a)  INITCAP(a)", "=MAJUSCULE()  =NOMPROPRE()", "Format › MAJUSCULES / Mettre en majuscule chaque mot"],
+    ["Rechercher / remplacer", 'df["a"].str.replace("x", "y")', 'str_replace_all(a, "x", "y")', "REPLACE(a, 'x', 'y')", "Ctrl+H\n=SUBSTITUE([@a];\"x\";\"y\")", "Remplacer les valeurs\nSUBSTITUTE(T[a]; \"x\"; \"y\")"],
+    ["Séparer une colonne", 'df["a"].str.split("-", expand=True)', 'separate_wider_delim(df, a, "-", names = c("x", "y"))', "SPLIT_PART(a, '-', 1)", "Données › Convertir\n=FRACTIONNER.TEXTE([@a];\"-\")", "Fractionner la colonne › Par délimiteur"],
+    ["Convertir en nombre", 'pd.to_numeric(df["a"], errors="coerce")', "as.numeric(a)\nparse_number(a)", "TRY_CAST(a AS DOUBLE)", "=CNUM([@a])", "Type de données › Nombre décimal\nVALUE(T[a])"]]],
+  ["Transformer", [
+    ["Colonne calculée", 'df["ca"] = df["q"] * df["p"]', "mutate(ca = q * p)", "SELECT *, q * p AS ca FROM t", "=[@q]*[@p]", "Colonne : ca = T[q] * T[p]\nMesure : SUMX(T; T[q] * T[p])"],
+    ["Colonne conditionnelle", 'np.where(df.a > 10, "haut", "bas")', 'if_else(a > 10, "haut", "bas")\ncase_when(a > 10 ~ "haut", .default = "bas")', "CASE WHEN a > 10 THEN 'haut' ELSE 'bas' END", '=SI([@a]>10;"haut";"bas")', 'IF(T[a] > 10; "haut"; "bas")\nSWITCH(TRUE(); …)'],
+    ["Découper en classes", 'pd.cut(df.a, bins=[0, 10, 50, 100])', "cut(a, breaks = c(0, 10, 50, 100))", "CASE WHEN a < 10 THEN … END", "=RECHERCHEX([@a];bornes;classes;;-1)", "Clic droit › Nouveau groupe › Emplacements"],
+    ["Extraire année / mois", 'df["d"].dt.year\ndf["d"].dt.month', "year(d)  month(d)", "EXTRACT(YEAR FROM d)", "=ANNEE([@d])  =MOIS([@d])", "YEAR(T[d])  MONTH(T[d])\nTable Calendrier"],
+    ["Écart entre deux dates", '(df.fin - df.debut).dt.days', "as.numeric(fin - debut)", "DATEDIFF('day', debut, fin)", "=[@fin]-[@debut]", "DATEDIFF(T[debut]; T[fin]; DAY)"],
+    ["Renommer", 'df.rename(columns={"a": "b"})', "rename(df, b = a)", "SELECT a AS b FROM t", "Modifier l'en-tête", "Double-clic sur l'en-tête"]]],
+  ["Agréger", [
+    ["Somme par groupe", 'df.groupby("g")["a"].sum()', "df |> group_by(g) |> summarise(s = sum(a))", "SELECT g, SUM(a) FROM t GROUP BY g", "=GROUPER.PAR(T[g];T[a];SOMME)\nTableau croisé dynamique", "Mesure SUM(T[a]) dans un visuel avec g"],
+    ["Plusieurs calculs", '.agg(total=("a", "sum"), moy=("a", "mean"))', "summarise(total = sum(a), moy = mean(a))", "SELECT g, SUM(a), AVG(a) FROM t GROUP BY g", "Tableau croisé avec plusieurs Valeurs", "SUMMARIZECOLUMNS(T[g]; \"total\"; SUM(T[a]))"],
+    ["Somme conditionnelle", 'df.loc[df.g == "x", "a"].sum()', 'sum(a[g == "x"])', "SUM(a) FILTER (WHERE g = 'x')", '=SOMME.SI.ENS(T[a];T[g];"x")', 'CALCULATE(SUM(T[a]); T[g] = "x")'],
+    ["Nombre de valeurs distinctes", 'df["a"].nunique()', "n_distinct(a)", "COUNT(DISTINCT a)", "=LIGNES(UNIQUE(T[a]))", "DISTINCTCOUNT(T[a])"],
+    ["Cumul (total courant)", 'df["a"].cumsum()', "cumsum(a)", "SUM(a) OVER (ORDER BY d)", "=SOMME(T[[#En-têtes];[a]]:[@a])", "CALCULATE(SUM(T[a]); T[d] <= MAX(T[d]))"],
+    ["Part du total (%)", 'df["a"] / df["a"].sum()', "a / sum(a)", "a / SUM(a) OVER ()", "=[@a]/SOMME(T[a])", "DIVIDE(SUM(T[a]); CALCULATE(SUM(T[a]); ALL(T)))"],
+    ["Rang", 'df["a"].rank(ascending=False)', "min_rank(desc(a))", "RANK() OVER (ORDER BY a DESC)", "=RANG([@a];T[a])", "RANKX(ALL(T[g]); [Mesure])"]]],
+  ["Combiner", [
+    ["Jointure (recherche)", 'df.merge(p, on="id", how="left")', 'left_join(df, p, by = "id")', "SELECT * FROM t\nLEFT JOIN p ON t.id = p.id", "=RECHERCHEX([@id];p[id];p[nom])", "Relation (vue Modèle)\nRELATED(p[nom])"],
+    ["Empiler deux tables", "pd.concat([a, b])", "bind_rows(a, b)", "SELECT * FROM a\nUNION ALL SELECT * FROM b", "=ASSEMB.V(A;B)", "Power Query › Ajouter des requêtes\nUNION(A; B)"]]],
+  ["Remodeler", [
+    ["Large → long", 'df.melt(id_vars=["id"])', "pivot_longer(df, -id)", "UNPIVOT t ON a, b INTO NAME k VALUE v", "Power Query › Dépivoter les autres colonnes", "Power Query › Dépivoter les autres colonnes"],
+    ["Long → large", 'df.pivot_table(index="id", columns="k", values="v")', "pivot_wider(df, names_from = k, values_from = v)", "PIVOT t ON k USING SUM(v)", "Tableau croisé dynamique\n=PIVOTER.PAR(…)", "Visuel Matrice\nPower Query › Colonne pivot"]]],
+  ["Visualiser", [
+    ["Barres", 'df.plot.bar(x="g", y="a")\nsns.barplot(df, x="g", y="a")', "ggplot(df, aes(g, a)) + geom_col()", "—", "Insertion › Histogramme groupé", "Histogramme groupé"],
+    ["Courbe (évolution)", 'plt.plot(df.d, df.a)', "ggplot(df, aes(d, a)) + geom_line()", "—", "Insertion › Courbe", "Graphique en courbes"],
+    ["Nuage de points", 'plt.scatter(df.x, df.y)', "ggplot(df, aes(x, y)) + geom_point()", "SELECT CORR(x, y) FROM t", "Insertion › Nuage de points", "Nuage de points"],
+    ["Distribution", 'df["a"].hist(bins=20)', "ggplot(df, aes(a)) + geom_histogram()", "SELECT * FROM histogram(t, a)", "Insertion › Graphique statistique › Histogramme", "Groupes par emplacements + histogramme"],
+    ["Corrélations", "df.corr(numeric_only=True)", "cor(select(df, where(is.numeric)))", "SELECT CORR(a, b) FROM t", "=COEFFICIENT.CORRELATION(T[a];T[b])", "Mesure rapide › Coefficient de corrélation"]]]];
+let memoCat = "";
+function renderMemo() {
+  const qv = ($("#memoQ").value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  $("#memoCats").innerHTML = ["", ...MEMO.map(m => m[0])].map(c => `<button type="button" class="chip" data-cat="${esc(c)}" aria-pressed="${c === memoCat}">${c || "Tout"}</button>`).join("");
+  const norm = s => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  let body = "";
+  MEMO.forEach(([cat, rows]) => { if (memoCat && cat !== memoCat) return; const rs = rows.filter(r => !qv || norm(r.join(" ")).includes(qv) || norm(cat).includes(qv)); if (!rs.length) return;
+    body += `<tr class="cat"><td colspan="6">${esc(cat)}</td></tr>` + rs.map(r => `<tr><td>${esc(r[0])}</td>${r.slice(1).map(x => `<td><code>${esc(x)}</code></td>`).join("")}</tr>`).join(""); });
+  $("#memoTbl").innerHTML = `<thead><tr><th>Opération</th><th class="t-py">Python (pandas)</th><th class="t-r">R (tidyverse)</th><th class="t-sql">SQL</th><th class="t-xl">Excel (FR)</th><th class="t-pbi">Power BI (M / DAX)</th></tr></thead><tbody>${body || `<tr><td colspan="6" class="empty">Aucun résultat pour « ${esc(qv)} ».</td></tr>`}</tbody>`;
+}
+$("#memoQ").addEventListener("input", renderMemo);
+$("#memoCats").addEventListener("click", e => { const c = e.target.closest("[data-cat]"); if (c) { memoCat = c.dataset.cat; renderMemo(); } });
+const TOOLS = [
+  ["xl", "Excel", ["Idéal : petits volumes (< 1 million de lignes), calculs ponctuels, partage avec tout le monde.", "Fonctions clés : FILTRE, RECHERCHEX, SOMME.SI.ENS, tableaux croisés, Power Query.", "Limite : difficile à reproduire et à auditer quand les manipulations sont faites à la main."]],
+  ["pbi", "Power BI", ["Idéal : tableaux de bord interactifs, rapports partagés et actualisés automatiquement.", "Power Query (M) pour préparer, DAX pour les mesures, modèle en étoile pour relier les tables.", "Limite : moins adapté aux statistiques avancées et au machine learning."]],
+  ["py", "Python", ["Idéal : automatiser, gros volumes, machine learning, connexion à des API.", "pandas pour les tableaux, matplotlib/seaborn pour les graphiques, scikit-learn pour la modélisation.", "Limite : demande d'apprendre à programmer ; environnement à installer (Anaconda, Jupyter)."]],
+  ["r", "R", ["Idéal : statistiques, études, rapports reproductibles (Quarto, R Markdown).", "tidyverse (dplyr, tidyr) pour préparer, ggplot2 pour des graphiques de qualité publication.", "Limite : moins répandu en entreprise hors data science et recherche."]],
+  ["sql", "SQL", ["Idéal : interroger les bases de données de l'entreprise, là où les données vivent.", "SELECT / WHERE / GROUP BY / JOIN couvrent 90 % des besoins. DuckDB permet de requêter un CSV sans serveur.", "Limite : pas de graphique ; les transformations complexes deviennent longues à écrire."]]];
+const GLOSS = [["Tableau / DataFrame / Table", "Données en lignes et colonnes. DataFrame en pandas, tibble en R, table en SQL et Power BI, Tableau (Ctrl+L) dans Excel."],
+  ["Observation / variable", "Une ligne = une observation (une commande). Une colonne = une variable (la quantité)."],
+  ["Valeur manquante", "Cellule vide. NaN ou None en Python, NA en R, NULL en SQL et Power Query, BLANK en DAX, cellule vide dans Excel."],
+  ["Données « tidy » (format long)", "Chaque variable est une colonne, chaque observation une ligne. Format préféré pour calculer et faire des graphiques."],
+  ["Clé", "Colonne qui identifie une ligne (produit_id). Elle sert à relier deux tables par une jointure."],
+  ["Jointure", "Combinaison de deux tables par une clé. Gauche : toutes les lignes de gauche ; interne : seulement les correspondances ; complète : tout."],
+  ["Agrégation", "Résumer plusieurs lignes en une valeur : somme, moyenne, nombre, médiane…"],
+  ["Mesure vs colonne calculée", "Power BI : une colonne calculée est stockée ligne par ligne ; une mesure est calculée à la volée selon les filtres du visuel. Pour des totaux, préférez la mesure."],
+  ["Contexte de filtre", "En DAX, l'ensemble des filtres actifs (segments, axes du visuel) qui détermine sur quelles lignes une mesure est calculée. CALCULATE le modifie."],
+  ["Pipeline", "Suite d'étapes appliquées dans l'ordre. Power Query enregistre les « Étapes appliquées », R les enchaîne avec |>, pandas avec des affectations successives."],
+  ["Médiane vs moyenne", "La médiane coupe les valeurs en deux moitiés : elle résiste aux valeurs extrêmes, contrairement à la moyenne."],
+  ["Écart-type", "Dispersion moyenne autour de la moyenne. Petit : valeurs groupées ; grand : valeurs étalées."],
+  ["Quartiles", "Q1, médiane et Q3 coupent les valeurs triées en quatre parts égales. L'écart Q3 − Q1 sert à repérer les valeurs aberrantes."],
+  ["Corrélation", "Mesure entre −1 et +1 de la relation linéaire entre deux variables. Corrélation n'est pas causalité."]];
+function renderStatic() {
+  $("#toolCards").innerHTML = TOOLS.map(([k, n, l]) => `<div class="card tool-card t-${k}"><h3>${n}</h3><ul>${l.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("");
+  $("#gloss").innerHTML = GLOSS.map(([a, b]) => `<div><b>${esc(a)}</b>${esc(b)}</div>`).join("");
+}
+
+/* ============ Quiz ============ */
+const QUIZ = [
+  ["En pandas, quelle méthode supprime les lignes en double ?", ["df.drop_duplicates()", "df.distinct()", "df.unique_rows()", "df.dedupe()"], 0, "distinct() est le verbe dplyr (R) ; en SQL c'est SELECT DISTINCT."],
+  ["En R (dplyr), quel verbe crée ou modifie une colonne ?", ["select()", "mutate()", "summarise()", "arrange()"], 1, "select choisit des colonnes, summarise agrège, arrange trie."],
+  ["En SQL, quelle clause filtre les groupes après un GROUP BY ?", ["WHERE", "HAVING", "ORDER BY", "LIMIT"], 1, "WHERE filtre les lignes avant le regroupement, HAVING filtre les groupes après."],
+  ["Dans Excel, quelle fonction renvoie les lignes d'un tableau qui respectent une condition ?", ["RECHERCHEV", "SOMME.SI", "FILTRE", "TRIER"], 2, "FILTRE (FILTER en anglais) renvoie une plage dynamique dans Excel 365."],
+  ["Quel est le langage de Power Query ?", ["DAX", "M", "VBA", "Python"], 1, "M sert à préparer les données (Power Query) ; DAX sert aux calculs du modèle (mesures)."],
+  ["Comment s'appelle une valeur manquante en DAX ?", ["NA", "NaN", "BLANK", "NULL"], 2, "BLANK en DAX, NA en R, NaN/None en pandas, NULL en SQL et en M."],
+  ["Transformer les colonnes « maths, physique, … » en deux colonnes « matiere » et « note » s'appelle :", ["Pivoter", "Dépivoter", "Joindre", "Agréger"], 1, "melt() en pandas, pivot_longer() en R, « Dépivoter les autres colonnes » dans Power Query."],
+  ["Une jointure gauche (LEFT JOIN) garde :", ["Uniquement les lignes présentes dans les deux tables", "Toutes les lignes de la table de gauche", "Toutes les lignes des deux tables", "Uniquement les lignes sans correspondance"], 1, "Les lignes sans correspondance reçoivent des valeurs vides pour les colonnes de droite."],
+  ["Pourquoi remplacer des valeurs manquantes par la médiane plutôt que par la moyenne ?", ["C'est plus rapide à calculer", "La médiane résiste aux valeurs extrêmes", "La moyenne n'existe pas dans Excel", "Pour obtenir des nombres entiers"], 1, "Un seul ordinateur à 1 099 € tire la moyenne vers le haut, pas la médiane."],
+  ["Quelle fonction DAX récupère une colonne d'une table liée (côté « un » de la relation) ?", ["LOOKUP", "RELATED", "RECHERCHEX", "MERGE"], 1, "RELATED suit une relation existante ; LOOKUPVALUE fonctionne sans relation."],
+  ["En R, quel opérateur enchaîne les fonctions (pipe natif) ?", ["%in%", "|>", "->", "::"], 1, "|> est natif depuis R 4.1 ; %>% vient du package magrittr."],
+  ["Deux colonnes ont une corrélation de 0,9. On peut dire :", ["L'une cause l'autre", "Elles augmentent fortement ensemble", "Elles sont indépendantes", "Elles ont la même moyenne"], 1, "Forte relation linéaire positive, sans rien prouver sur la cause."],
+  ["En SQL, comment compter les valeurs distinctes d'une colonne ?", ["COUNT(col)", "COUNT(*)", "COUNT(DISTINCT col)", "DISTINCT COUNT(col)"], 2, "COUNT(col) compte les valeurs non vides ; COUNT(*) compte toutes les lignes."],
+  ["Que fait SUPPRESPACE (TRIM) dans Excel ?", ["Supprime tous les espaces", "Supprime les espaces au début, à la fin, et réduit les espaces multiples à un seul", "Supprime les caractères spéciaux", "Met la première lettre en majuscule"], 1, "C'est l'équivalent de str_squish() en R."],
+  ["Dans Power BI, pour afficher un total de ventes qui réagit aux filtres, on crée plutôt :", ["Une colonne calculée", "Une mesure", "Une nouvelle table", "Une requête Power Query"], 1, "La mesure se calcule dans le contexte de filtre du visuel."],
+  ["En pandas, que renvoie df.groupby(\"region\")[\"ca\"].sum() ?", ["Un DataFrame avec toutes les colonnes", "Une Series indexée par région", "Un nombre", "Une liste"], 1, "Ajoutez .reset_index() ou as_index=False pour retrouver un DataFrame."]];
+function renderQuiz() {
+  const ans = S.quiz, done = Object.keys(ans).length, ok = Object.entries(ans).filter(([i, a]) => QUIZ[i][2] === a).length;
+  $("#quizScore").innerHTML = `<b>${ok}</b> / ${done} bonnes réponses · ${QUIZ.length - done} restantes`;
+  $("#quizList").innerHTML = QUIZ.map(([qq, opts, good, ex], i) => { const a = ans[i]; return `<div class="qcard"><h3><span>${i + 1}.</span>${esc(qq)}</h3><div class="opts">${opts.map((o, j) => `<button type="button" class="opt${a != null && j === good ? " ok" : ""}${a === j && j !== good ? " ko" : ""}" data-q="${i}" data-a="${j}"${a != null ? " disabled" : ""}>${esc(o)}</button>`).join("")}</div>${a != null ? `<p class="expl"><b>${a === good ? "Exact." : "Pas tout à fait."}</b> ${esc(ex)}</p>` : ""}</div>`; }).join("");
+}
+$("#quizList").addEventListener("click", e => { const b = e.target.closest("[data-q]"); if (!b) return; S.quiz[b.dataset.q] = +b.dataset.a; save(); renderQuiz(); });
+$("#quizReset").onclick = () => { S.quiz = {}; save(); renderQuiz(); };
+
+/* ============ Import de données ============ */
+function parseDelimited(txt) {
+  txt = txt.replace(/^\uFEFF/, "").replace(/\r\n?/g, "\n").replace(/\n+$/, "");
+  const first = txt.split("\n")[0]; const sep = ["\t", ";", ","].map(s => [s, first.split(s).length]).sort((a, b) => b[1] - a[1])[0][0];
+  const rows = []; let row = [], cell = "", inq = false;
+  for (let i = 0; i < txt.length; i++) { const ch = txt[i];
+    if (inq) { if (ch === '"') { if (txt[i + 1] === '"') { cell += '"'; i++; } else inq = false; } else cell += ch; }
+    else if (ch === '"') inq = true; else if (ch === sep) { row.push(cell); cell = ""; } else if (ch === "\n") { row.push(cell); rows.push(row); row = []; cell = ""; } else cell += ch; }
+  row.push(cell); rows.push(row);
+  const decimal = sep !== "," && rows.slice(1, 50).some(r => r.some(v => /^-?\d+,\d+$/.test(v.trim()))) ? "," : ".";
+  return { sep, decimal, table: rows };
+}
+function fromTable(name, file, kind, table, sep = ",", decimal = ".") {
+  const hdr = table[0].map((h, i) => String(h ?? "").trim() || "col" + (i + 1)); const cols = [];
+  hdr.forEach(h => { let n = h, k = 2; while (cols.includes(n)) n = h + "_" + k++; cols.push(n); });
+  const conv = v => { if (v == null) return null; if (typeof v === "number") return v; if (v instanceof Date) return v.toISOString().slice(0, 10); let s = String(v).trim(); if (s === "" || /^(na|nan|null|n\/a)$/i.test(s)) return null; const t = decimal === "," ? s.replace(/\s/g, "").replace(",", ".") : s; if (/^-?\d+(\.\d+)?(e-?\d+)?$/i.test(t)) return Number(t); const fr = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(s); if (fr) return `${fr[3]}-${fr[2]}-${fr[1]}`; return s; };
+  const rows = table.slice(1).filter(r => r.some(v => v !== "" && v != null)).map(r => Object.fromEntries(cols.map((c, i) => [c, conv(r[i])])));
+  let key = sanitize(name), k = 2; while (BUILTIN.has(key) || (DS[key] && DS[key].file !== file)) key = sanitize(name) + "_" + k++;
+  DS[key] = { name: key, file, kind, sep, decimal, cols, rows };
+  S.ds = key; S.stepsBy[key] = []; S.sel = null; S.chart = null; S.chal = null; renderDsSel(); renderAll();
+  toast(`${rows.length} lignes et ${cols.length} colonnes chargées`);
+}
+$("#btnImport").onclick = () => $("#fileIn").click();
+$("#fileIn").onchange = e => {
+  const f = e.target.files[0]; if (!f) return; const rd = new FileReader();
+  if (/\.xlsx?$/i.test(f.name)) {
+    if (!window.XLSX) { toast("Lecture Excel indisponible : enregistrez le fichier en CSV"); return; }
+    rd.onload = () => { try { const wb = XLSX.read(rd.result, { type: "array", cellDates: true }); const t = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, defval: null, raw: true }); fromTable(f.name, f.name, "xlsx", t); } catch (err) { toast("Fichier Excel illisible : " + err.message); } };
+    rd.readAsArrayBuffer(f);
+  } else { rd.onload = () => { const p = parseDelimited(rd.result); fromTable(f.name, f.name, "csv", p.table, p.sep, p.decimal); }; rd.readAsText(f, "utf-8"); }
+  e.target.value = "";
+};
+$("#btnPaste").onclick = () => { $("#pasteBox").hidden = !$("#pasteBox").hidden; if (!$("#pasteBox").hidden) $("#pasteTxt").focus(); };
+$("#pasteCancel").onclick = () => $("#pasteBox").hidden = true;
+$("#pasteGo").onclick = () => { const t = $("#pasteTxt").value; if (!t.trim() || t.trim().split("\n").length < 2) { toast("Collez au moins une ligne d'en-têtes et une ligne de données"); return; } const p = parseDelimited(t), n = $("#pasteName").value || "mes_donnees"; fromTable(n, sanitize(n) + ".csv", "csv", p.table, p.sep === "\t" ? "," : p.sep, p.decimal); $("#pasteBox").hidden = true; };
+function toDelim(d, sep) { const cell = v => { if (v == null) return ""; let s = typeof v === "number" && sep === "\t" ? String(v).replace(".", ",") : String(v); return /[\t;,"\n]/.test(s) && sep !== "\t" ? '"' + s.replace(/"/g, '""') + '"' : s; }; return [d.cols.join(sep), ...d.rows.map(r => d.cols.map(c => cell(r[c])).join(sep))].join("\n"); }
+$("#copyTsv").onclick = () => copyText(toDelim(viewData(), "\t"));
+$("#copyCsv").onclick = () => copyText(toDelim(viewData(), ","));
+
+/* ============ Navigation et câblage ============ */
+function renderDsSel() { $("#dsSel").innerHTML = Object.keys(DS).map(n => `<option value="${esc(n)}"${n === S.ds ? " selected" : ""}>${esc(DS[n].file)} (${DS[n].rows.length} l.)</option>`).join(""); }
+$("#dsSel").onchange = e => { S.ds = e.target.value; S.sel = null; S.chart = null; renderAll(); };
+function setTab(t) { S.tab = t; save(); document.querySelectorAll("#tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === t)); document.querySelectorAll(".view").forEach(v => v.hidden = v.id !== "v-" + t); try { history.replaceState(null, "", "#" + t); } catch (e) { } }
+$("#tabs").onclick = e => { const b = e.target.closest("[data-tab]"); if (b) { setTab(b.dataset.tab); renderAll(); } };
+function renderAll() {
+  STAGES = run(S.ds, steps()); if (S.sel && !steps().some(s => s.id === S.sel)) S.sel = null;
+  $("#dsSel").value = S.ds;
+  ({ atelier: renderAtelier, explorer: renderExplorer, graphiques: renderCharts, defis: renderDefis, memo: renderMemo, quiz: renderQuiz })[S.tab]();
+  save();
+}
+$("#steps").addEventListener("click", onStepsClick);
+$("#steps").addEventListener("input", e => onStepsInput(e, false));
+$("#srcCard").onclick = () => { S.sel = S.sel === 0 ? null : 0; renderAtelier(); };
+$("#addGo").onclick = () => {
+  const t = $("#addStep").value, cur = STAGES[STAGES.length - 1], s = mk(t, STEPS[t].init(cur, cur.types));
+  steps().push(s); S.sel = s.id; S.codeMode = "all"; renderAll();
+  const li = document.querySelector(`.step[data-id="${s.id}"]`); if (li) li.scrollIntoView({ block: "nearest" });
+};
+$("#loadDemo").onclick = () => {
+  if (S.ds !== "ventes") { S.ds = "ventes"; }
+  S.stepsBy.ventes = DEMO(); S.sel = null; S.chal = null; renderAll(); toast("Exemple chargé : 7 étapes sur ventes.csv");
+};
+$("#clearSteps").onclick = () => { S.stepsBy[S.ds] = []; S.sel = null; renderAll(); };
+
+renderAddMenu(); renderDsSel(); renderStatic();
+const h = (location.hash || "").slice(1); if (["atelier", "explorer", "graphiques", "defis", "memo", "quiz"].includes(h)) S.tab = h;
+setTab(S.tab); renderAll();
+</script>
