@@ -25,9 +25,9 @@ Aucune installation : ouvrez `index.html` dans un navigateur (Chrome, Edge, Fire
 - **Cours** : 27 leçons en 6 parties (démarrer, préparer, transformer et combiner, Excel et Power BI avancés, analyser et communiquer, bonnes pratiques). Chaque leçon contient explications, tableaux comparatifs, exemples de code dans les 5 outils, « À retenir », « Pièges fréquents » et un lien vers un exercice. La progression est mémorisée.
 - **Explorer** : diagnostic qualité automatique (doublons, vides, valeurs écrites de plusieurs façons, nombres stockés en texte, valeurs aberrantes) avec ajout de l'étape de correction en un clic ; profil de chaque colonne, corrélations, code d'exploration.
 - **Graphiques** : barres, courbe, nuage de points, histogramme, avec le code matplotlib, ggplot2, SQL, et les étapes Excel/Power BI.
-- **Fonctions** : dictionnaire d'environ 200 fonctions (Excel FR/EN, DAX, Power Query M, pandas, R, SQL) avec exemple et recherche.
+- **Fonctions** : dictionnaire de 183 fonctions (Excel FR/EN, DAX, Power Query M, pandas, R, SQL) avec exemple et recherche.
 - **Défis** : 15 exercices corrigés automatiquement (débutant → avancé).
-- **Mémo** : table de correspondance d'environ 70 opérations dans les 5 outils, guide « quel outil pour quoi » et lexique de 36 termes.
+- **Mémo** : table de correspondance de 63 opérations dans les 5 outils, guide « quel outil pour quoi » et lexique de 36 termes.
 - **Quiz** : 40 questions avec explications.
 
 ## Vos propres données
