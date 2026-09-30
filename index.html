@@ -236,6 +236,56 @@ table.memo td:first-child{font-weight:600;width:170px}
 .drawer .addrow{flex-wrap:wrap}
 .drawer .addrow input{flex:1 1 180px;min-width:0}
 .drawer textarea{width:100%;min-height:140px;font-family:var(--f-mono);font-size:.8rem}
+/* Cours */
+.cours{display:grid;grid-template-columns:minmax(240px,300px) minmax(0,1fr);gap:28px;align-items:start}
+.lnav{position:sticky;top:calc(env(safe-area-inset-top,0px) + 112px);max-height:calc(100vh - 132px);overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px}
+@media (max-width:900px){.cours{grid-template-columns:minmax(0,1fr)}.lnav{position:static;max-height:300px}}
+.lprog .bar{height:6px;background:var(--surface-2);border-radius:3px;margin:6px 0 2px}
+.lprog .bar i{display:block;height:100%;background:var(--accent);border-radius:3px}
+.lpart h3{font-family:var(--f-body);font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3);margin:14px 0 4px}
+.lpart ol{list-style:none;margin:0;padding:0}
+.lpart button{display:grid;grid-template-columns:14px minmax(0,1fr) auto;gap:6px;align-items:baseline;width:100%;text-align:left;background:none;border:0;border-radius:6px;padding:5px 6px;font-size:.86rem;color:var(--ink-2)}
+.lpart button:hover{background:var(--surface-2);color:var(--ink)}
+.lpart button[aria-current="true"]{background:var(--accent-soft);color:var(--ink);font-weight:600}
+.lpart .ck{color:var(--good);font-weight:700}
+.lpart small{color:var(--ink-3);font-size:.72rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lesson{min-width:0;max-width:900px}
+.ltitle{font-size:clamp(1.5rem,3.2vw,2.1rem);margin:4px 0 10px}
+.lead{font-size:1.06rem;color:var(--ink-2);max-width:68ch}
+.lsec{margin-top:28px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.lsec h3{font-size:1.15rem}
+.lsec p,.lsec li{max-width:74ch}
+.lsec ul,.lsec ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:6px}
+.ltwrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+table.lt{border-collapse:collapse;width:100%;font-size:.85rem}
+table.lt th,table.lt td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+table.lt th{background:var(--surface-2);font-weight:600;white-space:nowrap}
+table.lt tr:last-child td{border-bottom:0}
+table.lt td:first-child{font-weight:600}
+.lcode pre.code{max-height:480px}
+.lboxes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:30px}
+.lbox{border-radius:var(--r);padding:12px 16px;border:1px solid}
+.lbox.keys{background:var(--good-soft);border-color:var(--good)}
+.lbox.traps{background:var(--warn-soft);border-color:var(--warn)}
+.lbox h3{font-size:.95rem;margin-bottom:6px}
+.lbox ul{margin:0;padding-left:18px;font-size:.9rem;display:flex;flex-direction:column;gap:4px}
+.lacts{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}
+.lacts .sp{flex:1}
+svg.star{display:block;width:100%;min-width:520px;height:auto}
+svg.star .st1{fill:var(--ink);font-weight:700;font-size:14px;font-family:var(--f-body)}
+svg.star .st2{fill:var(--ink-3);font-size:11.5px;font-family:var(--f-body)}
+svg.star .st3{fill:var(--accent);font-weight:700;font-size:15px;font-family:var(--f-body)}
+/* Diagnostic et fonctions */
+.diag{margin-bottom:16px}
+.diaglist{list-style:none;margin:0;padding:0}
+.diaglist li{display:grid;grid-template-columns:92px minmax(0,1fr) auto;gap:12px;align-items:start;padding:10px 14px;border-bottom:1px solid var(--line)}
+.diaglist li:last-child{border-bottom:0}
+.diaglist .pill{justify-self:start}
+.diaglist p{font-size:.85rem;color:var(--ink-2)}
+@media (max-width:560px){.diaglist li{grid-template-columns:1fr}}
+table.memo.fun{min-width:760px}
+table.memo.fun td:first-child{width:auto}
+.tool{display:inline-block;font-size:.74rem;font-weight:600;border-radius:4px;padding:2px 8px;white-space:nowrap;background:var(--surface-2);box-shadow:inset 3px 0 0 var(--tc)}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:6px;font-size:.88rem;z-index:50;max-width:calc(100% - 32px)}
 .empty{padding:28px 16px;text-align:center;color:var(--ink-3);font-size:.9rem}
 @media (max-width:560px){.fields{grid-template-columns:1fr}.brand span{display:none}.xrow{grid-template-columns:1fr}}
@@ -256,8 +306,10 @@ table.memo td:first-child{font-weight:600;width:170px}
   </div>
   <nav class="tabs" role="tablist" id="tabs">
     <button role="tab" data-tab="atelier">Atelier</button>
+    <button role="tab" data-tab="cours">Cours</button>
     <button role="tab" data-tab="explorer">Explorer</button>
     <button role="tab" data-tab="graphiques">Graphiques</button>
+    <button role="tab" data-tab="fonctions">Fonctions</button>
     <button role="tab" data-tab="defis">Défis</button>
     <button role="tab" data-tab="memo">Mémo</button>
     <button role="tab" data-tab="quiz">Quiz</button>
@@ -304,6 +356,7 @@ table.memo td:first-child{font-weight:600;width:170px}
 <section class="view" id="v-explorer" hidden>
   <div class="section-h" style="margin-top:0"><h2>Explorer les données</h2><p id="exSub"></p></div>
   <div class="tiles" id="exTiles"></div>
+  <div id="exDiag"></div>
   <div class="grid" id="exCols"></div>
   <div class="section-h"><h2>Corrélations</h2><p>Coefficient de Pearson entre colonnes numériques : −1 (varient en sens inverse) à +1 (varient ensemble).</p></div>
   <div class="twocol">
@@ -321,6 +374,16 @@ table.memo td:first-child{font-weight:600;width:170px}
     </div>
     <div class="panel" id="codeChart"></div>
   </div>
+</section>
+
+<section class="view" id="v-cours" hidden>
+  <div class="cours"><nav class="lnav" id="lnav" aria-label="Leçons"></nav><article class="lesson" id="lesson"></article></div>
+</section>
+
+<section class="view" id="v-fonctions" hidden>
+  <div class="section-h" style="margin-top:0"><h2>Dictionnaire des fonctions</h2><p>Les fonctions les plus utiles de chaque outil, avec un exemple. Pour Excel : nom français, puis anglais entre parenthèses.</p><span class="count" id="funCount"></span></div>
+  <div class="memo-tools"><input type="text" id="funQ" placeholder="Rechercher : date, doublon, CALCULATE, jointure…" aria-label="Rechercher une fonction"><div class="chips" id="funTools"></div></div>
+  <div class="memowrap"><table class="memo fun" id="funTbl"></table></div>
 </section>
 
 <section class="view" id="v-defis" hidden>
@@ -791,7 +854,7 @@ const STEPS = {
     pbi(p, c) { const t = sanitize(p.ds), rc = this.rcols(p, { cols: c.inCols }); return { ui: `Vue Modèle : glisser ${c.T}[${p.lk}] sur ${t}[${p.rk}] pour créer une relation plusieurs-à-un. Les colonnes de ${t} sont alors utilisables directement dans les visuels, sans fusion.`, dax: rc.map(([x, n]) => `${n} = RELATED(${t}[${x}])`).join("\n") }; }
   }
 };
-const CATS = ["Sélectionner", "Nettoyer", "Transformer", "Agréger", "Remodeler", "Combiner"];
+const CATS = ["Sélectionner", "Nettoyer", "Transformer", "Calculer", "Agréger", "Remodeler", "Combiner"];
 
 /* ============ État ============ */
 let DS = makeData();
@@ -805,15 +868,15 @@ const DEMO = () => [
   mk("join", { ds: "produits", lk: "produit_id", rk: "produit_id", how: "left" }),
   mk("groupby", { keys: ["categorie"], a1c: "ca", a1f: "sum", a2c: "commande", a2f: "count" }),
   mk("sort", { col: "somme_ca", dir: "desc" })];
-const S = { ds: "ventes", stepsBy: { ventes: DEMO() }, sel: null, tab: "atelier", lang: "py", codeMode: "all", chal: null, chart: null, quiz: {}, done: {} };
+const S = { ds: "ventes", stepsBy: { ventes: DEMO() }, sel: null, tab: "atelier", lang: "py", codeMode: "all", chal: null, chart: null, quiz: {}, done: {}, read: {}, lesson: "l1" };
 (function restore() {
   const s = store("atelier-donnees-v1"); if (!s) return;
   if (s.stepsBy) for (const k in s.stepsBy) if (DS[k]) S.stepsBy[k] = s.stepsBy[k].map(x => ({ ...x, id: uid++ }));
-  if (s.ds && DS[s.ds]) S.ds = s.ds; ["lang", "tab", "quiz", "done"].forEach(k => { if (s[k] != null) S[k] = s[k]; });
+  if (s.ds && DS[s.ds]) S.ds = s.ds; ["lang", "tab", "quiz", "done", "read", "lesson"].forEach(k => { if (s[k] != null) S[k] = s[k]; });
   if (s.chal && CHAL_IDS().includes(s.chal)) S.chal = s.chal;
 })();
-function CHAL_IDS() { return ["d1", "d2", "d3", "d4", "d5", "d6", "d7", "d8", "d9"]; }
-function save() { store("atelier-donnees-v1", { ds: S.ds, stepsBy: Object.fromEntries(Object.entries(S.stepsBy).filter(([k]) => BUILTIN.has(k))), lang: S.lang, tab: S.tab, quiz: S.quiz, done: S.done, chal: S.chal }); }
+function CHAL_IDS() { return Array.from({ length: 15 }, (_, i) => "d" + (i + 1)); }
+function save() { store("atelier-donnees-v1", { ds: S.ds, stepsBy: Object.fromEntries(Object.entries(S.stepsBy).filter(([k]) => BUILTIN.has(k))), lang: S.lang, tab: S.tab, quiz: S.quiz, done: S.done, chal: S.chal, read: S.read, lesson: S.lesson }); }
 const steps = () => S.stepsBy[S.ds] || (S.stepsBy[S.ds] = []);
 const base = () => DS[S.ds];
 
@@ -1026,6 +1089,8 @@ function onStepsInput(e, full) {
   const li = inp.closest(".step"), s = steps().find(x => x.id === +li.dataset.id), k = inp.dataset.k;
   s.p[k] = inp.value;
   if (k === "ds") { const R = DS[inp.value]; s.p.rk = R.cols.find(c => STAGES[steps().indexOf(s)].cols.includes(c)) || R.cols[0]; }
+  if (s.type === "window" && k === "fn") s.p.name = WNAME[inp.value];
+  if (s.type === "outliers" && k === "col") s.p.name = inp.value + "_aberrant";
   if (s.type === "date" && k === "part") s.p.name = { year: "annee", month: "mois", quarter: "trimestre", day: "jour", weekday: "jour_semaine" }[inp.value];
   changed(full || inp.tagName === "SELECT", inp.id);
 }
@@ -1042,7 +1107,7 @@ function changed(full, focusId) {
 function profile(d) {
   return d.cols.map(c => {
     const t = d.types[c], vals = d.rows.map(r => r[c]), nn = vals.filter(v => v != null), o = { c, t, n: d.rows.length, miss: vals.length - nn.length, uniq: new Set(nn.map(String)).size };
-    if (t === "num") { const s = nn.slice().sort((a, b) => a - b); if (s.length) { const m = s.reduce((a, b) => a + b, 0) / s.length; Object.assign(o, { mean: m, std: s.length > 1 ? Math.sqrt(s.reduce((a, b) => a + (b - m) ** 2, 0) / (s.length - 1)) : 0, min: s[0], q1: quant(s, .25), med: quant(s, .5), q3: quant(s, .75), max: s[s.length - 1], s }); } }
+    if (t === "num") { const s = nn.slice().sort((a, b) => a - b); if (s.length) { const m = s.reduce((a, b) => a + b, 0) / s.length; Object.assign(o, { mean: m, std: s.length > 1 ? Math.sqrt(s.reduce((a, b) => a + (b - m) ** 2, 0) / (s.length - 1)) : 0, min: s[0], q1: quant(s, .25), med: quant(s, .5), q3: quant(s, .75), max: s[s.length - 1], s }); const e = o.q3 - o.q1; o.out = s.filter(v => v < o.q1 - 1.5 * e || v > o.q3 + 1.5 * e).length; } }
     else { const cnt = new Map(); nn.forEach(v => cnt.set(String(v), (cnt.get(String(v)) || 0) + 1)); o.top = [...cnt].sort((a, b) => b[1] - a[1]).slice(0, 5); if (t === "date" && nn.length) { const s = nn.map(String).sort(); o.min = s[0]; o.max = s[s.length - 1]; } }
     return o;
   });
@@ -1067,7 +1132,7 @@ function renderExplorer() {
   $("#exCols").innerHTML = P.map(p => {
     const mp = p.n ? p.miss / p.n * 100 : 0, pill = p.miss ? `<span class="pill ${mp > 10 ? "bad" : "warn"}">${p.miss} vide${p.miss > 1 ? "s" : ""}</span>` : `<span class="pill good">complète</span>`;
     let body = "";
-    if (p.t === "num" && p.s) body = `<dl class="kv"><dt>Moyenne</dt><dd>${fmt(p.mean)}</dd><dt>Écart-type</dt><dd>${fmt(p.std)}</dd><dt>Min · Max</dt><dd>${fmt(p.min)} · ${fmt(p.max)}</dd><dt>Q1 · Médiane · Q3</dt><dd>${fmt(p.q1)} · ${fmt(p.med)} · ${fmt(p.q3)}</dd><dt>Valeurs distinctes</dt><dd>${p.uniq}</dd></dl>${miniHist(p.s)}`;
+    if (p.t === "num" && p.s) body = `<dl class="kv"><dt>Moyenne</dt><dd>${fmt(p.mean)}</dd><dt>Écart-type</dt><dd>${fmt(p.std)}</dd><dt>Min · Max</dt><dd>${fmt(p.min)} · ${fmt(p.max)}</dd><dt>Q1 · Médiane · Q3</dt><dd>${fmt(p.q1)} · ${fmt(p.med)} · ${fmt(p.q3)}</dd><dt>Valeurs distinctes</dt><dd>${p.uniq}</dd><dt>Aberrantes (IQR)</dt><dd>${p.out}</dd></dl>${miniHist(p.s)}`;
     else if (p.top) { const mx = p.top[0]?.[1] || 1; body = `<dl class="kv"><dt>Valeurs distinctes</dt><dd>${p.uniq}</dd>${p.min ? `<dt>Du · au</dt><dd>${p.min} · ${p.max}</dd>` : ""}</dl><div class="bars">${p.top.map(([v, n]) => `<div class="b"><span class="l"><i style="width:${n / mx * 100}%"></i>${esc(v)}</span><span class="v">${n}</span></div>`).join("")}</div>`; }
     return `<div class="card colcard"><div class="top"><h3 title="${esc(p.c)}">${esc(p.c)}</h3><span class="pill">${TYL[p.t]}</span>${pill}</div>${body}</div>`;
   }).join("");
@@ -1078,6 +1143,7 @@ function renderExplorer() {
     const cell = (a, b) => { const rs = d.rows.filter(r => isNum(r[a]) && isNum(r[b])); return corr(rs.map(r => r[a]), rs.map(r => r[b])); };
     $("#exCorr").innerHTML = `<table class="heat"><thead><tr><th></th>${nc.map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${nc.map(a => `<tr><th>${esc(a)}</th>${nc.map(b => { const r = cell(a, b); if (r == null) return `<td style="background:${mid}">–</td>`; const bg = mix(mid, r < 0 ? neg : pos, Math.min(1, Math.abs(r))); return `<td style="background:${bg};color:${Math.abs(r) > .55 ? "#fff" : ink}" title="${esc(a)} × ${esc(b)} : ${r.toFixed(2)}">${r.toFixed(2).replace(".", ",")}</td>`; }).join("")}</tr>`).join("")}</tbody></table><div class="legend-div"><span>−1</span><i></i><span>+1</span></div><p class="muted" style="font-size:.82rem;margin-top:8px">Une corrélation mesure une relation linéaire, pas une causalité.</p>`;
   }
+  renderDiag(d);
   renderExploreCode();
 }
 function renderExploreCode() {
@@ -1215,7 +1281,7 @@ function checkChal(ch) {
 function renderDefis() {
   $("#chalList").innerHTML = CHAL.map(c => `<div class="card chal"><div class="top"><h3>${esc(c.t)}</h3>${S.done[c.id] ? `<span class="pill good">✓ réussi</span>` : ""}</div><div><span class="pill ${c.lvl === "Débutant" ? "" : c.lvl === "Avancé" ? "warn" : ""}">${c.lvl}</span> <span class="pill">jeu : ${c.ds}</span></div><p style="font-size:.9rem">${esc(c.q)}</p><div class="acts"><button class="btn pri" type="button" data-start="${c.id}">Commencer</button></div></div>`).join("");
 }
-$("#chalList").addEventListener("click", e => { const b = e.target.closest("[data-start]"); if (!b) return; const ch = CHAL.find(c => c.id === b.dataset.start); S.chal = ch.id; S.ds = ch.ds; S.stepsBy[ch.ds] = []; S.sel = null; S.chart = null; setTab("atelier"); renderAll(); window.scrollTo(0, 0); });
+$("#chalList").addEventListener("click", e => { const b = e.target.closest("[data-start]"); if (!b) return; startChal(b.dataset.start); });
 
 /* ============ Mémo ============ */
 const MEMO = [
@@ -1375,6 +1441,1407 @@ function toDelim(d, sep) { const cell = v => { if (v == null) return ""; let s =
 $("#copyTsv").onclick = () => copyText(toDelim(viewData(), "\t"));
 $("#copyCsv").onclick = () => copyText(toDelim(viewData(), ","));
 
+/* ============ Étapes supplémentaires ============ */
+Object.assign(XLFR, { "RANK.EQ": "RANG", IFS: "SI.CONDITIONS", LET: "LET", TEXTBEFORE: "TEXTE.AVANT", TEXTAFTER: "TEXTE.APRES", TEXTSPLIT: "FRACTIONNER.TEXTE", "PERCENTILE.INC": "CENTILE.INCLURE" });
+function bounds(vals, method) {
+  const s = vals.filter(isNum).sort((a, b) => a - b); need(s.length >= 4, "Il faut au moins 4 valeurs numériques");
+  if (method === "iqr") { const q1 = quant(s, .25), q3 = quant(s, .75), e = q3 - q1; return [q1 - 1.5 * e, q3 + 1.5 * e]; }
+  const m = s.reduce((a, b) => a + b, 0) / s.length, sd = Math.sqrt(s.reduce((a, b) => a + (b - m) ** 2, 0) / (s.length - 1)); return [m - 3 * sd, m + 3 * sd];
+}
+function parseBreaks(t) {
+  const b = String(t ?? "").split(/;|\s+|,\s+/).filter(x => x !== "").map(x => Number(x.replace(",", ".")));
+  need(b.length >= 2 && b.every(isFinite), "Indiquez au moins deux bornes numériques, séparées par des espaces");
+  need(b.every((v, i) => !i || v > b[i - 1]), "Les bornes doivent être strictement croissantes"); return b;
+}
+const binLabels = b => b.slice(0, -1).map((v, i) => `${v}-${b[i + 1]}`);
+const WNAME = { rank: "rang", cumsum: "cumul", pct: "part_pct", diffmean: "ecart_moyenne" };
+Object.assign(STEPS, {
+  replace: {
+    cat: "Nettoyer", name: "Rechercher et remplacer",
+    why: "Remplacer un morceau de texte par un autre dans toute une colonne : corriger une faute récurrente, retirer un symbole (€, %), harmoniser une abréviation. La recherche respecte les majuscules et remplace toutes les occurrences.",
+    fields: [{ k: "col", t: "col", label: "Colonne" }, { k: "find", t: "text", label: "Rechercher" }, { k: "repl", t: "text", label: "Remplacer par (vide = supprimer)", full: 1 }],
+    init: (d, ty) => ({ col: d.cols.includes("region") ? "region" : d.cols.find(c => ty[c] === "text") || d.cols[0], find: "Île-de-France", repl: "IDF" }),
+    label: p => `${p.col} : « ${p.find} » → « ${p.repl} »`,
+    apply(d, p, x) { hasCol(d, p.col); need(p.find, "Indiquez le texte à rechercher"); need(x.types[p.col] !== "num", "Choisissez une colonne de texte (ou convertissez-la d'abord en texte)"); return { cols: d.cols, rows: d.rows.map(r => r[p.col] == null ? r : { ...r, [p.col]: String(r[p.col]).split(p.find).join(p.repl ?? "") }) }; },
+    py: (p, c) => `${pyc(p.col)} = ${pyc(p.col)}${c.types[p.col] === "text" ? "" : '.astype("string")'}.str.replace(${q(p.find)}, ${q(p.repl ?? "")}, regex=False)`,
+    r: p => `mutate(${rid(p.col)} = str_replace_all(as.character(${rid(p.col)}), fixed(${q(p.find)}), ${q(p.repl ?? "")}))`,
+    sql: (p, c) => selectReplace(c.inCols, p.col, `REPLACE(${c.types[p.col] === "text" ? sid(p.col) : `CAST(${sid(p.col)} AS VARCHAR)`}, ${L(p.find, "sql")}, ${L(p.repl ?? "", "sql")})`) + ` FROM ${c.prev}`,
+    m: p => `Table.ReplaceValue($prev, ${q(p.find)}, ${q(p.repl ?? "")}, Replacer.ReplaceText, {${q(p.col)}})`,
+    xl: p => ({ f: `SUBSTITUTE([@${xr(p.col)}],${q(p.find)},${q(p.repl ?? "")})`, col: 1, ui: "Accueil › Rechercher et sélectionner › Remplacer (Ctrl+H). Cochez « Respecter la casse » pour obtenir le même comportement." }),
+    pbi: (p, c) => ({ ui: "Power Query : clic droit sur l'en-tête › Remplacer les valeurs (options avancées : décocher « Respecter le contenu de toute la cellule »).", dax: `${p.col}_corrige = SUBSTITUTE(${c.T}[${p.col}], ${q(p.find)}, ${q(p.repl ?? "")})` })
+  },
+  split: {
+    cat: "Nettoyer", name: "Séparer une colonne",
+    why: "Couper une colonne en deux au premier séparateur : « Marie Dupont » devient « Marie » et « Dupont ». Sans séparateur, la 2e partie reste vide. Astuce : nettoyez les espaces avant, sinon une espace en tête crée une 1re partie vide.",
+    fields: [{ k: "col", t: "col", label: "Colonne" }, { k: "sep", t: "text", label: "Séparateur (une espace est acceptée)" }, { k: "n1", t: "text", label: "Nom de la 1re partie" }, { k: "n2", t: "text", label: "Nom de la 2e partie" }],
+    init: (d, ty) => ({ col: d.cols.includes("vendeur") ? "vendeur" : d.cols.find(c => ty[c] === "text") || d.cols[0], sep: " ", n1: "prenom", n2: "nom" }),
+    label: p => `${p.col} → ${p.n1}, ${p.n2} (séparateur « ${p.sep} »)`,
+    apply(d, p) { hasCol(d, p.col); need(p.sep, "Indiquez un séparateur"); need(p.n1 && p.n2 && p.n1 !== p.n2, "Donnez deux noms différents"); const cols = [...d.cols]; [p.n1, p.n2].forEach(n => { if (!cols.includes(n)) cols.push(n); });
+      return { cols, rows: d.rows.map(r => { const v = r[p.col]; if (v == null) return { ...r, [p.n1]: null, [p.n2]: null }; const s = String(v), i = s.indexOf(p.sep); return { ...r, [p.n1]: i < 0 ? s : s.slice(0, i), [p.n2]: i < 0 ? null : s.slice(i + p.sep.length) }; }) }; },
+    py: (p, c) => `df[[${q(p.n1)}, ${q(p.n2)}]] = ${pyc(p.col)}${c.types[p.col] === "text" ? "" : '.astype("string")'}.str.split(${q(p.sep)}, n=1, expand=True, regex=False)`,
+    r: (p, c) => (c.types[p.col] === "text" ? "" : `mutate(${rid(p.col)} = as.character(${rid(p.col)})) |>\n  `) + `separate_wider_delim(${rid(p.col)}, delim = ${q(p.sep)}, names = c(${q(p.n1)}, ${q(p.n2)}),\n                       too_few = "align_start", too_many = "merge", cols_remove = FALSE)`,
+    sql: (p, c) => { const s = c.types[p.col] === "text" ? sid(p.col) : `CAST(${sid(p.col)} AS VARCHAR)`, d = L(p.sep, "sql"); return `SELECT *,\n    SPLIT_PART(${s}, ${d}, 1) AS ${sid(p.n1)},\n    CASE WHEN STRPOS(${s}, ${d}) > 0 THEN SUBSTRING(${s}, STRPOS(${s}, ${d}) + ${p.sep.length}) END AS ${sid(p.n2)}\n  FROM ${c.prev}`; },
+    m: p => [`Table.AddColumn($prev, ${q(p.n1)}, each if [${p.col}] = null then null else if Text.Contains([${p.col}], ${q(p.sep)}) then Text.BeforeDelimiter([${p.col}], ${q(p.sep)}) else [${p.col}], type text)`,
+      `Table.AddColumn($prev, ${q(p.n2)}, each if [${p.col}] <> null and Text.Contains([${p.col}], ${q(p.sep)}) then Text.AfterDelimiter([${p.col}], ${q(p.sep)}) else null, type text)`],
+    xl: p => ({ f: `IFERROR(TEXTBEFORE([@${xr(p.col)}],${q(p.sep)}),[@${xr(p.col)}])`, f2: `IFERROR(TEXTAFTER([@${xr(p.col)}],${q(p.sep)}),"")`, col: 1, ui: "Données › Convertir (assistant) › Délimité › choisir le séparateur. Ou Power Query › Fractionner la colonne › Par délimiteur › « Délimiteur le plus à gauche ».", note: "TEXTE.AVANT / TEXTE.APRES : Excel 365. Avant : GAUCHE(x;CHERCHE(\" \";x)-1)." }),
+    pbi: (p, c) => ({ ui: "Power Query › Transformer › Fractionner la colonne › Par délimiteur › Fractionner à : délimiteur le plus à gauche.", dax: `${p.n1} =\nVAR pos = SEARCH(${q(p.sep)}, ${c.T}[${p.col}], 1, 0)\nRETURN IF(pos = 0, ${c.T}[${p.col}], LEFT(${c.T}[${p.col}], pos - 1))` })
+  },
+  outliers: {
+    cat: "Nettoyer", name: "Valeurs aberrantes",
+    why: "Repérer les valeurs anormalement grandes ou petites. Méthode IQR : hors de [Q1 − 1,5×IQR ; Q3 + 1,5×IQR] (celle des boîtes à moustaches). Méthode z-score : à plus de 3 écarts-types de la moyenne. Ensuite : les signaler, les retirer, ou les plafonner aux bornes.",
+    fields: [{ k: "col", t: "col", label: "Colonne", kind: "num" }, { k: "method", t: "sel", label: "Méthode", opts: [["iqr", "IQR (écart interquartile)"], ["z", "z-score (3 écarts-types)"]] }, { k: "action", t: "sel", label: "Action", opts: [["flag", "Signaler (nouvelle colonne VRAI/FAUX)"], ["remove", "Retirer les lignes"], ["clip", "Plafonner aux bornes"]], full: 1 }, { k: "name", t: "text", label: "Nom de la colonne signal", show: p => p.action === "flag", full: 1 }],
+    init: (d, ty) => { const c = d.cols.includes("ca") ? "ca" : d.cols.find(x => ty[x] === "num") || d.cols[0]; return { col: c, method: "iqr", action: "flag", name: c + "_aberrant" }; },
+    label: p => `${p.col} (${p.method === "iqr" ? "IQR" : "z-score"}) : ${{ flag: "signaler", remove: "retirer", clip: "plafonner" }[p.action]}`,
+    apply(d, p) { hasCol(d, p.col); const [lo, hi] = bounds(d.rows.map(r => r[p.col]), p.method), out = v => isNum(v) && (v < lo || v > hi);
+      if (p.action === "remove") return { cols: d.cols, rows: d.rows.filter(r => !out(r[p.col])) };
+      if (p.action === "clip") return { cols: d.cols, rows: d.rows.map(r => isNum(r[p.col]) ? { ...r, [p.col]: Math.min(Math.max(r[p.col], lo), hi) } : r) };
+      need(p.name, "Nommez la colonne signal"); return { cols: d.cols.includes(p.name) ? d.cols : [...d.cols, p.name], rows: d.rows.map(r => ({ ...r, [p.name]: out(r[p.col]) })) }; },
+    py(p) { const s = pyc(p.col), b = p.method === "iqr" ? `q1, q3 = ${s}.quantile([0.25, 0.75])\nbas, haut = q1 - 1.5 * (q3 - q1), q3 + 1.5 * (q3 - q1)` : `m, s = ${s}.mean(), ${s}.std()\nbas, haut = m - 3 * s, m + 3 * s`;
+      return b + "\n" + { flag: `${pyc(p.name)} = (${s} < bas) | (${s} > haut)`, remove: `df = df[~((${s} < bas) | (${s} > haut))]`, clip: `${s} = ${s}.clip(bas, haut)` }[p.action]; },
+    r(p) { const c = rid(p.col), lo = p.method === "iqr" ? `quantile(${c}, 0.25, na.rm = TRUE) - 1.5 * IQR(${c}, na.rm = TRUE)` : `mean(${c}, na.rm = TRUE) - 3 * sd(${c}, na.rm = TRUE)`, hi = p.method === "iqr" ? `quantile(${c}, 0.75, na.rm = TRUE) + 1.5 * IQR(${c}, na.rm = TRUE)` : `mean(${c}, na.rm = TRUE) + 3 * sd(${c}, na.rm = TRUE)`;
+      const cond = `${c} < ${lo} |\n    ${c} > ${hi}`;
+      return { flag: `mutate(${rid(p.name)} = coalesce(\n    ${cond}, FALSE))`, remove: `filter(!coalesce(\n    ${cond}, FALSE))`, clip: `mutate(${c} = pmin(pmax(${c},\n    ${lo}),\n    ${hi}))` }[p.action]; },
+    sql(p, c) { const s = sid(p.col), b = p.method === "iqr" ? `SELECT QUANTILE_CONT(${s}, 0.25) - 1.5 * (QUANTILE_CONT(${s}, 0.75) - QUANTILE_CONT(${s}, 0.25)) AS _bas,\n           QUANTILE_CONT(${s}, 0.75) + 1.5 * (QUANTILE_CONT(${s}, 0.75) - QUANTILE_CONT(${s}, 0.25)) AS _haut FROM ${c.prev}` : `SELECT AVG(${s}) - 3 * STDDEV_SAMP(${s}) AS _bas, AVG(${s}) + 3 * STDDEV_SAMP(${s}) AS _haut FROM ${c.prev}`;
+      const from = `FROM ${c.prev} AS t, (\n    ${b}\n  ) AS b`;
+      return { flag: `SELECT t.*, COALESCE(t.${s} < b._bas OR t.${s} > b._haut, FALSE) AS ${sid(p.name)}\n  ${from}`, remove: `SELECT t.* ${from}\n  WHERE t.${s} IS NULL OR t.${s} BETWEEN b._bas AND b._haut`, clip: "SELECT " + c.inCols.map(x => x === p.col ? `CASE WHEN t.${s} IS NULL THEN NULL ELSE LEAST(GREATEST(t.${s}, b._bas), b._haut) END AS ${s}` : "t." + sid(x)).join(", ") + `\n  ${from}` }[p.action]; },
+    m(p) { const c = p.col, st = p.method === "iqr" ? `L = List.RemoveNulls($prev[${c}]), q1 = List.Percentile(L, 0.25, [PercentileMode = PercentileMode.ExcelInc]), q3 = List.Percentile(L, 0.75, [PercentileMode = PercentileMode.ExcelInc]), bas = q1 - 1.5 * (q3 - q1), haut = q3 + 1.5 * (q3 - q1)` : `L = List.RemoveNulls($prev[${c}]), m = List.Average(L), s = List.StandardDeviation(L), bas = m - 3 * s, haut = m + 3 * s`;
+      return `let ${st} in ` + { flag: `Table.AddColumn($prev, ${q(p.name)}, each [${c}] <> null and ([${c}] < bas or [${c}] > haut), type logical)`, remove: `Table.SelectRows($prev, each [${c}] = null or ([${c}] >= bas and [${c}] <= haut))`, clip: `Table.TransformColumns($prev, {{${q(c)}, each if _ = null then null else List.Max({bas, List.Min({_, haut})}), type number}})` }[p.action]; },
+    xl(p, c) { const a = `${c.T}[${xr(p.col)}]`, v = `[@${xr(p.col)}]`, lets = p.method === "iqr" ? `q1,QUARTILE.INC(${a},1),q3,QUARTILE.INC(${a},3),bas,q1-1.5*(q3-q1),haut,q3+1.5*(q3-q1),` : `m,AVERAGE(${a}),s,STDEV.S(${a}),bas,m-3*s,haut,m+3*s,`;
+      const flag = `LET(${lets}AND(NOT(ISBLANK(${v})),OR(${v}<bas,${v}>haut)))`;
+      return { f: p.action === "clip" ? `LET(${lets}IF(ISBLANK(${v}),"",MEDIAN(bas,${v},haut)))` : flag, col: 1, ui: p.action === "remove" ? "Ajoutez la colonne signal avec cette formule, filtrez-la sur VRAI, supprimez les lignes visibles, puis retirez le filtre." : p.action === "clip" ? "La MEDIANE de (bas ; valeur ; haut) ramène la valeur dans les bornes. Collez ensuite en valeurs." : "Colonne signal. Pour visualiser : Insertion › Graphique statistique › Zone et valeur (boîte à moustaches).", note: "LET : Excel 365 / 2021." }; },
+    pbi(p, c) { const a = `${c.T}[${p.col}]`; return { ui: "Visuel « Boîte à moustaches » (AppSource) ou nuage de points pour repérer les points isolés. Le filtrage se fait en Power Query avec le code M ci-dessus.", dax: `${p.col}_aberrant =\n${p.method === "iqr" ? `VAR q1 = PERCENTILE.INC(${a}, 0.25)\nVAR q3 = PERCENTILE.INC(${a}, 0.75)\nVAR bas = q1 - 1.5 * (q3 - q1)\nVAR haut = q3 + 1.5 * (q3 - q1)` : `VAR m = AVERAGE(${a})\nVAR s = STDEV.S(${a})\nVAR bas = m - 3 * s\nVAR haut = m + 3 * s`}\nRETURN NOT ISBLANK(${a}) && (${a} < bas || ${a} > haut)` }; }
+  },
+  bins: {
+    cat: "Transformer", name: "Découper en classes",
+    why: "Transformer un nombre en tranches (0-100, 100-500…) pour compter ou comparer par catégorie. Chaque classe inclut sa borne basse et exclut sa borne haute : 100 tombe dans « 100-500 ». Une valeur hors des bornes reste vide.",
+    fields: [{ k: "col", t: "col", label: "Colonne", kind: "num" }, { k: "name", t: "text", label: "Nom de la nouvelle colonne" }, { k: "breaks", t: "text", label: "Bornes croissantes, séparées par des espaces", full: 1 }],
+    init: (d, ty) => { const c = d.cols.includes("prix_unitaire") ? "prix_unitaire" : d.cols.find(x => ty[x] === "num") || d.cols[0]; const v = d.rows.map(r => r[c]).filter(isNum); if (!v.length) return { col: c, name: "classe", breaks: "0 10 100" }; const S = niceScale(Math.min(...v), Math.max(...v)), t = [...S.ticks]; if (t[t.length - 1] <= Math.max(...v)) t.push(+(t[t.length - 1] + (t[1] - t[0])).toFixed(10)); return { col: c, name: "classe_" + c, breaks: t.join(" ") }; },
+    label: p => `${p.name} ← ${p.col} [${p.breaks}]`,
+    apply(d, p) { hasCol(d, p.col); need(p.name, "Nommez la nouvelle colonne"); const b = parseBreaks(p.breaks), lab = binLabels(b);
+      return { cols: d.cols.includes(p.name) ? d.cols : [...d.cols, p.name], rows: d.rows.map(r => { const v = r[p.col]; let o = null; if (isNum(v)) for (let i = 0; i < b.length - 1; i++) if (v >= b[i] && v < b[i + 1]) { o = lab[i]; break; } return { ...r, [p.name]: o }; }) }; },
+    py: p => { const b = parseBreaks(p.breaks); return `${pyc(p.name)} = pd.cut(${pyc(p.col)}, bins=[${b.join(", ")}], right=False,\n                  labels=[${binLabels(b).map(q).join(", ")}]).astype("string")`; },
+    r: p => { const b = parseBreaks(p.breaks); return `mutate(${rid(p.name)} = as.character(cut(${rid(p.col)}, breaks = c(${b.join(", ")}), right = FALSE,\n                  labels = c(${binLabels(b).map(q).join(", ")}))))`; },
+    sql: (p, c) => { const b = parseBreaks(p.breaks), l = binLabels(b), s = sid(p.col); return `SELECT *,\n    CASE\n${l.map((x, i) => `      WHEN ${s} >= ${b[i]} AND ${s} < ${b[i + 1]} THEN '${x}'`).join("\n")}\n    END AS ${sid(p.name)}\n  FROM ${c.prev}`; },
+    m: p => { const b = parseBreaks(p.breaks), l = binLabels(b), c = `[${p.col}]`; return `Table.AddColumn($prev, ${q(p.name)}, each if ${c} = null then null ${l.map((x, i) => `else if ${c} >= ${b[i]} and ${c} < ${b[i + 1]} then ${q(x)}`).join(" ")} else null, type text)`; },
+    xl: p => { const b = parseBreaks(p.breaks), l = binLabels(b), v = `[@${xr(p.col)}]`; return { f: `IFS(ISBLANK(${v}),"",${v}<${b[0]},"",${l.map((x, i) => `${v}<${b[i + 1]},${q(x)}`).join(",")},TRUE,"")`, col: 1, ui: "Nouvelle colonne avec la formule. Dans un tableau croisé : clic droit sur une valeur de la zone Lignes › Grouper › Début, Fin, Par." }; },
+    pbi: (p, c) => { const b = parseBreaks(p.breaks), l = binLabels(b), a = `${c.T}[${p.col}]`; return { ui: `Volet Données : clic droit sur ${p.col} › Nouveau groupe › Type de groupe « Emplacement » (taille fixe). Pour des classes libres : la colonne DAX ci-dessous.`, dax: `${p.name} =\nSWITCH(TRUE(),\n    ISBLANK(${a}), BLANK(),\n    ${a} < ${b[0]}, BLANK(),\n${l.map((x, i) => `    ${a} < ${b[i + 1]}, ${q(x)},`).join("\n")}\n    BLANK())` }; }
+  },
+  window: {
+    cat: "Calculer", name: "Rang, cumul, part du total",
+    why: "Calculs « de fenêtre » : chaque ligne reçoit une valeur calculée sur un ensemble de lignes, sans les regrouper. Rang (1 = la plus grande valeur), cumul selon un ordre, part du total en %, écart à la moyenne. « Par groupe » refait le calcul séparément pour chaque groupe (ex. chaque région).",
+    fields: [{ k: "fn", t: "sel", label: "Calcul", opts: [["rank", "Rang (1 = plus grand)"], ["cumsum", "Cumul (total courant)"], ["pct", "Part du total (%)"], ["diffmean", "Écart à la moyenne"]] }, { k: "col", t: "col", label: "Colonne", kind: "num" }, { k: "grp", t: "colopt", label: "Par groupe (facultatif)" }, { k: "ord", t: "col", label: "Ordre du cumul", show: p => p.fn === "cumsum" }, { k: "name", t: "text", label: "Nom de la nouvelle colonne", full: 1 }],
+    init: (d, ty) => ({ fn: "rank", col: d.cols.filter(c => ty[c] === "num").pop() || d.cols[0], grp: "", ord: d.cols.find(c => ty[c] === "date") || d.cols[0], name: "rang" }),
+    label: p => `${p.name} : ${{ rank: "rang", cumsum: "cumul", pct: "part %", diffmean: "écart moyenne" }[p.fn]} de ${p.col}${p.grp ? " par " + p.grp : ""}`,
+    apply(d, p) { hasCol(d, p.col); if (p.grp) hasCol(d, p.grp, "la colonne de groupe"); if (p.fn === "cumsum") hasCol(d, p.ord, "la colonne d'ordre"); need(p.name, "Nommez la nouvelle colonne");
+      const G = new Map(); d.rows.forEach((r, i) => { const k = p.grp ? JSON.stringify(r[p.grp]) : ""; if (!G.has(k)) G.set(k, []); G.get(k).push(i); });
+      const out = new Array(d.rows.length).fill(null);
+      G.forEach(ix => { const v = ix.map(i => d.rows[i][p.col]), nums = v.filter(isNum);
+        if (p.fn === "rank") ix.forEach((i, k) => { if (isNum(v[k])) out[i] = 1 + nums.filter(x => x > v[k]).length; });
+        if (p.fn === "pct") { const s = nums.reduce((a, b) => a + b, 0); ix.forEach((i, k) => { if (isNum(v[k]) && s) out[i] = v[k] / s * 100; }); }
+        if (p.fn === "diffmean") { const m = nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : null; ix.forEach((i, k) => { if (isNum(v[k]) && m != null) out[i] = v[k] - m; }); }
+        if (p.fn === "cumsum") { let acc = 0; [...ix].map((i, k) => [i, k]).sort(([a, ka], [b, kb]) => { const x = d.rows[a][p.ord], y = d.rows[b][p.ord]; if (x == null && y == null) return ka - kb; if (x == null) return 1; if (y == null) return -1; return x < y ? -1 : x > y ? 1 : ka - kb; }).forEach(([i]) => { const x = d.rows[i][p.col]; acc += isNum(x) ? x : 0; out[i] = acc; }); } });
+      return { cols: d.cols.includes(p.name) ? d.cols : [...d.cols, p.name], rows: d.rows.map((r, i) => ({ ...r, [p.name]: out[i] })) }; },
+    py(p) { const n = pyc(p.name), c = pyc(p.col), G = p.grp ? `df.groupby(${q(p.grp)})[${q(p.col)}]` : c;
+      return { rank: `${n} = ${G}.rank(method="min", ascending=False)`,
+        cumsum: p.grp ? `${n} = (df.sort_values(${q(p.ord)}, kind="stable")\n           .groupby(${q(p.grp)})[${q(p.col)}].transform(lambda s: s.fillna(0).cumsum()))` : `${n} = df.sort_values(${q(p.ord)}, kind="stable")[${q(p.col)}].fillna(0).cumsum()`,
+        pct: `${n} = ${c} / ${p.grp ? G + '.transform("sum")' : c + ".sum()"} * 100`,
+        diffmean: `${n} = ${c} - ${p.grp ? G + '.transform("mean")' : c + ".mean()"}` }[p.fn]; },
+    r(p) { const n = rid(p.name), c = rid(p.col), by = p.grp ? `, .by = ${rid(p.grp)}` : "";
+      return `mutate(${n} = ${{ rank: `min_rank(desc(${c}))`, cumsum: `with_order(${rid(p.ord)}, cumsum, coalesce(${c}, 0))`, pct: `${c} / sum(${c}, na.rm = TRUE) * 100`, diffmean: `${c} - mean(${c}, na.rm = TRUE)` }[p.fn]}${by})`; },
+    sql(p, c) { const s = sid(p.col), part = p.grp ? `PARTITION BY ${sid(p.grp)}` : "";
+      const e = { rank: `CASE WHEN ${s} IS NOT NULL THEN RANK() OVER (${part}${part ? " " : ""}ORDER BY ${s} DESC NULLS LAST) END`, cumsum: `SUM(COALESCE(${s}, 0)) OVER (${part}${part ? " " : ""}ORDER BY ${sid(p.ord)}  -- ex æquo : ordre non garanti\n        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)`, pct: `${s} * 100.0 / NULLIF(SUM(${s}) OVER (${part}), 0)`, diffmean: `${s} - AVG(${s}) OVER (${part})` }[p.fn];
+      return `SELECT *,\n    ${e} AS ${sid(p.name)}\n  FROM ${c.prev}`; },
+    m(p) { const c = `[${p.col}]`, src = p.grp ? `Table.SelectRows($prev, (r) => r[${p.grp}] = [${p.grp}])` : "$prev";
+      const e = { rank: `if ${c} = null then null else List.Count(List.Select(${src}[${p.col}], (x) => x <> null and x > ${c})) + 1`, pct: `if ${c} = null then null else ${c} / List.Sum(${src}[${p.col}]) * 100`, diffmean: `if ${c} = null then null else ${c} - List.Average(${src}[${p.col}])`,
+        cumsum: `List.Sum(List.Transform(Table.SelectRows($prev, (r) => r[${p.ord}] <= [${p.ord}]${p.grp ? ` and r[${p.grp}] = [${p.grp}]` : ""})[${p.col}], (x) => if x = null then 0 else x))` }[p.fn];
+      return `Table.AddColumn($prev, ${q(p.name)}, each ${e}, type number)${p.fn === "cumsum" ? "  // valeurs ex æquo cumulées ensemble" : ""}`; },
+    xl(p, c) { const T = c.T, a = `${T}[${xr(p.col)}]`, v = `[@${xr(p.col)}]`, g = p.grp ? `,${T}[${xr(p.grp)}],[@${xr(p.grp)}]` : "";
+      const f = { rank: p.grp ? `IF(ISBLANK(${v}),"",COUNTIFS(${T}[${xr(p.grp)}],[@${xr(p.grp)}],${a},">"&${v})+1)` : `IF(ISBLANK(${v}),"",RANK.EQ(${v},${a},0))`, cumsum: `SUMIFS(${a},${T}[${xr(p.ord)}],"<="&[@${xr(p.ord)}]${g})`, pct: p.grp ? `${v}/SUMIFS(${a}${g})*100` : `${v}/SUM(${a})*100`, diffmean: p.grp ? `${v}-AVERAGEIFS(${a}${g})` : `${v}-AVERAGE(${a})` }[p.fn];
+      return { f, col: 1, ui: "Nouvelle colonne du tableau avec la formule. Dans un tableau croisé : clic droit sur une valeur › Afficher les valeurs › Classer du plus grand au plus petit / Résultat cumulé / % du total général.", note: p.fn === "cumsum" ? "Les lignes ex æquo sur la colonne d'ordre sont cumulées ensemble." : null }; },
+    pbi(p, c) { const T = c.T, a = `${T}[${p.col}]`, all = p.grp ? `ALLEXCEPT(${T}, ${T}[${p.grp}])` : `ALL(${T})`;
+      return { ui: "Dans un visuel : clic droit sur la mesure › Afficher la valeur comme › Pourcentage du total général. Ou « Nouveau calcul visuel » (Rang, Somme cumulée…).", dax: `${p.name} = ${{ rank: `RANKX(${all}, ${a}, , DESC, Skip)`, cumsum: `CALCULATE(SUM(${a}), FILTER(${all}, ${T}[${p.ord}] <= EARLIER(${T}[${p.ord}])))`, pct: `DIVIDE(${a}, CALCULATE(SUM(${a}), ${all})) * 100`, diffmean: `${a} - CALCULATE(AVERAGE(${a}), ${all})` }[p.fn]}` }; }
+  }
+});
+
+/* ============ Défis supplémentaires ============ */
+CHAL.push(
+  { id: "d10", ds: "ventes", lvl: "Intermédiaire", t: "Prénoms et noms", q: "Obtenez la liste des vendeurs distincts avec deux colonnes : prenom et nom (bien écrits).", hint: "Nettoyer du texte (Espaces + Nom Propre) AVANT de séparer, puis Séparer une colonne (séparateur : une espace), Choisir prenom et nom, Supprimer les doublons.", steps: [["text", { col: "vendeur", fn: "clean" }], ["split", { col: "vendeur", sep: " ", n1: "prenom", n2: "nom" }], ["select", { cols: ["prenom", "nom"] }], ["dedupe", { cols: [] }]] },
+  { id: "d11", ds: "ventes", lvl: "Intermédiaire", t: "Commandes hors norme", q: "Calculez ca = quantite × prix_unitaire, puis retirez les commandes dont le CA est aberrant selon la méthode IQR. Combien en reste-t-il ?", hint: "Colonne calculée, puis Valeurs aberrantes (ca, IQR, Retirer les lignes).", steps: [["compute", { name: "ca", a: "quantite", op: "*", b: "prix_unitaire", n: "2", dec: "" }], ["outliers", { col: "ca", method: "iqr", action: "remove", name: "ca_aberrant" }]] },
+  { id: "d12", ds: "ventes", lvl: "Avancé", t: "Classement des vendeurs", q: "Classez les vendeurs selon leur chiffre d'affaires total : une ligne par vendeur (nom bien écrit), le CA total, et le rang (1 = meilleur).", hint: "Nettoyer vendeur, Colonne calculée ca, Regrouper par vendeur (Somme de ca), puis Rang, cumul, part du total › Rang sur somme_ca.", steps: [["text", { col: "vendeur", fn: "clean" }], ["compute", { name: "ca", a: "quantite", op: "*", b: "prix_unitaire", n: "2", dec: "" }], ["groupby", { keys: ["vendeur"], a1c: "ca", a1f: "sum", a2c: "", a2f: "mean" }], ["window", { fn: "rank", col: "somme_ca", grp: "", ord: "vendeur", name: "rang" }]] },
+  { id: "d13", ds: "ventes", lvl: "Intermédiaire", t: "Tranches de prix", q: "Classez les commandes en tranches de prix unitaire 0-50, 50-100, 100-500 et 500-1500, puis comptez les commandes par tranche.", hint: "Découper en classes (prix_unitaire, bornes 0 50 100 500 1500), puis Regrouper par la nouvelle colonne avec le Nombre de commande.", steps: [["bins", { col: "prix_unitaire", name: "tranche", breaks: "0 50 100 500 1500" }], ["groupby", { keys: ["tranche"], a1c: "commande", a1f: "count", a2c: "", a2f: "mean" }]] },
+  { id: "d14", ds: "ventes", lvl: "Avancé", t: "Poids de chaque région", q: "Pour chaque région, donnez le CA total et sa part en % du CA de toutes les régions.", hint: "Colonne calculée ca, Regrouper par region (Somme de ca), puis Part du total (%) sur somme_ca.", steps: [["compute", { name: "ca", a: "quantite", op: "*", b: "prix_unitaire", n: "2", dec: "" }], ["groupby", { keys: ["region"], a1c: "ca", a1f: "sum", a2c: "", a2f: "mean" }], ["window", { fn: "pct", col: "somme_ca", grp: "", ord: "region", name: "part_pct" }]] },
+  { id: "d15", ds: "ventes", lvl: "Avancé", t: "CA cumulé mois après mois", q: "Calculez le CA de chaque mois (1 à 12) et le CA cumulé depuis janvier.", hint: "Extraire d'une date (Mois), Colonne calculée ca, Regrouper par mois (Somme de ca), puis Cumul de somme_ca dans l'ordre du mois.", steps: [["date", { col: "date", part: "month", name: "mois" }], ["compute", { name: "ca", a: "quantite", op: "*", b: "prix_unitaire", n: "2", dec: "" }], ["groupby", { keys: ["mois"], a1c: "ca", a1f: "sum", a2c: "", a2f: "mean" }], ["window", { fn: "cumsum", col: "somme_ca", grp: "", ord: "mois", name: "cumul" }]] });
+
+/* ============ Diagnostic qualité (Explorer) ============ */
+function diagnose(d) {
+  const out = [], n = d.rows.length, ty = d.types;
+  const dup = n - new Set(d.rows.map(r => JSON.stringify(d.cols.map(c => r[c])))).size;
+  if (dup) out.push({ sev: "bad", t: `${dup} ligne${dup > 1 ? "s" : ""} en double`, x: "Des lignes identiques gonflent les totaux et les comptages.", fix: ["dedupe", { cols: [] }] });
+  d.cols.forEach(c => {
+    const vals = d.rows.map(r => r[c]), nn = vals.filter(v => v != null), miss = n - nn.length;
+    if (miss) out.push({ sev: miss / n > .1 ? "bad" : "warn", t: `« ${c} » : ${miss} valeur${miss > 1 ? "s" : ""} manquante${miss > 1 ? "s" : ""} (${fmt(miss / n * 100)} %)`, x: ty[c] === "num" ? "Proposition : remplacer par la médiane, robuste aux valeurs extrêmes." : "Proposition : remplacer par la valeur la plus fréquente, ou retirer les lignes.", fix: ["missing", { col: c, how: ty[c] === "num" ? "median" : "mode", val: "0" }] });
+    if (ty[c] === "text") {
+      const g = new Map(); nn.forEach(v => { const k = String(v).toLowerCase().replace(/\s+/g, " ").trim(); if (!g.has(k)) g.set(k, new Set()); g.get(k).add(String(v)); });
+      const bad = [...g.values()].filter(s => s.size > 1);
+      if (bad.length) out.push({ sev: "warn", t: `« ${c} » : ${bad.length} valeur${bad.length > 1 ? "s" : ""} écrite${bad.length > 1 ? "s" : ""} de plusieurs façons`, x: "Exemple : " + [...bad[0]].slice(0, 4).map(v => `« ${v.replace(/^ +| +$| {2,}/g, m => "␣".repeat(m.length))} »`).join(", ") + " (␣ = espace en trop). Elles seraient comptées comme des valeurs différentes.", fix: ["text", { col: c, fn: "clean" }] });
+      const numish = nn.filter(v => /^-?[\d\s]+([.,]\d+)?$/.test(String(v).trim())).length;
+      if (nn.length && numish / nn.length > .8) out.push({ sev: "warn", t: `« ${c} » : des nombres stockés comme du texte`, x: "Impossible de les additionner tant qu'ils sont en texte.", fix: ["cast", { col: c, to: "num" }] });
+      const u = new Set(nn.map(String)).size;
+      if (u === n && n > 10) out.push({ sev: "info", t: `« ${c} » : identifiant probable`, x: "Chaque valeur est unique : c'est sans doute la clé des lignes (utile pour les jointures, inutile pour regrouper)." });
+    }
+    if (ty[c] === "num" && new Set(nn).size > 5) { try { const [lo, hi] = bounds(nn, "iqr"), k = nn.filter(v => v < lo || v > hi).length; if (k) out.push({ sev: "info", t: `« ${c} » : ${k} valeur${k > 1 ? "s" : ""} hors des bornes IQR [${fmt(lo)} ; ${fmt(hi)}]`, x: "À vérifier : erreur de saisie ou valeur réelle mais extrême ?", fix: ["outliers", { col: c, method: "iqr", action: "flag", name: c + "_aberrant" }] }); } catch (e) { } }
+    if (new Set(nn.map(String)).size === 1 && n > 1) out.push({ sev: "info", t: `« ${c} » : une seule valeur`, x: "Colonne constante : elle n'apporte aucune information et peut être retirée." });
+  });
+  return out;
+}
+function renderDiag(d) {
+  const D = diagnose(d), el = $("#exDiag");
+  if (!D.length) { el.innerHTML = `<div class="panel diag"><div class="phead"><h2>Diagnostic qualité</h2><span class="pill good">aucun problème détecté</span></div></div>`; return; }
+  const lab = { bad: "à corriger", warn: "à vérifier", info: "info" };
+  el.innerHTML = `<div class="panel diag"><div class="phead"><h2>Diagnostic qualité</h2><span class="count">${D.filter(x => x.sev !== "info").length} point(s) à traiter · ${D.filter(x => x.sev === "info").length} remarque(s)</span></div><ul class="diaglist">${D.map((x, i) => `<li class="sev-${x.sev}"><span class="pill ${x.sev === "info" ? "" : x.sev}">${lab[x.sev]}</span><div><strong>${esc(x.t)}</strong><p>${esc(x.x)}</p></div>${x.fix ? `<button class="btn sm" type="button" data-fix="${i}">Ajouter l'étape</button>` : ""}</li>`).join("")}</ul></div>`;
+  el._fixes = D.map(x => x.fix);
+}
+$("#exDiag").addEventListener("click", e => { const b = e.target.closest("[data-fix]"); if (!b) return; const [t, p] = $("#exDiag")._fixes[+b.dataset.fix]; const s = mk(t, JSON.parse(JSON.stringify(p))); steps().push(s); S.sel = s.id; setTab("atelier"); renderAll(); toast(`Étape « ${STEPS[t].name} » ajoutée à la fin du pipeline`); });
+
+/* ============ Cours : contenu ============ */
+const PARTS = ["Démarrer", "Préparer les données", "Transformer et combiner", "Excel et Power BI avancés", "Analyser et communiquer", "Bonnes pratiques"];
+const LESSONS = [
+/* ---------- Démarrer ---------- */
+{ id: "l1", part: "Démarrer", t: "La démarche d'analyse", dur: 8,
+  intro: "Une analyse réussie commence par une question claire, pas par un outil. Les analystes suivent presque toujours les mêmes étapes, quel que soit le logiciel.",
+  s: [
+    { h: "Les 6 étapes d'une analyse", ol: [
+      "**Définir la question** : que veut-on savoir, et quelle décision en dépend ? Ex. « Quelle catégorie de produits rapporte le plus, et par quel canal ? »",
+      "**Collecter** les données : fichiers, bases, API, exports d'un logiciel métier.",
+      "**Préparer** : nettoyer, typer, dédoublonner, joindre. C'est souvent 60 à 80 % du temps.",
+      "**Explorer** : statistiques descriptives, distributions, premiers graphiques, repérage des anomalies.",
+      "**Analyser** : agréger, comparer, tester, modéliser.",
+      "**Communiquer** : un graphique, un tableau de bord ou une note qui répond à la question de départ."] },
+    { h: "Poser une bonne question", p: ["Une bonne question est **précise** (quelle mesure, sur quelle période, sur quel périmètre), **mesurable** avec les données disponibles, et **utile** : sa réponse change une décision."],
+      tbl: [["Trop vague", "Exploitable"], ["Comment vont les ventes ?", "Le CA 2025 par catégorie a-t-il progressé par rapport à 2024 ?"], ["Nos clients sont-ils satisfaits ?", "Quelle part des clients a noté 4/5 ou plus au dernier trimestre, par magasin ?"], ["Le web marche-t-il ?", "Le panier moyen web est-il supérieur au panier magasin ?"]] },
+    { h: "Quel outil à quelle étape ?", tbl: [["Étape", "Excel", "Power BI", "Python / R", "SQL"], ["Collecter", "Import, Power Query", "Power Query (connecteurs)", "read_csv, API, scraping", "Requête sur la base"], ["Préparer", "Power Query, formules", "Power Query (M)", "pandas / dplyr", "CTE, CASE, JOIN"], ["Explorer", "TCD, graphiques", "Profil de colonne, visuels", "describe(), summary(), graphiques", "GROUP BY, SUMMARIZE"], ["Analyser", "TCD, Analysis ToolPak", "Mesures DAX", "statistiques, modèles", "Fonctions de fenêtre"], ["Communiquer", "Graphiques, segments", "Tableaux de bord partagés", "Rapports Quarto / Jupyter", "(vers un outil de visualisation)"]] },
+    { h: "Un exemple de bout en bout", p: ["La même analyse minimale (lire, nettoyer, agréger, trier) dans chaque outil, sur le fichier ventes.csv de l'application."],
+      code: {
+        py: `import pandas as pd
+
+df = pd.read_csv("ventes.csv")                      # 1. Collecter
+df = df.drop_duplicates()                          # 2. Préparer
+df["ca"] = df["quantite"] * df["prix_unitaire"]
+print(df.describe())                               # 3. Explorer
+res = (df.groupby("canal", as_index=False)["ca"]   # 4. Analyser
+         .sum().sort_values("ca", ascending=False))
+res.to_excel("ca_par_canal.xlsx", index=False)     # 5. Communiquer`,
+        r: `library(tidyverse)
+
+ventes <- read_csv("ventes.csv")
+res <- ventes |>
+  distinct() |>
+  mutate(ca = quantite * prix_unitaire) |>
+  group_by(canal) |>
+  summarise(ca = sum(ca, na.rm = TRUE)) |>
+  arrange(desc(ca))
+writexl::write_xlsx(res, "ca_par_canal.xlsx")`,
+        sql: `-- DuckDB
+SELECT canal, SUM(quantite * prix_unitaire) AS ca
+FROM (SELECT DISTINCT * FROM 'ventes.csv')
+GROUP BY canal
+ORDER BY ca DESC;`,
+        xl: `1. Données › À partir d'un fichier texte/CSV › ventes.csv › Charger
+2. Données › Supprimer les doublons
+3. Nouvelle colonne ca : =[@quantite]*[@prix_unitaire]
+4. Insertion › Tableau croisé dynamique : canal en Lignes, Somme de ca en Valeurs
+5. Trier du plus grand au plus petit, puis Insertion › Graphique croisé dynamique`,
+        pbi: `// 1-2. Obtenir les données › Texte/CSV › Transformer › Supprimer les doublons
+// 3. Mesure (Modélisation › Nouvelle mesure) :
+CA = SUMX(ventes, ventes[quantite] * ventes[prix_unitaire])
+// 4-5. Visuel Histogramme groupé : Axe X = canal, Axe Y = [CA], trier par CA`
+      } }],
+  keys: ["La question précède l'outil.", "La préparation des données prend la majorité du temps : c'est normal.", "Chaque étape doit être reproductible : notez-la (script, étapes Power Query)."],
+  traps: ["Se lancer dans les graphiques avant d'avoir vérifié la qualité des données.", "Répondre à une autre question que celle posée, parce que les données s'y prêtent mieux."],
+  go: { label: "Rejouer cet exemple dans l'Atelier", demo: true } },
+
+{ id: "l2", part: "Démarrer", t: "Choisir et installer ses outils", dur: 10,
+  intro: "Les 5 outils se complètent plus qu'ils ne s'opposent. Voici comment les installer et quand utiliser chacun.",
+  s: [
+    { h: "Comparatif rapide", tbl: [["", "Excel", "Power BI Desktop", "Python", "R", "SQL (DuckDB)"], ["Prix", "Licence Microsoft 365", "Gratuit (partage : licence Pro)", "Gratuit", "Gratuit", "Gratuit"], ["Système", "Windows, Mac, web", "Windows uniquement", "Tous", "Tous", "Tous"], ["Volume confortable", "< 1 million de lignes", "Dizaines de millions", "Millions (plus avec Polars/DuckDB)", "Millions (plus avec data.table/arrow)", "Centaines de millions"], ["Apprentissage", "Facile", "Moyen (DAX difficile)", "Moyen à long", "Moyen à long", "Facile pour les bases"], ["Point fort", "Universel, rapide", "Tableaux de bord partagés", "Automatisation, IA", "Statistiques, graphiques", "Interroger les bases"]] },
+    { h: "Installer", ul: [
+      "**Excel** : Microsoft 365 donne accès aux fonctions récentes (FILTRE, RECHERCHEX, LET, GROUPER.PAR). Power Query est intégré (Données › Obtenir des données).",
+      "**Power BI Desktop** : gratuit depuis le Microsoft Store (Windows). Sur Mac, passer par une machine virtuelle ou le service web.",
+      "**Python** : installer Anaconda (tout inclus) ou python.org + l'éditeur VS Code avec l'extension Python et Jupyter.",
+      "**R** : installer R (cran.r-project.org) puis RStudio ou Positron (posit.co).",
+      "**DuckDB** : un seul exécutable (duckdb.org) ou `pip install duckdb`. Il lit directement les CSV, Excel et Parquet."] },
+    { h: "Premières commandes", code: {
+      py: `# Dans un terminal :  pip install pandas matplotlib seaborn openpyxl duckdb
+import pandas as pd
+print(pd.__version__)
+df = pd.read_csv("ventes.csv")
+df.head()`,
+      r: `install.packages(c("tidyverse", "readxl", "writexl", "skimr", "janitor"))
+library(tidyverse)
+ventes <- read_csv("ventes.csv")
+glimpse(ventes)`,
+      sql: `-- Terminal :  duckdb formation.duckdb
+SELECT * FROM 'ventes.csv' LIMIT 5;
+DESCRIBE SELECT * FROM 'ventes.csv';`,
+      xl: `Données › Obtenir des données › À partir d'un fichier › À partir d'un fichier texte/CSV
+Vérifier « Origine du fichier : 65001 : Unicode (UTF-8) » puis Charger`,
+      pbi: `Accueil › Obtenir les données › Texte/CSV › ventes.csv
+« Transformer les données » ouvre Power Query ; « Charger » envoie directement au modèle`
+    } },
+    { h: "Où écrire son code ?", tbl: [["Environnement", "Pour quoi", "Outil"], ["Notebook (Jupyter, Quarto)", "Explorer pas à pas, mêler code, texte et graphiques", "Python, R"], ["Script (.py, .R, .sql)", "Traitement à relancer tel quel, automatisation", "Tous"], ["Éditeur de requêtes Power Query", "Préparer sans code, M généré automatiquement", "Excel, Power BI"], ["Console / terminal", "Tester une commande rapidement", "Tous"]] }],
+  keys: ["Commencez par l'outil que votre équipe utilise déjà, puis ajoutez-en un autre.", "Power Query est le même dans Excel et Power BI : l'apprendre sert deux fois."],
+  traps: ["Installer plusieurs versions de Python sans environnement : préférez Anaconda ou un environnement virtuel (python -m venv).", "Attendre des fonctions récentes d'Excel sur une vieille version (2016, 2019)."] },
+
+{ id: "l3", part: "Démarrer", t: "Formats de fichiers et import", dur: 12,
+  intro: "La plupart des erreurs d'analyse naissent à l'import : mauvais séparateur, accents cassés, nombres lus comme du texte. Savoir lire un fichier correctement évite des heures de correction.",
+  s: [
+    { h: "Les formats courants", tbl: [["Format", "Extension", "Avantages", "Limites"], ["CSV", ".csv, .txt", "Universel, léger, lisible", "Aucun type : tout est texte ; séparateur et encodage variables"], ["Excel", ".xlsx", "Plusieurs feuilles, mise en forme", "Cellules fusionnées, en-têtes sur plusieurs lignes, 1 048 576 lignes max"], ["JSON", ".json", "Données imbriquées (API web)", "Doit être « aplati » en tableau"], ["Parquet", ".parquet", "Compressé, typé, très rapide", "Non lisible à l'œil, pas d'ouverture directe dans Excel"], ["Base de données", "—", "Volumes, requêtes, sécurité", "Accès et droits à obtenir"]] },
+    { h: "Les pièges du CSV « à la française »", ul: [
+      "**Séparateur** : Excel en français exporte avec **;** car la virgule sert aux décimales.",
+      "**Décimale** : « 12,5 » est lu comme du texte par un outil qui attend « 12.5 ».",
+      "**Encodage** : « Ã© » à la place de « é » signifie qu'un fichier UTF-8 a été lu comme Windows-1252 (ou l'inverse). Essayez UTF-8, puis latin-1 / cp1252.",
+      "**Zéros en tête** : un code postal 01000 devient 1000 s'il est lu comme nombre. Forcez le type texte.",
+      "**Lignes parasites** : titres ou totaux au-dessus des en-têtes (option « lignes à ignorer »)."] },
+    { h: "Lire un CSV français proprement", code: {
+      py: `df = pd.read_csv("export.csv",
+                 sep=";", decimal=",", encoding="utf-8-sig",   # ou "cp1252"
+                 dtype={"code_postal": "string"},
+                 na_values=["", "NA", "N/A", "-"],
+                 parse_dates=["date"], dayfirst=True,
+                 skiprows=0)`,
+      r: `df <- read_delim("export.csv", delim = ";",
+                 locale = locale(decimal_mark = ",", encoding = "UTF-8"),  # ou "latin1"
+                 col_types = cols(code_postal = col_character()),
+                 na = c("", "NA", "N/A", "-"))
+# Raccourci : read_csv2() suppose déjà ; et virgule décimale`,
+      sql: `SELECT *
+FROM read_csv('export.csv',
+     delim = ';', decimal_separator = ',',
+     header = true, dateformat = '%d/%m/%Y',
+     types = {'code_postal': 'VARCHAR'});`,
+      xl: `Données › À partir d'un fichier texte/CSV
+  Origine du fichier : 65001 : Unicode (UTF-8)   (ou 1252 : Europe de l'Ouest)
+  Délimiteur : Point-virgule
+  Transformer les données › clic sur l'icône de type de code_postal › Texte
+Ne double-cliquez pas le CSV : Excel devine les types et supprime les zéros en tête.`,
+      pbi: `let
+    Source = Csv.Document(File.Contents("C:\\Donnees\\export.csv"),
+             [Delimiter = ";", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+    Entetes = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Types = Table.TransformColumnTypes(Entetes,
+            {{"montant", type number}, {"date", type date}, {"code_postal", type text}}, "fr-FR")
+in
+    Types`
+    } },
+    { h: "Lire Excel, JSON et Parquet", code: {
+      py: `pd.read_excel("f.xlsx", sheet_name="Ventes", skiprows=2)   # pip install openpyxl
+pd.json_normalize(donnees_json)                              # aplatir un JSON imbriqué
+pd.read_parquet("f.parquet")                                 # pip install pyarrow`,
+      r: `readxl::read_excel("f.xlsx", sheet = "Ventes", skip = 2)
+jsonlite::fromJSON("f.json", flatten = TRUE)
+arrow::read_parquet("f.parquet")`,
+      sql: `INSTALL excel; LOAD excel;
+SELECT * FROM read_xlsx('f.xlsx', sheet = 'Ventes');
+SELECT * FROM read_json_auto('f.json');
+SELECT * FROM 'f.parquet';`,
+      xl: `Données › Obtenir des données › À partir d'un fichier › JSON / Classeur / Dossier
+« À partir d'un dossier » combine automatiquement tous les fichiers d'un répertoire.`,
+      pbi: `Obtenir les données › Classeur Excel / JSON / Parquet / Dossier / SharePoint
+Pour un JSON : Convertir en table puis l'icône ⇄ « Développer » sur les colonnes Record`
+    } }],
+  keys: ["Vérifiez toujours après import : nombre de lignes, types, accents, premières et dernières lignes.", "Ne modifiez jamais le fichier source : gardez-le intact et faites les corrections dans le code ou Power Query."],
+  traps: ["Ouvrir un CSV en double-cliquant dans Excel puis le réenregistrer : les dates et codes sont souvent altérés.", "Oublier dayfirst / le format de date : 03/04/2025 devient le 4 mars au lieu du 3 avril."] },
+
+/* ---------- Préparer ---------- */
+{ id: "l4", part: "Préparer les données", t: "Les types de données", dur: 9,
+  intro: "Chaque colonne a un type : nombre, texte, date, booléen. Le type décide des opérations possibles : on additionne des nombres, on extrait le mois d'une date, pas l'inverse.",
+  s: [
+    { h: "Correspondance des types entre outils", tbl: [["Type", "pandas", "R", "SQL", "Excel", "Power BI"], ["Entier", "int64 / Int64", "integer", "INTEGER, BIGINT", "Nombre", "Nombre entier"], ["Décimal", "float64", "double", "DOUBLE, DECIMAL(p,s)", "Nombre", "Nombre décimal / décimal fixe"], ["Texte", "object / string", "character", "VARCHAR", "Texte", "Texte"], ["Date", "datetime64", "Date / POSIXct", "DATE, TIMESTAMP", "Nombre formaté en date", "Date, Date/heure"], ["Booléen", "bool", "logical", "BOOLEAN", "VRAI / FAUX", "Vrai/faux"], ["Catégorie", "category", "factor", "(VARCHAR / ENUM)", "—", "—"]] },
+    { h: "Vérifier et convertir", code: {
+      py: `df.dtypes                                              # type de chaque colonne
+df["montant"] = pd.to_numeric(df["montant"].str.replace(" ", "").str.replace(",", "."), errors="coerce")
+df["date"] = pd.to_datetime(df["date"], format="%d/%m/%Y")
+df["code_postal"] = df["code_postal"].astype("string").str.zfill(5)   # remet les zéros
+df["region"] = df["region"].astype("category")         # économise la mémoire`,
+      r: `glimpse(df)
+df <- df |>
+  mutate(montant = parse_number(montant, locale = locale(decimal_mark = ",", grouping_mark = " ")),
+         date = dmy(date),
+         code_postal = str_pad(code_postal, 5, pad = "0"),
+         region = factor(region))`,
+      sql: `SELECT TRY_CAST(REPLACE(REPLACE(montant, ' ', ''), ',', '.') AS DOUBLE) AS montant,
+       STRPTIME(date, '%d/%m/%Y')::DATE AS date,
+       LPAD(CAST(code_postal AS VARCHAR), 5, '0') AS code_postal
+FROM t;`,
+      xl: `=CNUM(SUBSTITUE([@montant];" ";""))      nombre stocké en texte → nombre
+=DATEVAL([@date])                          texte → date
+=TEXTE([@code_postal];"00000")             remet les zéros en tête
+Astuce : un nombre aligné à gauche est souvent du texte. Données › Convertir › Terminer le corrige.`,
+      pbi: `// Power Query : icône à gauche de l'en-tête, ou Transformer › Type de données
+// Avec paramètres régionaux (clic droit › Modifier le type › Utilisation des paramètres régionaux)
+Table.TransformColumnTypes(Source, {{"montant", type number}, {"date", type date}}, "fr-FR")`
+    } },
+    { h: "Les dates dans Excel", p: ["Excel stocke une date comme un **numéro de série** : 1 = 01/01/1900, 45658 = 01/01/2025. C'est pourquoi une date mal formatée s'affiche « 45658 », et pourquoi on peut soustraire deux dates pour obtenir un nombre de jours. Python et R lisent automatiquement ce numéro depuis un .xlsx."] }],
+  keys: ["Vérifiez les types juste après l'import.", "Codes postaux, SIRET, numéros de téléphone : du texte, pas des nombres (on ne les additionne jamais)."],
+  traps: ["Un seul « N/A » dans une colonne numérique suffit à la faire lire comme texte.", "Convertir sans errors=\"coerce\" (pandas) ou TRY_CAST (SQL) plante sur la première valeur illisible."] },
+
+{ id: "l5", part: "Préparer les données", t: "La qualité des données", dur: 10,
+  intro: "Des données de mauvaise qualité donnent des conclusions fausses, même avec une analyse parfaite. On évalue la qualité selon six dimensions.",
+  s: [
+    { h: "Les 6 dimensions de la qualité", tbl: [["Dimension", "Question", "Exemple de défaut", "Contrôle"], ["Complétude", "Les valeurs sont-elles présentes ?", "Quantité vide", "Compter les vides par colonne"], ["Unicité", "Chaque fait est-il enregistré une seule fois ?", "Commande saisie deux fois", "Doublons sur la clé"], ["Validité", "Les valeurs respectent-elles les règles ?", "Quantité négative, email sans @", "Filtres de règles métier"], ["Exactitude", "Les valeurs sont-elles vraies ?", "Prix erroné", "Comparaison à une source de référence"], ["Cohérence", "Les données concordent-elles entre elles ?", "« Nord », « NORD », « nord »", "Valeurs distinctes, jointures"], ["Fraîcheur", "Les données sont-elles à jour ?", "Export du mois dernier", "Date max, date de mise à jour"]] },
+    { h: "Une check-list à dérouler à chaque nouveau fichier", ol: ["Nombre de lignes et de colonnes attendu ?", "Types corrects ?", "Valeurs manquantes par colonne ?", "Doublons (lignes entières, puis sur la clé) ?", "Valeurs distinctes des colonnes texte (fautes, casse, espaces) ?", "Min / max des colonnes numériques et dates (valeurs impossibles) ?", "Règles métier (quantité > 0, date de fin ≥ date de début) ?"] },
+    { h: "La check-list en code", code: {
+      py: `print(df.shape)
+print(df.dtypes)
+print(df.isna().sum())
+print("doublons :", df.duplicated().sum(), "| clés en double :", df["commande"].duplicated().sum())
+for c in df.select_dtypes("object"):
+    print(c, df[c].nunique(), df[c].unique()[:10])
+print(df.describe())
+print(df[df["quantite"] <= 0])                        # règle métier`,
+      r: `dim(df); glimpse(df)
+colSums(is.na(df))
+sum(duplicated(df)); sum(duplicated(df$commande))
+df |> summarise(across(where(is.character), n_distinct))
+summary(df)
+df |> filter(quantite <= 0)
+# Tout en un : skimr::skim(df)`,
+      sql: `SUMMARIZE ventes;                                          -- DuckDB : min, max, nulls, distincts
+SELECT commande, COUNT(*) FROM ventes GROUP BY commande HAVING COUNT(*) > 1;
+SELECT DISTINCT region FROM ventes ORDER BY region;
+SELECT * FROM ventes WHERE quantite <= 0 OR prix_unitaire <= 0;`,
+      xl: `=LIGNES(ventes)                     nombre de lignes
+=NB.VIDE(ventes[quantite])           vides
+=LIGNES(UNIQUE(ventes[region]))      valeurs distinctes
+=NB.SI.ENS(ventes[quantite];"<=0")   règle métier
+Accueil › Mise en forme conditionnelle › Règles de mise en surbrillance › Valeurs en double`,
+      pbi: `// Power Query : Affichage › Qualité de colonne, Distribution de colonne, Profil de colonne
+// (en bas : « Profilage basé sur l'ensemble du jeu de données »)
+Contrôle doublons = COUNTROWS(ventes) - DISTINCTCOUNT(ventes[commande])`
+    } },
+    { h: "Dans cette application", p: ["L'onglet **Explorer** lance automatiquement un **diagnostic qualité** sur le tableau affiché : doublons, vides, valeurs écrites de plusieurs façons, nombres stockés en texte, valeurs aberrantes. Chaque problème propose d'ajouter l'étape de correction à l'Atelier."] }],
+  keys: ["Contrôlez la qualité avant toute analyse, et documentez les corrections faites.", "Une règle métier (quantité > 0) est un contrôle aussi important qu'un comptage de vides."],
+  traps: ["Corriger à la main dans le fichier : la correction sera perdue au prochain export.", "Supprimer silencieusement des lignes : notez toujours combien et pourquoi."],
+  go: { label: "Lancer le diagnostic sur ventes.csv", tab: "explorer", ds: "ventes", clear: true } },
+
+{ id: "l6", part: "Préparer les données", t: "Les valeurs manquantes", dur: 11,
+  intro: "Une cellule vide n'est pas un zéro. Selon l'outil elle s'appelle NaN, NA, NULL, null ou BLANK, et elle se comporte différemment dans les calculs.",
+  s: [
+    { h: "Pourquoi une valeur manque-t-elle ?", tbl: [["Mécanisme", "Signification", "Exemple", "Conséquence"], ["MCAR (complètement au hasard)", "Le manque ne dépend de rien", "Une ligne perdue lors d'un export", "Supprimer ou imputer sans biais"], ["MAR (au hasard)", "Le manque dépend d'autres colonnes connues", "Remise non saisie plus souvent en magasin", "Imputer en tenant compte de ces colonnes"], ["MNAR (pas au hasard)", "Le manque dépend de la valeur elle-même", "Les hauts revenus ne déclarent pas leur salaire", "Toute imputation biaise : à signaler"]] },
+    { h: "Comment les calculs traitent les vides", tbl: [["Calcul", "pandas", "R", "SQL", "Excel", "DAX"], ["Somme", "ignore", "NA sauf na.rm = TRUE", "ignore", "ignore", "ignore"], ["Moyenne", "ignore", "NA sauf na.rm = TRUE", "ignore", "ignore", "ignore"], ["Comptage", "count() ignore", "sum(!is.na(x))", "COUNT(col) ignore, COUNT(*) compte", "NB ignore, NBVAL ignore", "COUNT ignore, COUNTROWS compte"], ["Comparaison x > 5", "False", "NA", "NULL (ligne exclue)", "vide = 0 !", "BLANK traité comme 0"]] },
+    { h: "Stratégies", tbl: [["Stratégie", "Quand", "Risque"], ["Supprimer les lignes", "Peu de manques (< 5 %), au hasard", "Perte d'information, biais si pas au hasard"], ["Valeur fixe (0, « Inconnu »)", "Le vide a un sens (pas de remise = 0)", "Fausse les moyennes si ce n'est pas vrai"], ["Moyenne / médiane", "Variable numérique, manques au hasard", "Réduit la variance ; préférez la médiane si valeurs extrêmes"], ["Valeur la plus fréquente", "Variable catégorielle", "Surreprésente la catégorie dominante"], ["Recopier la précédente", "Séries temporelles, cellules fusionnées d'Excel", "Faux si l'ordre n'a pas de sens"], ["Par groupe", "La valeur dépend d'une catégorie", "Plus juste, un peu plus complexe"], ["Signaler + imputer", "Toujours conseillé", "Aucun : on garde la trace"]] },
+    { h: "Imputer par groupe et garder une trace", code: {
+      py: `df["quantite_imputee"] = df["quantite"].isna()               # trace
+df["quantite"] = df["quantite"].fillna(
+    df.groupby("produit_id")["quantite"].transform("median"))  # médiane du produit
+df["remise"] = df["remise"].fillna(0)                          # le vide signifie « pas de remise »`,
+      r: `df <- df |>
+  mutate(quantite_imputee = is.na(quantite),
+         quantite = coalesce(quantite, median(quantite, na.rm = TRUE)), .by = produit_id) |>
+  mutate(remise = replace_na(remise, 0))`,
+      sql: `SELECT *,
+       quantite IS NULL AS quantite_imputee,
+       COALESCE(quantite, MEDIAN(quantite) OVER (PARTITION BY produit_id)) AS quantite_ok,
+       COALESCE(remise, 0) AS remise_ok
+FROM ventes;`,
+      xl: `=SI(ESTVIDE([@quantite]);MEDIANE(SI(ventes[produit_id]=[@produit_id];ventes[quantite]));[@quantite])
+(MEDIANE ignore les vides renvoyés par SI : on obtient la médiane du produit)
+Cellules fusionnées : sélectionner la colonne › F5 › Cellules › Cellules vides › taper = et flèche haut › Ctrl+Entrée`,
+      pbi: `// Power Query : Transformer › Remplir › Vers le bas (cellules fusionnées)
+// DAX, colonne calculée : médiane du produit
+quantite_ok =
+VAR med = CALCULATE(MEDIAN(ventes[quantite]), ALLEXCEPT(ventes, ventes[produit_id]))
+RETURN COALESCE(ventes[quantite], med)`
+    } }],
+  keys: ["Comptez et localisez les manques avant de choisir une stratégie.", "Gardez une colonne indiquant quelles valeurs ont été imputées."],
+  traps: ["Remplacer par 0 une valeur inconnue : la moyenne s'effondre.", "Des « vides » déguisés : « N/A », « - », « 0 », « 1900-01-01 », « 999 »."],
+  go: { label: "Essayer : défi « Quantités manquantes »", chal: "d5" } },
+
+{ id: "l7", part: "Préparer les données", t: "Doublons et clés", dur: 8,
+  intro: "Une clé identifie une ligne de façon unique (numéro de commande, code produit). Les doublons faussent tous les totaux et font exploser les jointures.",
+  s: [
+    { h: "Trois sortes de doublons", ul: ["**Exacts** : toutes les colonnes identiques (double import, copier-coller).", "**Sur la clé** : même numéro de commande mais valeurs différentes (correction ultérieure, deux versions).", "**Approximatifs** : « Marie Dupont » et « DUPONT Marie » désignent la même personne (demande un nettoyage préalable)."] },
+    { h: "Vérifier l'unicité d'une clé et choisir quelle ligne garder", code: {
+      py: `df["commande"].is_unique                                # True / False
+df[df.duplicated("commande", keep=False)]               # toutes les lignes concernées
+df = (df.sort_values("date_maj")                        # garder la version la plus récente
+        .drop_duplicates("commande", keep="last"))`,
+      r: `df |> count(commande) |> filter(n > 1)
+df <- df |>
+  arrange(desc(date_maj)) |>
+  distinct(commande, .keep_all = TRUE)`,
+      sql: `SELECT commande, COUNT(*) AS n FROM ventes GROUP BY commande HAVING COUNT(*) > 1;
+-- garder la plus récente
+SELECT * FROM ventes
+QUALIFY ROW_NUMBER() OVER (PARTITION BY commande ORDER BY date_maj DESC) = 1;`,
+      xl: `=NB.SI([commande];[@commande])>1        repère les clés en double
+Données › Supprimer les doublons : garde la PREMIÈRE ligne → triez d'abord par date décroissante`,
+      pbi: `// Power Query : trier par date_maj décroissante, puis Table.Buffer pour figer l'ordre
+Tri = Table.Buffer(Table.Sort(Source, {{"date_maj", Order.Descending}})),
+Uniques = Table.Distinct(Tri, {"commande"})
+// Pour inspecter : Accueil › Conserver les lignes › Conserver les doublons`
+    } }],
+  keys: ["Identifiez la clé de chaque table et vérifiez qu'elle est unique.", "Décidez explicitement quelle version garder (la première, la plus récente, la plus complète)."],
+  traps: ["Power Query peut ignorer un tri avant Table.Distinct : utilisez Table.Buffer.", "Dédoublonner sur toutes les colonnes alors qu'une colonne technique (date d'import) diffère."],
+  go: { label: "Essayer : défi « Des commandes saisies deux fois »", chal: "d1" } },
+
+{ id: "l8", part: "Préparer les données", t: "Nettoyer du texte", dur: 12,
+  intro: "Pour un ordinateur, « Nord », « nord » et « Nord  » sont trois valeurs différentes. Uniformiser le texte est indispensable avant de regrouper ou de joindre.",
+  s: [
+    { h: "Les opérations de base", tbl: [["Opération", "pandas", "R (stringr)", "SQL", "Excel", "Power Query"], ["Espaces début/fin", ".str.strip()", "str_trim()", "TRIM()", "SUPPRESPACE", "Text.Trim"], ["Espaces multiples", ".str.split().str.join(\" \")", "str_squish()", "REGEXP_REPLACE(x,'\\s+',' ','g')", "SUPPRESPACE", "Text.Combine(…Text.Split…)"], ["Majuscules", ".str.upper()", "str_to_upper()", "UPPER()", "MAJUSCULE", "Text.Upper"], ["Nom Propre", ".str.title()", "str_to_title()", "INITCAP() (PostgreSQL)", "NOMPROPRE", "Text.Proper"], ["Longueur", ".str.len()", "str_length()", "LENGTH()", "NBCAR", "Text.Length"], ["Extraire", ".str[0:3]", "str_sub(x, 1, 3)", "SUBSTRING(x, 1, 3)", "STXT(x;1;3)", "Text.Middle(x, 0, 3)"], ["Contient", ".str.contains(\"a\")", "str_detect(x, \"a\")", "x LIKE '%a%'", "ESTNUM(CHERCHE(\"a\";x))", "Text.Contains"], ["Concaténer", "a + \" \" + b", "str_c(a, \" \", b)", "a || ' ' || b", "=[@a]&\" \"&[@b]", "[a] & \" \" & [b]"]] },
+    { h: "Les expressions régulières (regex) en 10 symboles", p: ["Une regex décrit un motif de texte. Elles sont disponibles en Python, R, SQL et dans Excel 365 récent (REGEXTEST, REGEXEXTRACT, REGEXREPLACE ; le nom français dépend de la version). Power Query n'a pas de regex natives."],
+      tbl: [["Motif", "Signification", "Exemple"], ["\\d", "un chiffre", "\\d{5} = un code postal"], ["\\s", "un espace (ou tabulation)", "\\s+ = un ou plusieurs espaces"], ["\\w", "une lettre, un chiffre ou _", "\\w+ = un mot"], [".", "n'importe quel caractère", "a.c = abc, a-c"], ["*  +  ?", "0 ou plus, 1 ou plus, 0 ou 1", "\\d+ = un nombre entier"], ["{n,m}", "entre n et m fois", "\\d{2,4}"], ["^  $", "début, fin du texte", "^FR = commence par FR"], ["[abc]  [^abc]", "un caractère parmi / hors de la liste", "[A-Z] = une majuscule"], ["(a|b)", "a ou b", "(Mme|M\\.)"], ["( )", "groupe à extraire", "(\\d{5}) (.+) = CP et ville"]] },
+    { h: "Exemples : extraire un code postal, retirer les accents", code: {
+      py: `df["cp"] = df["adresse"].str.extract(r"(\\d{5})")                   # 1er groupe de 5 chiffres
+df["tel"] = df["tel"].str.replace(r"\\D", "", regex=True)            # ne garder que les chiffres
+import unicodedata
+sans_accent = lambda s: unicodedata.normalize("NFD", s).encode("ascii", "ignore").decode()
+df["ville_norm"] = df["ville"].map(sans_accent).str.upper()`,
+      r: `df <- df |>
+  mutate(cp = str_extract(adresse, "\\\\d{5}"),
+         tel = str_remove_all(tel, "\\\\D"),
+         ville_norm = str_to_upper(stringi::stri_trans_general(ville, "Latin-ASCII")))`,
+      sql: `SELECT REGEXP_EXTRACT(adresse, '(\\d{5})', 1) AS cp,
+       REGEXP_REPLACE(tel, '\\D', '', 'g')   AS tel,
+       UPPER(STRIP_ACCENTS(ville))           AS ville_norm       -- DuckDB
+FROM clients;`,
+      xl: `=REGEXEXTRACT([@adresse];"\\d{5}")          Excel 365 récent (nom français selon la version)
+=REGEXREPLACE([@tel];"\\D";"")
+Sans regex : Données › Remplissage instantané (Ctrl+E) devine le motif à partir d'un exemple tapé à la main`,
+      pbi: `// Power Query : Ajouter une colonne › Colonne à partir d'exemples (comme Ctrl+E)
+Table.AddColumn(Source, "tel_ok", each Text.Select([tel], {"0".."9"}))
+// retirer les accents
+Table.AddColumn(Source, "ville_norm", each Text.Upper(Text.FromBinary(Text.ToBinary([ville], 1251), TextEncoding.Ascii)))`
+    } },
+    { h: "Caractères invisibles", p: ["Un texte copié depuis le web peut contenir des **espaces insécables** (code 160) ou des retours à la ligne. SUPPRESPACE ne les retire pas : utilisez SUBSTITUE(x;CAR(160);\" \") dans Excel, Text.Clean en Power Query, ou .str.replace(\"\\xa0\", \" \") en Python."] }],
+  keys: ["Nettoyez les colonnes texte avant tout regroupement ou jointure.", "Gardez l'original et créez une colonne normalisée quand vous hésitez."],
+  traps: ["Title case abîme certains noms : « McDonald » devient « Mcdonald », « de La Fontaine » devient « De La Fontaine ».", "En regex, le point « . » signifie « n'importe quel caractère » : écrivez \\. pour un vrai point."],
+  go: { label: "Essayer : défi « Liste propre des vendeurs »", chal: "d3" } },
+
+{ id: "l9", part: "Préparer les données", t: "Dates et heures", dur: 12,
+  intro: "Les dates sont le type le plus piégeux : formats jour/mois inversés, numéros de série Excel, fuseaux horaires. Une fois bien typées, elles ouvrent l'analyse temporelle.",
+  s: [
+    { h: "Le format de référence : ISO 8601", p: ["Écrivez les dates **AAAA-MM-JJ** (2025-04-03) dans vos fichiers : c'est non ambigu et le tri alphabétique correspond au tri chronologique. « 03/04/2025 » vaut le 3 avril en France et le 4 mars aux États-Unis."] },
+    { h: "Codes de format", tbl: [["Code (Python, R, DuckDB)", "Sens", "Exemple"], ["%Y", "Année sur 4 chiffres", "2025"], ["%m", "Mois 01-12", "04"], ["%d", "Jour 01-31", "03"], ["%H:%M:%S", "Heure:minute:seconde", "14:05:00"], ["%A / %B", "Nom du jour / du mois", "jeudi / avril"], ["%j", "Jour de l'année", "093"], ["%V", "Semaine ISO", "14"]] },
+    { h: "Convertir, extraire, calculer", code: {
+      py: `df["date"] = pd.to_datetime(df["date_txt"], format="%d/%m/%Y")
+df["annee"] = df["date"].dt.year
+df["mois_nom"] = df["date"].dt.month_name(locale="fr_FR")     # selon le système
+df["semaine"] = df["date"].dt.isocalendar().week
+df["delai_j"] = (df["livraison"] - df["date"]).dt.days
+df["mois"] = df["date"].dt.to_period("M")                     # 2025-04
+mensuel = df.resample("MS", on="date")["ca"].sum()            # total par mois`,
+      r: `library(lubridate)
+df <- df |>
+  mutate(date = dmy(date_txt),
+         annee = year(date),
+         mois_nom = month(date, label = TRUE, abbr = FALSE),
+         semaine = isoweek(date),
+         delai_j = as.numeric(livraison - date),
+         mois = floor_date(date, "month"))
+df |> summarise(ca = sum(ca), .by = mois)`,
+      sql: `SELECT STRPTIME(date_txt, '%d/%m/%Y')::DATE          AS date,
+       YEAR(date) AS annee, WEEK(date) AS semaine,
+       DATE_DIFF('day', date, livraison)            AS delai_j,
+       DATE_TRUNC('month', date)                    AS mois
+FROM commandes;
+SELECT DATE_TRUNC('month', date) AS mois, SUM(ca) FROM commandes GROUP BY 1 ORDER BY 1;`,
+      xl: `=DATEVAL([@date_txt])        =ANNEE([@date])     =MOIS([@date])
+=TEXTE([@date];"mmmm")        nom du mois          =NO.SEMAINE.ISO([@date])
+=[@livraison]-[@date]         jours d'écart        =DATEDIF(debut;fin;"m") mois entiers
+=FIN.MOIS([@date];0)          dernier jour du mois =SERIE.JOUR.OUVRE(date;5) +5 jours ouvrés`,
+      pbi: `// Table calendrier (Modélisation › Nouvelle table), puis « Marquer comme table de dates »
+Calendrier =
+ADDCOLUMNS(
+    CALENDAR(DATE(2025, 1, 1), DATE(2025, 12, 31)),
+    "Année", YEAR([Date]),
+    "Mois", MONTH([Date]),
+    "Nom du mois", FORMAT([Date], "mmmm"),
+    "Trimestre", "T" & QUARTER([Date]),
+    "Jour semaine", WEEKDAY([Date], 2))
+Délai (j) = DATEDIFF(commandes[date], commandes[livraison], DAY)`
+    } },
+    { h: "Fuseaux horaires et heures", p: ["Un horodatage issu d'une application web est souvent en **UTC**. Convertissez-le dans le fuseau local (Europe/Paris) avant d'extraire l'heure ou le jour, sinon les ventes de 23 h 30 changent de jour. pandas : .dt.tz_convert(\"Europe/Paris\") ; R : with_tz(x, \"Europe/Paris\") ; Power Query : DateTimeZone.ToLocal."] }],
+  keys: ["Convertissez les dates dès l'import, en précisant le format.", "Dans Power BI, utilisez toujours une table calendrier reliée à vos faits."],
+  traps: ["Excel sur Mac peut utiliser le calendrier 1904 : les dates importées sont décalées de 4 ans.", "Comparer des dates stockées en texte « JJ/MM/AAAA » : le tri est faux (01/02 avant 31/01)."],
+  go: { label: "Essayer : défi « Commandes du 4e trimestre »", chal: "d6" } },
+
+{ id: "l10", part: "Préparer les données", t: "Les valeurs aberrantes", dur: 10,
+  intro: "Une valeur aberrante s'écarte fortement des autres. Ce peut être une erreur de saisie (quantité 1 000 au lieu de 10) ou une vraie valeur rare (un très gros client). Il faut la repérer avant de décider.",
+  s: [
+    { h: "Deux méthodes de détection", tbl: [["Méthode", "Règle", "Avantage", "Limite"], ["IQR (boîte à moustaches)", "Hors de [Q1 − 1,5×IQR ; Q3 + 1,5×IQR], avec IQR = Q3 − Q1", "Robuste : ne dépend pas des extrêmes eux-mêmes", "Signale beaucoup de points sur des distributions très asymétriques"], ["z-score", "|valeur − moyenne| / écart-type > 3", "Simple, adapté aux données en cloche", "La moyenne et l'écart-type sont eux-mêmes tirés par les extrêmes"]] },
+    { h: "Exemple chiffré", p: ["Quantités : 1, 2, 2, 3, 3, 3, 4, 4, 5, 40. Q1 = 2,25 ; Q3 = 4 ; IQR = 1,75. Borne haute = 4 + 1,5 × 1,75 = 6,6. La valeur 40 est aberrante : erreur de saisie probable pour 4."] },
+    { h: "Que faire d'une valeur aberrante ?", ol: ["**Vérifier** à la source : erreur de saisie, d'unité (€ contre k€), de format ?", "**Corriger** si l'erreur est certaine.", "**Garder** si c'est une vraie valeur, mais préférer la médiane à la moyenne pour résumer.", "**Plafonner** (winsorisation) aux bornes pour limiter son poids dans un modèle.", "**Analyser à part** : les très gros clients méritent parfois leur propre étude."] },
+    { h: "Détecter et visualiser", code: {
+      py: `q1, q3 = df["ca"].quantile([0.25, 0.75])
+iqr = q3 - q1
+aberrants = df[(df["ca"] < q1 - 1.5 * iqr) | (df["ca"] > q3 + 1.5 * iqr)]
+df.boxplot(column="ca", by="canal")                       # boîte à moustaches
+z = (df["ca"] - df["ca"].mean()) / df["ca"].std()
+df["ca_plafonne"] = df["ca"].clip(upper=q3 + 1.5 * iqr)`,
+      r: `stats <- boxplot.stats(df$ca)$out                       # valeurs hors moustaches
+ggplot(df, aes(canal, ca)) + geom_boxplot()
+df <- df |> mutate(z = as.numeric(scale(ca)),
+                   ca_plafonne = pmin(ca, quantile(ca, .75, na.rm = TRUE) + 1.5 * IQR(ca, na.rm = TRUE)))`,
+      sql: `WITH b AS (SELECT QUANTILE_CONT(ca, 0.25) AS q1, QUANTILE_CONT(ca, 0.75) AS q3 FROM ventes)
+SELECT v.* FROM ventes v, b
+WHERE v.ca < b.q1 - 1.5 * (b.q3 - b.q1) OR v.ca > b.q3 + 1.5 * (b.q3 - b.q1);`,
+      xl: `=QUARTILE.INCLURE(ventes[ca];1)   =QUARTILE.INCLURE(ventes[ca];3)
+=CENTREE.REDUITE([@ca];MOYENNE(ventes[ca]);ECARTYPE.STANDARD(ventes[ca]))   z-score
+Insertion › Graphique statistique › Zone et valeur (boîte à moustaches)
+Mise en forme conditionnelle › Règles des valeurs plus/moins élevées pour les repérer`,
+      pbi: `z ca = DIVIDE(ventes[ca] - AVERAGE(ventes[ca]), STDEV.S(ventes[ca]))
+// Visuel nuage de points : volet Analyse › Détection des anomalies (courbes)
+// Boîte à moustaches : visuel « Box and Whisker » depuis AppSource`
+    } }],
+  keys: ["Ne supprimez jamais une valeur aberrante sans l'avoir comprise.", "Médiane et quartiles résistent aux extrêmes ; moyenne et écart-type non."],
+  traps: ["Retirer les aberrants puis recalculer les bornes et recommencer : on finit par supprimer des données normales.", "Appliquer le z-score à une distribution très asymétrique (revenus, CA clients)."],
+  go: { label: "Essayer : défi « Commandes hors norme »", chal: "d11" } },
+
+/* ---------- Transformer ---------- */
+{ id: "l11", part: "Transformer et combiner", t: "Données « tidy » : format long et large", dur: 9,
+  intro: "La plupart des outils d'analyse (ggplot2, seaborn, Power BI, les tableaux croisés) attendent des données « tidy » : une ligne par observation, une colonne par variable.",
+  s: [
+    { h: "Les 3 règles (Hadley Wickham)", ol: ["Chaque **variable** est une colonne.", "Chaque **observation** est une ligne.", "Chaque **valeur** est une cellule."] },
+    { h: "Large contre long", tbl: [["Format large (lisible)", "", "", "Format long (tidy)", "", ""], ["etudiant", "maths", "physique", "etudiant", "matiere", "note"], ["Léa", "14", "12", "Léa", "maths", "14"], ["Hugo", "9", "15", "Léa", "physique", "12"], ["", "", "", "Hugo", "maths", "9"], ["", "", "", "Hugo", "physique", "15"]] },
+    { h: "Passer de l'un à l'autre", p: ["Large → long : **dépivoter** (melt, pivot_longer, UNPIVOT). Long → large : **pivoter** (pivot_table, pivot_wider, PIVOT, tableau croisé)."], code: {
+      py: `long = df.melt(id_vars=["etudiant", "classe"], var_name="matiere", value_name="note")
+large = long.pivot_table(index="etudiant", columns="matiere", values="note").reset_index()`,
+      r: `long <- notes |> pivot_longer(-c(etudiant, classe), names_to = "matiere", values_to = "note")
+large <- long |> pivot_wider(names_from = matiere, values_from = note)`,
+      sql: `UNPIVOT notes ON maths, physique, francais, anglais, histoire
+INTO NAME matiere VALUE note;                                     -- DuckDB
+PIVOT notes_long ON matiere USING AVG(note) GROUP BY etudiant;`,
+      xl: `Large → long : Données › À partir d'un tableau › sélectionner etudiant et classe
+              › Transformer › Dépivoter les autres colonnes › Fermer et charger
+Long → large : tableau croisé (etudiant en Lignes, matiere en Colonnes, note en Valeurs)`,
+      pbi: `// Power Query
+Table.UnpivotOtherColumns(Source, {"etudiant", "classe"}, "matiere", "note")
+Table.Pivot(Long, List.Distinct(Long[matiere]), "matiere", "note", List.Average)`
+    } },
+    { h: "Pourquoi le format long est plus pratique", ul: ["Ajouter une matière ne demande aucune nouvelle colonne ni formule.", "Une seule mesure « Moyenne de note » suffit dans Power BI, filtrable par matière.", "Un graphique par matière se fait en une ligne (facet_wrap, hue, légende)."] }],
+  keys: ["Stockez et calculez en long, présentez en large.", "Un en-tête qui contient une valeur (2023, 2024, maths…) est le signe d'un format large."],
+  traps: ["Dépivoter en oubliant une colonne identifiant : elle est « dépivotée » avec les valeurs.", "Power Query retire les valeurs null lors du dépivotage ; pandas et R les gardent."],
+  go: { label: "Essayer : défi « Moyenne par matière »", chal: "d7" } },
+
+{ id: "l12", part: "Transformer et combiner", t: "Agréger et regrouper", dur: 10,
+  intro: "Agréger, c'est résumer plusieurs lignes en une valeur (somme, moyenne, nombre). Regrouper, c'est le faire séparément pour chaque groupe. C'est l'opération la plus fréquente de l'analyse.",
+  s: [
+    { h: "La granularité", p: ["La **granularité** d'une table est ce que représente une ligne : une commande, un produit par jour, un client par mois. Avant d'agréger, demandez-vous à quelle granularité vous voulez arriver : « une ligne par région et par mois »."] },
+    { h: "Compter : trois fonctions différentes", tbl: [["Besoin", "pandas", "R", "SQL", "Excel", "DAX"], ["Toutes les lignes", "len(df), size()", "n()", "COUNT(*)", "LIGNES", "COUNTROWS"], ["Valeurs non vides", "count()", "sum(!is.na(x))", "COUNT(col)", "NBVAL", "COUNT / COUNTA"], ["Valeurs distinctes", "nunique()", "n_distinct()", "COUNT(DISTINCT col)", "LIGNES(UNIQUE())", "DISTINCTCOUNT"]] },
+    { h: "Plusieurs calculs et filtre sur les groupes", code: {
+      py: `res = (df.groupby(["region", "canal"], as_index=False)
+          .agg(ca=("ca", "sum"), panier_moyen=("ca", "mean"),
+               nb_commandes=("commande", "nunique"), clients=("client", "nunique")))
+res = res[res["nb_commandes"] >= 5]                  # équivalent de HAVING`,
+      r: `res <- df |>
+  summarise(ca = sum(ca), panier_moyen = mean(ca),
+            nb_commandes = n_distinct(commande), .by = c(region, canal)) |>
+  filter(nb_commandes >= 5)`,
+      sql: `SELECT region, canal,
+       SUM(ca) AS ca, AVG(ca) AS panier_moyen,
+       COUNT(DISTINCT commande) AS nb_commandes
+FROM ventes
+WHERE date >= DATE '2025-01-01'          -- filtre AVANT regroupement
+GROUP BY region, canal
+HAVING COUNT(DISTINCT commande) >= 5     -- filtre APRÈS regroupement
+ORDER BY ca DESC;`,
+      xl: `Tableau croisé dynamique : region et canal en Lignes, ca en Valeurs (deux fois : Somme et Moyenne)
+Paramètres des champs de valeurs › Nombre distinct (cocher « Ajouter ces données au modèle »)
+Formule 365 : =GROUPER.PAR(ventes[[region]:[canal]];ventes[ca];SOMME)`,
+      pbi: `CA = SUM(ventes[ca])
+Panier moyen = DIVIDE([CA], DISTINCTCOUNT(ventes[commande]))
+Nb commandes = DISTINCTCOUNT(ventes[commande])
+// Le visuel fait le GROUP BY : glisser region et canal dans une Matrice`
+    } },
+    { h: "Le piège de la moyenne des moyennes", p: ["Nord : 2 commandes de 100 € → moyenne 100. Sud : 98 commandes de 10 € → moyenne 10. La moyenne des deux moyennes vaut 55 €, mais le vrai panier moyen est (200 + 980) / 100 = **11,80 €**. Recalculez toujours un ratio à partir des totaux (somme / nombre), jamais en moyennant des moyennes."] }],
+  keys: ["WHERE filtre les lignes, HAVING filtre les groupes.", "Un ratio se calcule sur des totaux : DIVIDE([CA]; [Nb commandes])."],
+  traps: ["Sommer une colonne déjà agrégée (un sous-total présent dans les données).", "COUNT(col) ignore les vides : le résultat peut surprendre sur une colonne incomplète."],
+  go: { label: "Essayer : défi « Chiffre d'affaires par région »", chal: "d4" } },
+
+{ id: "l13", part: "Transformer et combiner", t: "Les jointures", dur: 13,
+  intro: "Une jointure combine deux tables grâce à une clé commune. C'est la base des modèles de données, et une source fréquente d'erreurs silencieuses.",
+  s: [
+    { h: "Les types de jointures", tbl: [["Type", "Résultat", "pandas how=", "R", "SQL"], ["Interne", "Seulement les clés présentes des deux côtés", "\"inner\"", "inner_join", "INNER JOIN"], ["Gauche", "Toute la table de gauche, + infos de droite si trouvées", "\"left\"", "left_join", "LEFT JOIN"], ["Droite", "Toute la table de droite", "\"right\"", "right_join", "RIGHT JOIN"], ["Complète", "Tout, des deux côtés", "\"outer\"", "full_join", "FULL JOIN"], ["Anti", "Lignes de gauche SANS correspondance", "indicator=True puis filtre", "anti_join", "WHERE b.cle IS NULL"], ["Semi", "Lignes de gauche AVEC correspondance (sans ajouter de colonnes)", "isin()", "semi_join", "WHERE EXISTS"]] },
+    { h: "Cardinalité : combien de lignes vont correspondre ?", ul: ["**Plusieurs-à-un** (ventes → produits) : le cas normal. Le nombre de lignes de gauche ne change pas.", "**Un-à-un** (client → fiche détaillée).", "**Plusieurs-à-plusieurs** : chaque correspondance est multipliée. 3 lignes × 4 lignes = 12 lignes : les totaux explosent. C'est presque toujours le signe d'une clé en double."] },
+    { h: "Joindre en vérifiant", code: {
+      py: `avant = len(ventes)
+res = ventes.merge(produits, on="produit_id", how="left",
+                   validate="many_to_one", indicator=True)    # erreur si produit_id en double
+assert len(res) == avant
+print(res["_merge"].value_counts())                          # left_only = sans correspondance
+orphelins = res[res["_merge"] == "left_only"]`,
+      r: `res <- ventes |>
+  left_join(produits, by = join_by(produit_id), relationship = "many-to-one")
+stopifnot(nrow(res) == nrow(ventes))
+orphelins <- ventes |> anti_join(produits, by = join_by(produit_id))`,
+      sql: `SELECT v.*, p.produit, p.categorie
+FROM ventes v
+LEFT JOIN produits p ON v.produit_id = p.produit_id;
+-- ventes sans produit connu (anti-jointure)
+SELECT v.* FROM ventes v
+LEFT JOIN produits p ON v.produit_id = p.produit_id
+WHERE p.produit_id IS NULL;`,
+      xl: `=RECHERCHEX([@produit_id];produits[produit_id];produits[categorie];"inconnu")
+Préférez RECHERCHEX à RECHERCHEV : pas de numéro de colonne fragile,
+correspondance exacte par défaut, recherche vers la gauche possible.
+Ancienne version : =INDEX(produits[categorie];EQUIV([@produit_id];produits[produit_id];0))`,
+      pbi: `// Vue Modèle : glisser ventes[produit_id] sur produits[produit_id]
+// Cardinalité : Plusieurs à un (*:1), direction du filtre : Unique
+// Colonne calculée dans ventes (rarement nécessaire) :
+categorie = RELATED(produits[categorie])
+// Power Query : Accueil › Fusionner des requêtes › Type de jointure › Externe gauche`
+    } },
+    { h: "Clés sales", p: ["Une jointure échoue silencieusement si les clés diffèrent par un détail : espace final, casse, zéro en tête (« 0123 » contre « 123 »), type différent (texte contre nombre). Nettoyez et typez les clés des deux côtés avant de joindre."] }],
+  keys: ["Comptez les lignes avant et après chaque jointure.", "Vérifiez les lignes sans correspondance (anti-jointure)."],
+  traps: ["RECHERCHEV sans le 4e argument FAUX fait une correspondance approximative : résultats faux sans erreur.", "Joindre sur un nom plutôt que sur un identifiant."],
+  go: { label: "Essayer : défi « Top 3 des catégories »", chal: "d9" } },
+
+{ id: "l14", part: "Transformer et combiner", t: "Fonctions de fenêtre", dur: 11,
+  intro: "Une fonction de fenêtre calcule, pour chaque ligne, une valeur qui dépend d'autres lignes (rang, cumul, moyenne mobile, valeur précédente) sans réduire le nombre de lignes, contrairement à GROUP BY.",
+  s: [
+    { h: "Les fonctions les plus utiles", tbl: [["Calcul", "pandas", "R (dplyr)", "SQL"], ["Rang", "rank(ascending=False)", "min_rank(desc(x))", "RANK() OVER (ORDER BY x DESC)"], ["Numéro de ligne", "cumcount() + 1", "row_number()", "ROW_NUMBER() OVER (…)"], ["Cumul", "cumsum()", "cumsum(x)", "SUM(x) OVER (ORDER BY d)"], ["Valeur précédente", "shift(1)", "lag(x)", "LAG(x) OVER (ORDER BY d)"], ["Moyenne mobile 3", "rolling(3).mean()", "slider::slide_dbl(x, mean, .before = 2)", "AVG(x) OVER (ORDER BY d ROWS 2 PRECEDING)"], ["Part du groupe", "x / groupby().transform(\"sum\")", "x / sum(x), .by = g", "x / SUM(x) OVER (PARTITION BY g)"]] },
+    { h: "Évolution mois sur mois", code: {
+      py: `m = df.groupby("mois", as_index=False)["ca"].sum().sort_values("mois")
+m["ca_mois_prec"] = m["ca"].shift(1)
+m["evolution_pct"] = (m["ca"] / m["ca_mois_prec"] - 1) * 100
+m["moyenne_mobile_3"] = m["ca"].rolling(3).mean()
+m["cumul"] = m["ca"].cumsum()`,
+      r: `m <- df |>
+  summarise(ca = sum(ca), .by = mois) |>
+  arrange(mois) |>
+  mutate(evolution_pct = (ca / lag(ca) - 1) * 100,
+         moyenne_mobile_3 = (ca + lag(ca) + lag(ca, 2)) / 3,
+         cumul = cumsum(ca))`,
+      sql: `SELECT mois, ca,
+       (ca / LAG(ca) OVER (ORDER BY mois) - 1) * 100                         AS evolution_pct,
+       AVG(ca) OVER (ORDER BY mois ROWS BETWEEN 2 PRECEDING AND CURRENT ROW) AS moyenne_mobile_3,
+       SUM(ca) OVER (ORDER BY mois ROWS UNBOUNDED PRECEDING)                 AS cumul
+FROM (SELECT mois, SUM(ca) AS ca FROM ventes GROUP BY mois)
+ORDER BY mois;`,
+      xl: `Tableau trié par mois, CA en colonne B à partir de B2 :
+Évolution : =B3/B2-1         (format %)
+Moyenne mobile : =MOYENNE(B2:B4)   recopiée vers le bas
+Cumul : =SOMME($B$2:B2)            le $ fige le début de la plage
+TCD : clic droit › Afficher les valeurs › Différence en % par rapport à › (précédent)`,
+      pbi: `CA = SUM(ventes[ca])
+CA mois préc. = CALCULATE([CA], DATEADD(Calendrier[Date], -1, MONTH))
+Évolution % = DIVIDE([CA] - [CA mois préc.], [CA mois préc.])
+CA cumul annuel = TOTALYTD([CA], Calendrier[Date])
+Moyenne mobile 3 mois =
+AVERAGEX(DATESINPERIOD(Calendrier[Date], MAX(Calendrier[Date]), -3, MONTH), [CA])`
+    } }],
+  keys: ["GROUP BY réduit les lignes, une fenêtre les conserve.", "Une fenêtre d'ordre (cumul, LAG) n'a de sens qu'avec un tri explicite."],
+  traps: ["Oublier ORDER BY dans OVER() : le cumul devient le total du groupe.", "Calculer une évolution sur des mois manquants : lag() prend le mois présent précédent, pas forcément le mois d'avant."],
+  go: { label: "Essayer : défi « CA cumulé mois après mois »", chal: "d15" } },
+
+/* ---------- Excel et Power BI ---------- */
+{ id: "l15", part: "Excel et Power BI avancés", t: "Power Query et le langage M", dur: 13,
+  intro: "Power Query enregistre chaque clic comme une étape en langage M. On peut tout faire à la souris, mais lire le M permet de corriger, réutiliser et comprendre ce qui se passe.",
+  s: [
+    { h: "Anatomie d'une requête", p: ["Une requête est un bloc **let … in**. Chaque ligne crée une étape nommée à partir de la précédente ; **in** indique l'étape renvoyée. Les étapes apparaissent dans le volet « Étapes appliquées ». Accueil › **Éditeur avancé** montre le code complet."], code: {
+      pbi: `let
+    Source = Excel.Workbook(File.Contents("C:\\Donnees\\ventes.xlsx"), true),
+    Ventes = Source{[Item = "Ventes", Kind = "Table"]}[Data],
+    Types = Table.TransformColumnTypes(Ventes, {{"date", type date}, {"quantite", Int64.Type}}),
+    Filtre = Table.SelectRows(Types, each [quantite] > 0),
+    AvecCA = Table.AddColumn(Filtre, "ca", each [quantite] * [prix_unitaire], type number),
+    Groupe = Table.Group(AvecCA, {"region"}, {{"ca", each List.Sum([ca]), type number}})
+in
+    Groupe`
+    } },
+    { h: "Les notions clés", tbl: [["Notion", "Explication"], ["each [col]", "Fonction appliquée à chaque ligne ; [col] est la valeur de la ligne courante (raccourci de (_) => _[col])"], ["Table[col]", "La colonne entière, sous forme de liste : List.Sum(Table[ca])"], ["{ }", "Une liste : {\"a\", \"b\"} ou {1..10}"], ["[ ]", "Un enregistrement (record) : [Nom = \"Léa\", Age = 20]"], ["Table{0}", "La 1re ligne d'une table (index à partir de 0)"], ["null", "Valeur manquante ; null + 1 = null"], ["try … otherwise", "Gestion d'erreur : try Number.From([x]) otherwise null"], ["Types", "type text, type number, Int64.Type, type date, type logical"]] },
+    { h: "Fonctions M incontournables", tbl: [["Famille", "Fonctions"], ["Table", "Table.SelectRows, Table.SelectColumns, Table.AddColumn, Table.Group, Table.Sort, Table.Distinct, Table.NestedJoin, Table.ExpandTableColumn, Table.Pivot, Table.UnpivotOtherColumns, Table.Combine"], ["Texte", "Text.Trim, Text.Upper, Text.Proper, Text.Contains, Text.Split, Text.BeforeDelimiter, Text.Replace, Text.Select"], ["Liste", "List.Sum, List.Average, List.Distinct, List.Max, List.Contains, List.Select, List.Transform"], ["Date", "Date.Year, Date.Month, Date.StartOfMonth, Date.AddDays, Duration.Days, Date.FromText"], ["Nombre", "Number.Round, Number.From, Number.Mod"]] },
+    { h: "Paramètres et fonctions personnalisées", p: ["Accueil › Gérer les paramètres crée un paramètre (un dossier, une année) réutilisable dans toutes les requêtes. Une requête peut devenir une **fonction** pour traiter chaque fichier d'un dossier de la même manière :"], code: {
+      pbi: `// Requête « NettoyerFichier » (clic droit › Créer une fonction)
+(chemin as text) as table =>
+let
+    Source = Csv.Document(File.Contents(chemin), [Delimiter = ";", Encoding = 65001]),
+    Entetes = Table.PromoteHeaders(Source),
+    Propre = Table.TransformColumns(Entetes, {{"client", Text.Trim, type text}})
+in
+    Propre
+// Utilisation : Table.AddColumn(Fichiers, "Données", each NettoyerFichier([Chemin]))`
+    } },
+    { h: "Le pliage de requête (query folding)", p: ["Sur une base de données, Power Query traduit ses étapes en SQL exécuté par le serveur : c'est le **pliage**. Clic droit sur une étape › « Afficher la requête native » : si c'est grisé, le pliage est cassé et toutes les lignes sont téléchargées. Placez filtres et choix de colonnes **en premier**, avant les étapes non pliables (colonnes personnalisées complexes, index)."] }],
+  keys: ["Renommez les étapes (clic droit › Renommer) : le M devient lisible.", "Filtrez et retirez les colonnes inutiles le plus tôt possible."],
+  traps: ["Un nom de colonne codé en dur dans « Type modifié » casse la requête si la source change : supprimez les étapes de type automatiques inutiles.", "Les valeurs null font échouer if [x] > 5 : testez d'abord [x] <> null."],
+  go: { label: "Voir le M généré par l'exemple (onglet Power BI)", demo: true, lang: "pbi" } },
+
+{ id: "l16", part: "Excel et Power BI avancés", t: "Modéliser en étoile", dur: 11,
+  intro: "Dans Power BI, on ne met pas tout dans une seule grande table. On sépare les faits (ce qui se mesure) des dimensions (ce qui les décrit), reliés en étoile.",
+  s: [
+    { h: "Faits et dimensions", tbl: [["", "Table de faits", "Table de dimension"], ["Contenu", "Événements mesurés : ventes, visites, paiements", "Descriptions : produits, clients, magasins, dates"], ["Colonnes", "Clés étrangères + mesures numériques (quantité, montant)", "Clé unique + attributs (nom, catégorie, ville)"], ["Taille", "Beaucoup de lignes, peu de colonnes", "Peu de lignes, beaucoup de colonnes"], ["Exemple", "ventes(date, produit_id, magasin_id, quantite, montant)", "produits(produit_id, produit, categorie, marque)"]] },
+    { h: "Le schéma en étoile", p: ["La table de faits est au centre ; chaque dimension y est reliée par une relation **un-à-plusieurs** (1 → *). Les filtres « descendent » des dimensions vers les faits : choisir la catégorie « Audio » filtre les ventes correspondantes."],
+      diagram: "star" },
+    { h: "Bonnes pratiques de modèle", ul: [
+      "Relations **1 → *** avec un filtre à **sens unique** (des dimensions vers les faits). Le filtre bidirectionnel crée des ambiguïtés : à éviter sauf besoin précis.",
+      "Une **table calendrier** continue, marquée comme table de dates, reliée à chaque date des faits.",
+      "Masquez les clés techniques dans la vue Rapport (clic droit › Masquer).",
+      "Toutes les agrégations en **mesures** DAX, pas en colonnes implicites.",
+      "Évitez les relations plusieurs-à-plusieurs : créez une table de pont ou une dimension commune.",
+      "Réduisez la cardinalité : séparez date et heure, arrondissez les décimales inutiles."] },
+    { h: "Construire les dimensions à partir d'une table plate", code: {
+      py: `produits = ventes[["produit_id", "produit", "categorie"]].drop_duplicates()
+assert produits["produit_id"].is_unique
+faits = ventes[["commande", "date", "produit_id", "quantite", "prix_unitaire"]]`,
+      r: `produits <- ventes |> distinct(produit_id, produit, categorie)
+stopifnot(!anyDuplicated(produits$produit_id))
+faits <- ventes |> select(commande, date, produit_id, quantite, prix_unitaire)`,
+      sql: `CREATE TABLE dim_produit AS SELECT DISTINCT produit_id, produit, categorie FROM ventes_plates;
+CREATE TABLE fait_ventes AS SELECT commande, date, produit_id, quantite, prix_unitaire FROM ventes_plates;`,
+      xl: `Power Query : clic droit sur la requête › Référence
+  › Choisir les colonnes produit_id, produit, categorie › Supprimer les doublons
+Puis Données › Relations (ou Power Pivot › Vue de diagramme) pour relier les tables`,
+      pbi: `// Power Query : Référence de la requête plate › colonnes de la dimension › Supprimer les doublons
+// Vue Modèle : relier dim_produit[produit_id] (1) → fait_ventes[produit_id] (*)
+// Table calendrier DAX :
+Calendrier = CALENDARAUTO()     // puis Outils de table › Marquer comme table de dates`
+    } }],
+  keys: ["Faits au centre, dimensions autour, relations 1 → * à sens unique.", "Une table calendrier dédiée est indispensable pour l'intelligence temporelle."],
+  traps: ["Une clé en double dans une dimension transforme la relation en plusieurs-à-plusieurs.", "Relier deux tables de faits directement entre elles."] },
+
+{ id: "l17", part: "Excel et Power BI avancés", t: "DAX : mesures et contextes", dur: 15,
+  intro: "DAX est le langage de calcul de Power BI (et de Power Pivot dans Excel). Sa difficulté tient à une idée : le résultat d'une mesure dépend du contexte dans lequel elle est affichée.",
+  s: [
+    { h: "Colonne calculée ou mesure ?", tbl: [["", "Colonne calculée", "Mesure"], ["Calculée", "Une fois, au chargement, ligne par ligne", "À chaque affichage, selon les filtres"], ["Stockée", "Oui (prend de la mémoire)", "Non"], ["Contexte", "Contexte de ligne", "Contexte de filtre"], ["Usage", "Attribut pour filtrer ou regrouper (tranche d'âge)", "Totaux, ratios, KPI (CA, marge %)"], ["Exemple", "Tranche = IF(clients[age] < 30, \"Jeune\", \"Adulte\")", "CA = SUMX(ventes, ventes[quantite] * ventes[prix])"]] },
+    { h: "Les deux contextes", ul: ["**Contexte de filtre** : l'ensemble des filtres actifs sur un calcul (lignes et colonnes du visuel, segments, filtres de page). Dans une matrice par région, la mesure [CA] de la ligne « Nord » ne voit que les ventes du Nord.", "**Contexte de ligne** : « la ligne courante », dans une colonne calculée ou un itérateur (SUMX, FILTER, ADDCOLUMNS).", "**CALCULATE** modifie le contexte de filtre : c'est la fonction la plus importante de DAX."] },
+    { h: "Une bibliothèque de mesures", code: {
+      pbi: `CA = SUMX(ventes, ventes[quantite] * ventes[prix_unitaire])
+Nb commandes = DISTINCTCOUNT(ventes[commande])
+Panier moyen = DIVIDE([CA], [Nb commandes])                   // DIVIDE évite la division par zéro
+
+CA Web = CALCULATE([CA], ventes[canal] = "Web")               // ajoute un filtre
+Part Web % = DIVIDE([CA Web], [CA])
+CA toutes régions = CALCULATE([CA], REMOVEFILTERS(ventes[region]))   // ignore le filtre région
+Part de la région = DIVIDE([CA], [CA toutes régions])
+
+Marge =
+VAR ca = [CA]
+VAR cout = SUMX(ventes, ventes[quantite] * RELATED(produits[cout_unitaire]))
+RETURN ca - cout
+Taux de marge = DIVIDE([Marge], [CA])
+
+// Intelligence temporelle (table Calendrier marquée)
+CA cumul annuel = TOTALYTD([CA], Calendrier[Date])
+CA N-1 = CALCULATE([CA], SAMEPERIODLASTYEAR(Calendrier[Date]))
+Évolution N/N-1 = DIVIDE([CA] - [CA N-1], [CA N-1])
+
+Rang produit = RANKX(ALL(produits[produit]), [CA], , DESC, Dense)
+Top 3 produits CA = CALCULATE([CA], TOPN(3, ALL(produits[produit]), [CA]))`
+    } },
+    { h: "Les fonctions à connaître en premier", tbl: [["Famille", "Fonctions"], ["Agrégation", "SUM, AVERAGE, MIN, MAX, COUNTROWS, DISTINCTCOUNT"], ["Itérateurs (ligne par ligne)", "SUMX, AVERAGEX, MAXX, RANKX, CONCATENATEX"], ["Filtres", "CALCULATE, FILTER, ALL, ALLEXCEPT, REMOVEFILTERS, KEEPFILTERS, VALUES, SELECTEDVALUE"], ["Logique", "IF, SWITCH(TRUE(), …), COALESCE, ISBLANK"], ["Relations", "RELATED, RELATEDTABLE, USERELATIONSHIP"], ["Temps", "TOTALYTD, SAMEPERIODLASTYEAR, DATEADD, DATESINPERIOD, DATESYTD"], ["Tables", "SUMMARIZECOLUMNS, ADDCOLUMNS, TOPN, CALENDAR, GENERATESERIES"]] }],
+  keys: ["Une mesure s'adapte au visuel ; une colonne calculée est figée.", "Utilisez VAR … RETURN pour la lisibilité et les performances.", "DIVIDE plutôt que « / »."],
+  traps: ["Écrire SUM(ventes[quantite]) * SUM(ventes[prix]) au lieu de SUMX(ventes, quantite × prix) : le produit des sommes n'est pas la somme des produits.", "Utiliser FILTER(ventes, …) sur toute la table dans CALCULATE quand un filtre simple sur une colonne suffit (lent)."] },
+
+{ id: "l18", part: "Excel et Power BI avancés", t: "Excel moderne", dur: 12,
+  intro: "Excel a beaucoup changé depuis 2019 : tableaux structurés, formules qui « débordent », LET, LAMBDA. Ces outils rendent les classeurs plus fiables et plus proches d'une vraie démarche de données.",
+  s: [
+    { h: "Toujours travailler en Tableau (Ctrl+L)", ul: ["La plage s'agrandit toute seule quand on ajoute des lignes : formules, graphiques et TCD suivent.", "Références lisibles : ventes[quantite] (colonne) et [@quantite] (ligne courante) au lieu de C2:C157.", "Une formule écrite dans une colonne se recopie sur toute la colonne.", "Nommez chaque tableau : Création de tableau › Nom du tableau."] },
+    { h: "Les formules dynamiques (Excel 365)", p: ["Une formule dynamique renvoie plusieurs valeurs qui **débordent** sur les cellules voisines. On fait référence au résultat entier avec **#** : =LIGNES(A2#). Si une cellule bloque le débordement : erreur #PROPAGATION!."],
+      tbl: [["Formule (FR)", "Anglais", "Rôle"], ["FILTRE", "FILTER", "Lignes qui respectent une condition"], ["TRIER / TRIERPAR", "SORT / SORTBY", "Trier une plage"], ["UNIQUE", "UNIQUE", "Valeurs distinctes"], ["SEQUENCE", "SEQUENCE", "Suite de nombres"], ["CHOISIRCOLS / CHOISIRLIGNES", "CHOOSECOLS / CHOOSEROWS", "Extraire des colonnes / lignes"], ["ASSEMB.V / ASSEMB.H", "VSTACK / HSTACK", "Empiler des plages"], ["PRENDRE / EXCLURE", "TAKE / DROP", "Garder / enlever les N premières lignes"], ["GROUPER.PAR / PIVOTER.PAR", "GROUPBY / PIVOTBY", "Agrégation sans tableau croisé"], ["FRACTIONNER.TEXTE", "TEXTSPLIT", "Découper un texte"]] },
+    { h: "Des formules plus lisibles avec LET et LAMBDA", code: {
+      xl: `Top 5 des régions par CA, en une formule :
+=LET(
+   ca; ventes[quantite]*ventes[prix_unitaire];
+   res; GROUPER.PAR(ventes[region]; ca; SOMME; 0; 0);
+   PRENDRE(TRIERPAR(res; CHOISIRCOLS(res; 2); -1); 5))
+
+Fonction personnalisée (Formules › Gestionnaire de noms › Nouveau, nom : MARGE_PCT) :
+=LAMBDA(prix; cout; SIERREUR((prix-cout)/prix; 0))
+Utilisation : =MARGE_PCT([@prix_unitaire]; [@cout_unitaire])
+
+Recherche robuste :
+=RECHERCHEX([@produit_id]; produits[produit_id]; produits[categorie]; "inconnu"; 0)
+Recherche à deux critères :
+=RECHERCHEX(1; (ventes[region]="Nord")*(ventes[canal]="Web"); ventes[commande])`
+    } },
+    { h: "Les tableaux croisés dynamiques, plus loin", ul: ["**Segments** et **chronologies** (Analyse du tableau croisé › Insérer un segment) pour filtrer plusieurs TCD à la fois.", "**Afficher les valeurs** : % du total, différence par rapport au précédent, cumul, rang.", "**Grouper** des dates par mois/trimestre, ou des nombres par tranches.", "**Modèle de données** (Power Pivot) : relier plusieurs tables et écrire des mesures DAX dans Excel.", "**Actualiser tout** (Ctrl+Alt+F5) après modification des données sources."] }],
+  keys: ["Tableau structuré + Power Query + TCD = un classeur qui se met à jour sans retouche.", "LET évite de répéter un calcul et rend la formule lisible."],
+  traps: ["Mélanger données et calculs sur la même feuille : séparez données brutes, calculs et restitution.", "Les fonctions dynamiques n'existent pas avant Excel 2021 : vos collègues sur Excel 2016 verront #NOM?."] },
+
+/* ---------- Analyser ---------- */
+{ id: "l19", part: "Analyser et communiquer", t: "Statistiques descriptives", dur: 12,
+  intro: "Avant toute analyse avancée, on résume chaque variable : où se situent les valeurs (tendance centrale), à quel point elles sont dispersées, et quelle forme a leur distribution.",
+  s: [
+    { h: "Les indicateurs", tbl: [["Indicateur", "Définition", "Excel (FR)", "pandas", "R"], ["Moyenne", "Somme / nombre", "MOYENNE", "mean()", "mean()"], ["Médiane", "Valeur du milieu (50 % de part et d'autre)", "MEDIANE", "median()", "median()"], ["Mode", "Valeur la plus fréquente", "MODE.SIMPLE", "mode()", "names(which.max(table(x)))"], ["Étendue", "Max − min", "MAX − MIN", "max() - min()", "diff(range(x))"], ["Variance", "Moyenne des carrés des écarts à la moyenne", "VAR.S", "var()", "var()"], ["Écart-type", "Racine de la variance, dans l'unité des données", "ECARTYPE.STANDARD", "std()", "sd()"], ["Coefficient de variation", "Écart-type / moyenne : dispersion relative", "=ECARTYPE.STANDARD/MOYENNE", "std() / mean()", "sd(x) / mean(x)"], ["Quartiles", "Q1 (25 %), Q2 (médiane), Q3 (75 %)", "QUARTILE.INCLURE", "quantile([.25,.5,.75])", "quantile()"], ["Asymétrie", "> 0 : queue vers la droite", "COEFFICIENT.ASYMETRIE", "skew()", "e1071::skewness()"]] },
+    { h: "Sur les données de l'application", live: "stats" },
+    { h: "Moyenne ou médiane ?", p: ["Quand la moyenne est nettement au-dessus de la médiane, la distribution a une queue vers la droite : quelques grandes valeurs (les ordinateurs portables à 1 099 €) tirent la moyenne. La médiane décrit alors mieux « la valeur typique ». Pour les salaires, les prix immobiliers ou le CA par client, on présente presque toujours la médiane."] },
+    { h: "Tout calculer d'un coup", code: {
+      py: `df["ca"].describe()                          # count, mean, std, min, quartiles, max
+df.groupby("canal")["ca"].describe()         # par groupe
+df["ca"].agg(["mean", "median", "std", "skew"])`,
+      r: `summary(df$ca)
+df |> summarise(moy = mean(ca), med = median(ca), et = sd(ca),
+                q1 = quantile(ca, .25), q3 = quantile(ca, .75), .by = canal)`,
+      sql: `SELECT canal, AVG(ca), MEDIAN(ca), STDDEV_SAMP(ca),
+       QUANTILE_CONT(ca, 0.25) AS q1, QUANTILE_CONT(ca, 0.75) AS q3, SKEWNESS(ca)
+FROM ventes GROUP BY canal;`,
+      xl: `Données › Analyse de données › Statistiques descriptives › cocher « Rapport détaillé »
+(activer d'abord : Fichier › Options › Compléments › Analysis ToolPak)`,
+      pbi: `Moyenne CA = AVERAGEX(ventes, ventes[ca])
+Médiane CA = MEDIANX(ventes, ventes[ca])
+Écart-type CA = STDEVX.S(ventes, ventes[ca])
+Q3 CA = PERCENTILEX.INC(ventes, ventes[ca], 0.75)`
+    } }],
+  keys: ["Toujours regarder moyenne ET médiane : leur écart révèle l'asymétrie.", "L'écart-type s'exprime dans l'unité des données : « ± 45 € autour de la moyenne »."],
+  traps: ["Écart-type de population (ECARTYPE.PEARSON, ddof=0) contre échantillon (ECARTYPE.STANDARD, ddof=1) : pandas et R utilisent l'échantillon par défaut, NumPy la population.", "Résumer une variable catégorielle par une moyenne (moyenne des codes postaux)."] },
+
+{ id: "l20", part: "Analyser et communiquer", t: "Tests statistiques de base", dur: 14,
+  intro: "Le panier moyen web est plus élevé que celui des magasins dans notre échantillon. Mais est-ce une vraie différence ou le fruit du hasard ? C'est la question à laquelle répond un test statistique.",
+  s: [
+    { h: "Le raisonnement", ol: ["On pose une **hypothèse nulle** H0 : « il n'y a pas de différence ».", "On calcule la **p-valeur** : la probabilité d'observer un écart au moins aussi grand si H0 était vraie.", "Si p < 0,05 (seuil usuel), l'écart est jugé **statistiquement significatif** : on rejette H0.", "Sinon, on ne peut pas conclure à une différence (ce qui ne prouve pas qu'il n'y en a pas)."] },
+    { h: "Quel test choisir ?", tbl: [["Question", "Variables", "Test", "Alternative robuste"], ["Deux groupes ont-ils la même moyenne ?", "1 numérique + 1 catégorie à 2 modalités", "t de Student (Welch)", "Mann-Whitney"], ["Plusieurs groupes ?", "1 numérique + 1 catégorie à 3+ modalités", "ANOVA", "Kruskal-Wallis"], ["Deux catégories sont-elles liées ?", "2 catégorielles", "Khi-deux (χ²)", "Test exact de Fisher (petits effectifs)"], ["Deux mesures varient-elles ensemble ?", "2 numériques", "Corrélation de Pearson", "Corrélation de Spearman"], ["Avant / après sur les mêmes individus ?", "Mesures appariées", "t apparié", "Wilcoxon"]] },
+    { h: "En pratique", code: {
+      py: `from scipy import stats
+web = df.loc[df["canal"] == "Web", "quantite"].dropna()
+mag = df.loc[df["canal"] == "Magasin", "quantite"].dropna()
+t, p = stats.ttest_ind(web, mag, equal_var=False)            # t de Welch
+print(f"p = {p:.3f}")
+chi2, p, ddl, attendu = stats.chi2_contingency(pd.crosstab(df["region"], df["canal"]))
+r, p = stats.pearsonr(df["quantite"], df["prix_unitaire"])`,
+      r: `t.test(quantite ~ canal, data = df)                       # Welch par défaut
+wilcox.test(quantite ~ canal, data = df)
+chisq.test(table(df$region, df$canal))
+cor.test(df$quantite, df$prix_unitaire, method = "pearson")
+summary(aov(quantite ~ region, data = df))                 # ANOVA`,
+      sql: `-- SQL calcule les ingrédients, pas la p-valeur
+SELECT canal, COUNT(quantite) AS n, AVG(quantite) AS moyenne, VAR_SAMP(quantite) AS variance
+FROM ventes GROUP BY canal;
+SELECT CORR(quantite, prix_unitaire) FROM ventes;`,
+      xl: `=T.TEST(plage_web;plage_magasin;2;3)        p-valeur, bilatéral, variances inégales
+=CHISQ.TEST(plage_observée;plage_attendue)
+=COEFFICIENT.CORRELATION(A2:A100;B2:B100)
+Analyse de données › Test d'égalité des espérances : deux observations de variances différentes`,
+      pbi: `// Pas de test statistique natif en DAX.
+// Utiliser un visuel Python ou R (Visualisations › Visuel Python),
+// ou calculer en amont dans Python / R et importer le résultat.`
+    } },
+    { h: "Significatif ne veut pas dire important", p: ["Avec 1 million de lignes, un écart de 0,01 € devient significatif. Regardez toujours la **taille de l'effet** (l'écart lui-même, en euros ou en %) en plus de la p-valeur. Et un test ne dit rien de la **causalité** : les clients web peuvent acheter plus pour une autre raison (âge, région)."] }],
+  keys: ["p < 0,05 : l'écart a peu de chances d'être dû au hasard seul.", "Rapportez l'écart observé et son intervalle, pas seulement la p-valeur."],
+  traps: ["Multiplier les tests jusqu'à en trouver un significatif (sur 20 tests, 1 le sera par hasard).", "Appliquer un t-test à de très petits échantillons très asymétriques : préférez un test non paramétrique."] },
+
+{ id: "l21", part: "Analyser et communiquer", t: "La régression linéaire", dur: 13,
+  intro: "La régression linéaire mesure comment une variable (y) évolue en moyenne quand une autre (x) augmente d'une unité. C'est le premier modèle prédictif à connaître.",
+  s: [
+    { h: "Le modèle", p: ["**y = a + b × x**. La pente **b** indique de combien y augmente quand x augmente de 1. L'ordonnée à l'origine **a** est la valeur de y quand x = 0. Le **R²** (entre 0 et 1) mesure la part de la variation de y expliquée par x : R² = 0,80 signifie que 80 % des écarts de y sont expliqués par x."] },
+    { h: "Estimer le modèle", code: {
+      py: `import statsmodels.formula.api as smf
+modele = smf.ols("ca ~ quantite", data=df).fit()
+print(modele.summary())                 # coefficients, p-valeurs, R²
+print(modele.params, modele.rsquared)
+# Plusieurs variables et une variable catégorielle :
+smf.ols("ca ~ quantite + C(canal) + C(region)", data=df).fit()
+# Prédire : modele.predict(pd.DataFrame({"quantite": [5, 10]}))`,
+      r: `modele <- lm(ca ~ quantite, data = df)
+summary(modele)
+coef(modele); summary(modele)$r.squared
+lm(ca ~ quantite + canal + region, data = df)      # les facteurs sont gérés seuls
+predict(modele, newdata = tibble(quantite = c(5, 10)))
+ggplot(df, aes(quantite, ca)) + geom_point() + geom_smooth(method = "lm")`,
+      sql: `SELECT REGR_SLOPE(ca, quantite)     AS pente,
+       REGR_INTERCEPT(ca, quantite) AS ordonnee,
+       REGR_R2(ca, quantite)        AS r2
+FROM ventes;`,
+      xl: `=PENTE(ventes[ca];ventes[quantite])
+=ORDONNEE.ORIGINE(ventes[ca];ventes[quantite])
+=COEFFICIENT.DETERMINATION(ventes[ca];ventes[quantite])     R²
+=DROITEREG(y;x;VRAI;VRAI)       statistiques complètes (plusieurs x possibles)
+=PREVISION.LINEAIRE(10;ventes[ca];ventes[quantite])
+Graphique en nuage de points › Ajouter une courbe de tendance › Afficher l'équation et le R²`,
+      pbi: `// Nuage de points › volet Analyse › Courbe de tendance
+Pente =
+VAR moyX = AVERAGE(ventes[quantite])
+VAR moyY = AVERAGE(ventes[ca])
+RETURN DIVIDE(
+    SUMX(ventes, (ventes[quantite] - moyX) * (ventes[ca] - moyY)),
+    SUMX(ventes, (ventes[quantite] - moyX) ^ 2))
+// Récent : LINESTX(ventes, ventes[ca], ventes[quantite])`
+    } },
+    { h: "Lire les résultats avec prudence", ul: ["Vérifiez le nuage de points : une relation courbe ou des valeurs aberrantes faussent la droite.", "Une p-valeur faible sur b indique que la pente est probablement non nulle ; elle ne dit rien de la causalité.", "Ne prédisez pas loin hors de la plage observée (extrapolation).", "Avec plusieurs x, chaque coefficient se lit « toutes choses égales par ailleurs »."] }],
+  keys: ["Pente = effet moyen d'une unité de x sur y ; R² = part de variation expliquée.", "Regardez toujours le graphique avant de croire les chiffres."],
+  traps: ["Confondre corrélation et causalité : les ventes de glaces et les noyades augmentent ensemble… à cause de l'été.", "Deux variables x très corrélées entre elles (colinéarité) rendent les coefficients instables."] },
+
+{ id: "l22", part: "Analyser et communiquer", t: "Choisir le bon graphique", dur: 10,
+  intro: "Un graphique répond à une question. Le bon type dépend de ce que l'on veut montrer : une comparaison, une évolution, une distribution, une relation ou une composition.",
+  s: [
+    { h: "Question → graphique", tbl: [["Je veux montrer…", "Graphique conseillé", "À éviter"], ["Comparer des catégories", "Barres horizontales triées", "Camembert à 8 parts, barres 3D"], ["Une évolution dans le temps", "Courbe (ligne)", "Barres pour 50 dates"], ["Une distribution", "Histogramme, boîte à moustaches", "Moyenne seule"], ["Une relation entre deux mesures", "Nuage de points (+ tendance)", "Deux axes Y superposés"], ["Une part du total", "Barre empilée à 100 %, barres triées (camembert si ≤ 4 parts)", "Anneau à 10 parts"], ["Un chiffre clé", "Carte KPI avec comparaison (vs N-1, vs objectif)", "Jauge décorative"], ["Deux dimensions croisées", "Carte de chaleur, matrice colorée", "Barres groupées illisibles"], ["Des données géographiques", "Carte choroplèthe (couleur par zone)", "Carte à bulles superposées"]] },
+    { h: "Règles de lisibilité", ul: ["Un axe de **barres commence à zéro** ; une courbe peut ne pas commencer à zéro.", "**Triez** les barres par valeur, sauf ordre naturel (mois, tranches).", "**Un seul axe Y** : pour deux mesures d'échelles différentes, faites deux graphiques.", "Pas d'effet 3D, d'ombre ni de dégradé : ils déforment la lecture.", "Le **titre dit le message** : « Le web porte la croissance au T4 » plutôt que « CA par canal ».", "Étiquetez directement les séries plutôt qu'une légende lointaine ; limitez-vous à 5-6 couleurs.", "La couleur ne doit pas être le seul codage : pensez aux daltoniens (8 % des hommes)."] },
+    { h: "Un graphique « propre » en code", code: {
+      py: `import matplotlib.pyplot as plt
+g = df.groupby("categorie")["ca"].sum().sort_values()
+fig, ax = plt.subplots(figsize=(7, 3.5))
+ax.barh(g.index, g.values, color="#2a78d6")
+ax.bar_label(ax.containers[0], fmt="{:,.0f} €", padding=4)
+ax.set_title("L'informatique fait l'essentiel du CA", loc="left", fontweight="bold")
+ax.spines[["top", "right", "bottom"]].set_visible(False)
+ax.xaxis.set_visible(False)
+plt.tight_layout()`,
+      r: `df |>
+  summarise(ca = sum(ca), .by = categorie) |>
+  ggplot(aes(ca, reorder(categorie, ca))) +
+  geom_col(fill = "#2a78d6") +
+  geom_text(aes(label = scales::label_number(suffix = " €", big.mark = " ")(ca)), hjust = -0.1) +
+  labs(title = "L'informatique fait l'essentiel du CA", x = NULL, y = NULL) +
+  theme_minimal() + theme(panel.grid = element_blank(), axis.text.x = element_blank())`,
+      xl: `Insertion › Barres groupées › Trier les données au préalable
+Supprimer le quadrillage et l'axe horizontal, ajouter les étiquettes de données
+Titre : écrire le message, pas le nom des champs`,
+      pbi: `Visuel Graphique à barres groupées › Trier par CA décroissant
+Format › Étiquettes de données : Activé ; Axe X : Désactivé ; Quadrillage : Désactivé
+Titre : un message ; utiliser une mesure pour un titre dynamique :
+Titre = "CA de " & SELECTEDVALUE(Calendrier[Année]) & " : " & FORMAT([CA], "# ##0 €")`
+    } }],
+  keys: ["Un graphique = une question = un message dans le titre.", "Barres triées et courbes couvrent 80 % des besoins."],
+  traps: ["Double axe Y : il suggère des croisements qui dépendent seulement des échelles choisies.", "Trop de couleurs : réservez une couleur vive à ce qui doit attirer l'œil."],
+  go: { label: "Ouvrir l'onglet Graphiques", tab: "graphiques" } },
+
+{ id: "l23", part: "Analyser et communiquer", t: "Tableau de bord et storytelling", dur: 10,
+  intro: "Un tableau de bord n'est pas une collection de graphiques : c'est une réponse, lisible en quelques secondes, aux questions récurrentes d'un public précis.",
+  s: [
+    { h: "Concevoir avant de construire", ol: ["**Pour qui ?** Direction (synthèse), managers (pilotage), opérationnels (détail).", "**Quelles décisions** le tableau doit-il aider à prendre ?", "**Quels KPI** (3 à 6) y répondent ? Chacun avec une comparaison : objectif, N-1, mois précédent.", "**Quel niveau de détail** faut-il pouvoir atteindre (drill-down) ?", "**Quelle fréquence** de mise à jour ?"] },
+    { h: "La structure en Z", p: ["L'œil parcourt l'écran de haut en bas et de gauche à droite. En **haut** : les KPI (cartes). Au **milieu** : les tendances et comparaisons (courbes, barres). En **bas** : le détail (tableau, matrice). Les **filtres** (segments) sont regroupés sur une ligne en haut ou dans un volet latéral."] },
+    { h: "Un bon KPI", tbl: [["Élément", "Exemple"], ["Nom clair", "Chiffre d'affaires"], ["Valeur", "124 350 €"], ["Comparaison", "+8,2 % vs 2024"], ["État (couleur + icône)", "▲ vert si objectif atteint"], ["Définition accessible", "Info-bulle : « CA HT, hors retours »"]] },
+    { h: "Outils d'interactivité", ul: ["**Excel** : segments et chronologies connectés à plusieurs TCD, graphiques croisés dynamiques.", "**Power BI** : segments, filtres de page et de rapport, info-bulles personnalisées, extraction (drillthrough) vers une page de détail, signets, paramètres de champ pour changer de mesure.", "**Python** : Streamlit, Dash, Plotly ; **R** : Shiny, Quarto dashboards, flexdashboard."] },
+    { h: "Raconter avec les données", ul: ["Commencez par la **conclusion**, puis montrez les preuves.", "Un graphique par idée ; une idée par diapositive.", "Mettez en évidence l'élément clé (couleur vive) et atténuez le reste (gris).", "Donnez le contexte : un chiffre seul ne dit ni « bien » ni « mal ».", "Terminez par la recommandation ou la décision attendue."] }],
+  keys: ["Moins de visuels, mieux choisis : 5 à 8 par page.", "Chaque KPI a une comparaison et une définition."],
+  traps: ["Le tableau de bord « sapin de Noël » : toutes les couleurs, tous les visuels.", "Des définitions différentes d'un même indicateur selon les pages."] },
+
+/* ---------- Bonnes pratiques ---------- */
+{ id: "l24", part: "Bonnes pratiques", t: "Reproductibilité et organisation", dur: 10,
+  intro: "Une analyse reproductible donne le même résultat quand on la relance, sur la même machine ou une autre, aujourd'hui ou dans six mois. C'est la meilleure protection contre les erreurs.",
+  s: [
+    { h: "Organiser un projet", code: {
+      txt: `projet_ventes/
+├── donnees/
+│   ├── brutes/          # fichiers sources, JAMAIS modifiés
+│   └── preparees/       # résultats du nettoyage (régénérables)
+├── scripts/             # ou notebooks/ : 01_import.py, 02_nettoyage.py, 03_analyse.py
+├── resultats/           # graphiques, exports, rapports
+├── README.md            # objectif, sources, comment relancer
+└── requirements.txt     # pandas==2.2.3 ...  (R : renv.lock)`
+    } },
+    { h: "Dix règles d'hygiène", ol: ["Ne jamais modifier les données brutes.", "Tout passe par du code ou des étapes Power Query, pas par des corrections manuelles.", "Noms de fichiers et de colonnes en **snake_case**, sans accents ni espaces : ca_2025_nord.csv.", "Dates dans les noms au format AAAA-MM-JJ : 2025-04-03_export.csv.", "Un script = une étape, numérotée dans l'ordre d'exécution.", "Des chemins relatifs (donnees/brutes/ventes.csv), pas C:\\Users\\Marie\\Bureau.", "Des contrôles automatiques (nombre de lignes, unicité des clés) qui arrêtent le traitement en cas d'anomalie.", "Des commentaires qui expliquent le **pourquoi**, pas le quoi.", "Une version des outils figée (requirements.txt, renv).", "Un historique des modifications avec Git."] },
+    { h: "Git en 6 commandes", code: {
+      sh: `git init                         # une fois, dans le dossier du projet
+git add scripts/ README.md       # choisir les fichiers à enregistrer
+git commit -m "Nettoyage des vendeurs"
+git log --oneline                # historique
+git diff                         # ce qui a changé depuis le dernier commit
+git push                         # envoyer vers GitHub / GitLab
+# .gitignore : exclure donnees/ si elles sont volumineuses ou confidentielles`
+    } },
+    { h: "Et dans Excel / Power BI ?", ul: ["Une feuille « LisezMoi » : sources, date d'extraction, définitions des indicateurs.", "Power Query plutôt que des copier-coller : les étapes sont rejouables (Actualiser).", "Power BI : format **PBIP** (projet) pour versionner le rapport avec Git ; paramètres pour les chemins de fichiers.", "Évitez les valeurs tapées en dur dans les formules : une cellule nommée « Taux_TVA »."] }],
+  keys: ["Données brutes intactes + traitements rejouables = résultats vérifiables.", "Si vous ne pouvez pas relancer l'analyse de bout en bout, elle n'est pas terminée."],
+  traps: ["Le fichier « final_v3_VRAIMENT_final.xlsx ».", "Un notebook exécuté dans le désordre : relancez-le du début (Redémarrer et tout exécuter) avant de le partager."] },
+
+{ id: "l25", part: "Bonnes pratiques", t: "Performance et gros volumes", dur: 9,
+  intro: "Quand les données grossissent, chaque outil atteint ses limites à un moment différent. Savoir où elles se trouvent évite de choisir le mauvais outil.",
+  s: [
+    { h: "Les limites à connaître", tbl: [["Outil", "Limite", "Solution"], ["Excel (feuille)", "1 048 576 lignes × 16 384 colonnes", "Charger dans le modèle de données (Power Pivot) : plusieurs millions de lignes"], ["Power BI (import)", "Jeu de données de 1 Go compressé en Pro (plus en Premium / Fabric)", "Réduire les colonnes, agréger, DirectQuery, actualisation incrémentielle"], ["pandas", "Tout en mémoire vive (5 à 10× la taille du CSV)", "Types optimisés, lecture par morceaux, Polars, DuckDB"], ["R (data frame)", "Tout en mémoire vive", "data.table, arrow, duckdb, dbplyr"], ["DuckDB / SQL", "Disque plutôt que mémoire : des centaines de millions de lignes sur un portable", "Parquet, index, partitionnement"]] },
+    { h: "Astuces par outil", code: {
+      py: `df = pd.read_csv("gros.csv", usecols=["date", "region", "ca"],        # colonnes utiles
+                 dtype={"region": "category"})                          # moins de mémoire
+df.memory_usage(deep=True).sum() / 1e6                                  # Mo utilisés
+for bloc in pd.read_csv("gros.csv", chunksize=1_000_000): ...           # par morceaux
+df.to_parquet("gros.parquet")                                           # 5 à 10× plus petit
+import duckdb
+duckdb.sql("SELECT region, SUM(ca) FROM 'gros.parquet' GROUP BY region").df()`,
+      r: `library(data.table)
+dt <- fread("gros.csv", select = c("date", "region", "ca"))
+dt[, .(ca = sum(ca)), by = region]
+arrow::write_parquet(dt, "gros.parquet")
+arrow::open_dataset("gros.parquet") |> group_by(region) |> summarise(ca = sum(ca)) |> collect()`,
+      sql: `-- DuckDB lit des fichiers plus gros que la mémoire
+COPY (SELECT * FROM 'gros.csv') TO 'gros.parquet' (FORMAT parquet);
+SELECT region, SUM(ca) FROM 'donnees/*.parquet' GROUP BY region;   -- plusieurs fichiers`,
+      xl: `Données › Obtenir des données › … › Charger dans… › « Ajouter ces données au modèle de données »
+(les lignes ne sont plus dans une feuille : on les exploite par TCD et mesures DAX)
+Fichier › Options › Formules › Calcul manuel pendant les gros traitements (F9 pour recalculer)`,
+      pbi: `// Réduire la taille du modèle :
+// - supprimer les colonnes inutiles dans Power Query (le plus efficace)
+// - séparer date et heure, arrondir les décimales (moins de valeurs distinctes)
+// - préférer les mesures aux colonnes calculées
+// - Mode DirectQuery : les données restent dans la base (plus lent à l'affichage)
+// - Affichage › Analyseur de performances pour trouver les visuels lents`
+    } }],
+  keys: ["Le plus efficace est toujours de charger moins : moins de colonnes, moins de lignes, des types adaptés.", "Parquet + DuckDB : la combinaison la plus simple pour de gros fichiers sur un poste."],
+  traps: ["Boucler ligne par ligne en Python (for / iterrows) : 100 fois plus lent qu'une opération vectorisée.", "Des milliers de RECHERCHEX sur des plages entières : préférez une jointure Power Query."] },
+
+{ id: "l26", part: "Bonnes pratiques", t: "Raccourcis clavier essentiels", dur: 5,
+  intro: "Quelques raccourcis font gagner un temps considérable. Voici les plus utiles par outil (Windows ; sur Mac, Ctrl devient généralement Cmd).",
+  s: [
+    { h: "Excel", tbl: [["Raccourci", "Action"], ["Ctrl+L (ou Ctrl+T)", "Convertir la plage en tableau"], ["Ctrl+Maj+L", "Activer / désactiver les filtres"], ["Ctrl+flèche", "Aller au bord de la zone de données"], ["Ctrl+Maj+flèche", "Sélectionner jusqu'au bord"], ["Ctrl+Espace / Maj+Espace", "Sélectionner la colonne / la ligne"], ["F4", "Basculer $A$1 / A$1 / $A1 / A1 en écrivant une formule"], ["Alt+=", "Somme automatique"], ["Ctrl+;", "Date du jour"], ["Ctrl+E", "Remplissage instantané"], ["Ctrl+D", "Recopier vers le bas"], ["Ctrl+Entrée", "Valider la formule dans toutes les cellules sélectionnées"], ["Alt+Entrée", "Retour à la ligne dans une cellule"], ["Ctrl+1", "Format de cellule"], ["F2", "Modifier la cellule"], ["Ctrl+Alt+F5", "Actualiser toutes les requêtes et TCD"]] },
+    { h: "Jupyter et VS Code", tbl: [["Raccourci", "Action"], ["Maj+Entrée", "Exécuter la cellule et passer à la suivante"], ["Ctrl+Entrée", "Exécuter la cellule"], ["Échap puis A / B", "Insérer une cellule au-dessus / en dessous"], ["Échap puis D, D", "Supprimer la cellule"], ["Échap puis M / Y", "Cellule en texte (Markdown) / en code"], ["Tab / Maj+Tab", "Autocomplétion / aide de la fonction"], ["Ctrl+/", "Commenter / décommenter"], ["Ctrl+Maj+P", "Palette de commandes (VS Code)"]] },
+    { h: "RStudio", tbl: [["Raccourci", "Action"], ["Ctrl+Entrée", "Exécuter la ligne ou la sélection"], ["Ctrl+Maj+Entrée", "Exécuter tout le script"], ["Ctrl+Maj+M", "Insérer le pipe |> (ou %>%)"], ["Alt+-", "Insérer l'affectation <-"], ["Ctrl+Maj+C", "Commenter / décommenter"], ["Ctrl+Maj+F10", "Redémarrer R"], ["F1", "Aide sur la fonction sous le curseur"]] },
+    { h: "Power BI Desktop", tbl: [["Raccourci", "Action"], ["Ctrl+clic", "Sélectionner plusieurs éléments (valeurs d'un segment, visuels)"], ["Ctrl+G", "Grouper les visuels sélectionnés"], ["Ctrl+clic sur un bouton", "Activer un bouton ou un signet en mode édition"], ["Maj+Entrée", "Nouvelle ligne dans la barre de formule DAX"], ["Ctrl+/", "Commenter des lignes DAX"], ["Alt+flèche haut / bas", "Déplacer une ligne de code DAX"], ["Ctrl+S", "Enregistrer"]] }],
+  keys: ["Apprenez-en trois par semaine : ils deviennent vite automatiques."], traps: [] },
+
+{ id: "l27", part: "Bonnes pratiques", t: "RGPD et éthique des données", dur: 10,
+  intro: "Dès qu'une donnée permet d'identifier une personne, directement ou indirectement, le RGPD s'applique. L'analyste doit protéger ces données et éviter les conclusions discriminantes.",
+  s: [
+    { h: "Les notions clés", tbl: [["Notion", "Définition", "Exemple"], ["Donnée personnelle", "Toute information se rapportant à une personne identifiable", "Nom, email, numéro client, adresse IP, plaque"], ["Donnée sensible", "Catégorie particulière, très protégée", "Santé, opinions, origine, orientation sexuelle"], ["Pseudonymisation", "Remplacer l'identifiant par un code ; réversible avec une table de correspondance", "client_id haché : reste une donnée personnelle"], ["Anonymisation", "Rendre la ré-identification impossible, de façon irréversible", "Statistiques agrégées sur des groupes suffisamment grands"]] },
+    { h: "Les principes pour l'analyste", ul: ["**Minimisation** : n'extraire que les colonnes nécessaires à la question.", "**Finalité** : utiliser les données pour l'objectif annoncé, pas pour un autre.", "**Durée de conservation** limitée : supprimez les extractions après l'analyse.", "**Sécurité** : pas de fichier clients dans une pièce jointe ou un dossier partagé ouvert.", "**Seuil de publication** : ne publiez pas de statistique sur un groupe trop petit (moins de 10 personnes, par exemple), qui permettrait de reconnaître quelqu'un."] },
+    { h: "Pseudonymiser et généraliser", code: {
+      py: `import hashlib
+SEL = "une-phrase-secrete-gardee-a-part"
+df["client_id"] = df["email"].map(lambda e: hashlib.sha256((SEL + e.lower()).encode()).hexdigest()[:16])
+df = df.drop(columns=["nom", "email", "telephone"])
+df["tranche_age"] = pd.cut(df["age"], [0, 25, 35, 50, 65, 120], right=False)   # généraliser
+df["cp"] = df["cp"].str[:2]                                                     # département`,
+      r: `sel <- "une-phrase-secrete-gardee-a-part"
+df <- df |>
+  mutate(client_id = substr(openssl::sha256(paste0(sel, tolower(email))), 1, 16),
+         tranche_age = cut(age, c(0, 25, 35, 50, 65, 120), right = FALSE),
+         cp = str_sub(cp, 1, 2)) |>
+  select(-nom, -email, -telephone)`,
+      sql: `SELECT LEFT(SHA256('sel-secret' || LOWER(email)), 16) AS client_id,
+       LEFT(cp, 2) AS departement, region, montant
+FROM clients;
+-- Publier seulement les groupes d'au moins 10 personnes
+SELECT departement, COUNT(*) AS n, AVG(montant) FROM t GROUP BY 1 HAVING COUNT(*) >= 10;`,
+      xl: `Supprimer les colonnes nominatives avant tout partage (pas seulement les masquer !)
+Remplacer le nom par un numéro : =EQUIV([@email];UNIQUE([email]);0)
+Généraliser : =GAUCHE([@cp];2)   ;   tranches d'âge par RECHERCHEX approximative
+Fichier › Informations › Inspecter le document : retire les données cachées et commentaires`,
+      pbi: `// Power Query : supprimer les colonnes nominatives dès la source
+// Sécurité au niveau des lignes (RLS) : Modélisation › Gérer les rôles
+[region] = LOOKUPVALUE(droits[region], droits[email], USERPRINCIPALNAME())
+// Étiquettes de confidentialité (Microsoft Purview) sur les rapports sensibles`
+    } },
+    { h: "Biais et éthique", ul: ["Un échantillon non représentatif (seulement les clients web) donne des conclusions fausses sur l'ensemble.", "Un modèle entraîné sur des décisions passées reproduit leurs biais (recrutement, crédit).", "Une variable apparemment neutre (code postal) peut servir d'indicateur d'origine sociale ou ethnique.", "Documentez les limites de vos données et de vos conclusions."] }],
+  keys: ["Minimiser, pseudonymiser, agréger : dans cet ordre de réflexe.", "Masquer une colonne dans Excel ne la protège pas : supprimez-la."],
+  traps: ["Croire qu'un hachage sans sel anonymise un email : il se retrouve facilement par force brute.", "Partager un extrait « pour tester » contenant des données réelles de clients."] }
+];
+
+/* ============ Cours : rendu ============ */
+const CLANG = { py: "Python", r: "R", sql: "SQL", xl: "Excel", pbi: "Power BI", sh: "Terminal", txt: "Arborescence" };
+const md = s => esc(s).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/`([^`]+)`/g, "<code>$1</code>");
+function lessonTable(t) { return `<div class="ltwrap"><table class="lt"><thead><tr>${t[0].map(h => `<th>${md(h)}</th>`).join("")}</tr></thead><tbody>${t.slice(1).map(r => `<tr>${r.map(c => `<td>${md(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`; }
+function lessonCode(code, idx) {
+  const keys = Object.keys(CLANG).filter(k => code[k] != null), cur = keys.includes(S.lang) ? S.lang : keys[0];
+  const hlang = cur === "pbi" ? (/^\s*let\b|Table\.|\beach\b/.test(code[cur]) && !/=\s*(CALCULATE|SUM|DIVIDE)/.test(code[cur]) ? "m" : "dax") : cur === "sh" ? "py" : cur;
+  return `<div class="panel lcode" data-ci="${idx}"><div class="ctabs">${keys.length > 1 ? keys.map(k => `<button type="button" class="ctab t-${k}" aria-selected="${k === cur}" data-llang="${k}">${CLANG[k]}</button>`).join("") : `<span class="lbl">${CLANG[cur]}</span>`}<span class="sp"><button class="btn sm" type="button" data-copy>Copier</button></span></div><pre class="code">${cur === "txt" ? esc(code[cur]) : hl(code[cur], hlang)}</pre></div>`;
+}
+function liveStats() {
+  const d = DS.ventes, cols = [["quantite", r => r.quantite], ["prix_unitaire", r => r.prix_unitaire], ["ca (quantité × prix)", r => isNum(r.quantite) ? r.quantite * r.prix_unitaire : null]];
+  const st = cols.map(([n, f]) => { const s = d.rows.map(f).filter(isNum).sort((a, b) => a - b), m = s.reduce((a, b) => a + b, 0) / s.length, sd = Math.sqrt(s.reduce((a, b) => a + (b - m) ** 2, 0) / (s.length - 1)); return { n, c: s.length, m, med: quant(s, .5), sd, cv: sd / m * 100, q1: quant(s, .25), q3: quant(s, .75), min: s[0], max: s[s.length - 1] }; });
+  const row = (l, k, suf = "") => [l, ...st.map(x => fmt(x[k]) + suf)];
+  return `<p>Calculé en direct sur <b>ventes.csv</b> (${d.rows.length} lignes, doublons inclus) :</p>` + lessonTable([["Indicateur", ...st.map(x => x.n)], row("Valeurs non vides", "c"), row("Moyenne", "m"), row("Médiane", "med"), row("Écart-type", "sd"), row("Coefficient de variation", "cv", " %"), row("Q1 · Q3", "q1"), row("Min", "min"), row("Max", "max")].map((r, i) => i === 7 ? [r[0], ...st.map(x => fmt(x.q1) + " · " + fmt(x.q3))] : r)) + `<p class="muted">Sur le CA, la moyenne dépasse largement la médiane : quelques commandes d'ordinateurs portables tirent la moyenne vers le haut.</p>`;
+}
+function starDiagram() {
+  const dims = [["Calendrier", "Date, Année, Mois", 120, 60], ["Produits", "produit_id, catégorie", 600, 60], ["Clients", "client_id, ville", 120, 250], ["Magasins", "magasin_id, région", 600, 250]];
+  return `<div class="ltwrap"><svg class="star" viewBox="0 0 720 310" role="img" aria-label="Schéma en étoile : la table de faits Ventes au centre, reliée à quatre dimensions">${dims.map(([, , x, y]) => `<line x1="360" y1="155" x2="${x}" y2="${y}" stroke="var(--ink-3)" stroke-width="1.5"/>`).join("")}${dims.map(([t, s, x, y]) => { const mx = (360 + x) / 2, my = (155 + y) / 2; return `<g><rect x="${x - 95}" y="${y - 30}" width="190" height="60" rx="8" fill="var(--surface)" stroke="var(--line)"/><text x="${x}" y="${y - 5}" text-anchor="middle" class="st1">${t}</text><text x="${x}" y="${y + 15}" text-anchor="middle" class="st2">${s}</text><text x="${x + (360 - x) * .22}" y="${y + (155 - y) * .22 + (y < 155 ? 22 : -12)}" text-anchor="middle" class="st3">1</text><text x="${mx + (360 - mx) * .55}" y="${my + (155 - my) * .55 + (y < 155 ? -8 : 16)}" text-anchor="middle" class="st3">*</text></g>`; }).join("")}<rect x="265" y="115" width="190" height="80" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="360" y="143" text-anchor="middle" class="st1">Ventes (faits)</text><text x="360" y="163" text-anchor="middle" class="st2">date, produit_id, client_id,</text><text x="360" y="180" text-anchor="middle" class="st2">magasin_id, quantité, montant</text></svg></div><p class="muted">Chaque dimension (côté 1) filtre la table de faits (côté *).</p>`;
+}
+function renderCours() {
+  const read = S.read || (S.read = {}), cur = LESSONS.find(l => l.id === S.lesson) || LESSONS[0], nread = LESSONS.filter(l => read[l.id]).length;
+  $("#lnav").innerHTML = `<div class="lprog"><span class="count"><b>${nread}</b> / ${LESSONS.length} leçons lues</span><div class="bar"><i style="width:${nread / LESSONS.length * 100}%"></i></div></div>` +
+    PARTS.map(p => `<div class="lpart"><h3>${esc(p)}</h3><ol>${LESSONS.filter(l => l.part === p).map(l => `<li><button type="button" data-lesson="${l.id}" aria-current="${l.id === cur.id}"><span class="ck">${read[l.id] ? "✓" : ""}</span><span>${esc(l.t)}</span><small>${l.dur} min</small></button></li>`).join("")}</ol></div>`).join("");
+  let ci = 0; const codes = [];
+  const i = LESSONS.indexOf(cur), prev = LESSONS[i - 1], next = LESSONS[i + 1];
+  $("#lesson").innerHTML = `<p class="lbl">${esc(cur.part)} · leçon ${i + 1} / ${LESSONS.length} · ${cur.dur} min</p><h2 class="ltitle">${esc(cur.t)}</h2><p class="lead">${md(cur.intro)}</p>` +
+    cur.s.map(sec => { let h = `<section class="lsec"><h3>${esc(sec.h)}</h3>`;
+      (sec.p || []).forEach(x => h += `<p>${md(x)}</p>`);
+      if (sec.ul) h += `<ul>${sec.ul.map(x => `<li>${md(x)}</li>`).join("")}</ul>`;
+      if (sec.ol) h += `<ol>${sec.ol.map(x => `<li>${md(x)}</li>`).join("")}</ol>`;
+      if (sec.tbl) h += lessonTable(sec.tbl);
+      if (sec.live === "stats") h += liveStats();
+      if (sec.diagram === "star") h += starDiagram();
+      if (sec.code) { codes.push(sec.code); h += lessonCode(sec.code, ci++); }
+      return h + `</section>`; }).join("") +
+    `<div class="lboxes">${cur.keys?.length ? `<div class="lbox keys"><h3>À retenir</h3><ul>${cur.keys.map(x => `<li>${md(x)}</li>`).join("")}</ul></div>` : ""}${cur.traps?.length ? `<div class="lbox traps"><h3>Pièges fréquents</h3><ul>${cur.traps.map(x => `<li>${md(x)}</li>`).join("")}</ul></div>` : ""}</div>` +
+    `<div class="lacts">${cur.go ? `<button class="btn pri" type="button" id="lgo">${esc(cur.go.label)}</button>` : ""}<button class="btn" type="button" id="lread">${read[cur.id] ? "✓ Leçon lue" : "Marquer comme lue"}</button><span class="sp"></span>${prev ? `<button class="btn ghost" type="button" data-lesson="${prev.id}">← ${esc(prev.t)}</button>` : ""}${next ? `<button class="btn" type="button" data-lesson="${next.id}">${esc(next.t)} →</button>` : ""}</div>`;
+  document.querySelectorAll("#lesson .lcode").forEach(el => { const c = codes[+el.dataset.ci], k = el.querySelector("[aria-selected=true]")?.dataset.llang || Object.keys(CLANG).find(x => c[x] != null); el._text = c[k]; });
+  $("#lread").onclick = () => { read[cur.id] = !read[cur.id]; save(); renderCours(); };
+  if (cur.go) $("#lgo").onclick = () => runGo(cur.go);
+}
+function runGo(g) {
+  if (g.chal) { startChal(g.chal); return; }
+  if (g.demo) { S.ds = "ventes"; S.stepsBy.ventes = DEMO(); S.sel = null; S.chal = null; if (g.lang) S.lang = g.lang; setTab("atelier"); renderAll(); window.scrollTo(0, 0); return; }
+  if (g.ds) { S.ds = g.ds; if (g.clear) S.stepsBy[g.ds] = []; S.sel = null; S.chart = null; }
+  setTab(g.tab); renderAll(); window.scrollTo(0, 0);
+}
+function startChal(id) { const ch = CHAL.find(c => c.id === id); S.chal = ch.id; S.ds = ch.ds; S.stepsBy[ch.ds] = []; S.sel = null; S.chart = null; setTab("atelier"); renderAll(); window.scrollTo(0, 0); }
+document.addEventListener("click", e => {
+  const b = e.target.closest("[data-lesson]"); if (b) { S.lesson = b.dataset.lesson; save(); renderCours(); if (b.closest(".lacts") || window.innerWidth < 900) $("#lesson").scrollIntoView({ block: "start" }); return; }
+  const l = e.target.closest("[data-llang]"); if (l) { if (LANGS.some(x => x[0] === l.dataset.llang)) S.lang = l.dataset.llang; save(); const y = window.scrollY; renderCours(); window.scrollTo(0, y); }
+});
+
+/* ============ Dictionnaire des fonctions ============ */
+const FTOOLS = [["xl", "Excel"], ["dax", "DAX"], ["m", "Power Query M"], ["py", "pandas"], ["r", "R"], ["sql", "SQL"]];
+const FUN = [
+  ["xl", "SOMME (SUM)", "=SOMME(A2:A100)", "Additionne des nombres ; ignore le texte et les vides."],
+  ["xl", "SOMME.SI.ENS (SUMIFS)", "=SOMME.SI.ENS(T[ca];T[region];\"Nord\";T[canal];\"Web\")", "Somme des valeurs qui respectent un ou plusieurs critères."],
+  ["xl", "NB (COUNT)", "=NB(T[quantite])", "Compte les cellules contenant un nombre."],
+  ["xl", "NBVAL (COUNTA)", "=NBVAL(T[vendeur])", "Compte les cellules non vides, quel que soit leur type."],
+  ["xl", "NB.VIDE (COUNTBLANK)", "=NB.VIDE(T[quantite])", "Compte les cellules vides."],
+  ["xl", "NB.SI.ENS (COUNTIFS)", "=NB.SI.ENS(T[region];\"Nord\";T[quantite];\">=5\")", "Compte les lignes qui respectent plusieurs critères."],
+  ["xl", "MOYENNE (AVERAGE)", "=MOYENNE(T[ca])", "Moyenne arithmétique ; ignore les vides."],
+  ["xl", "MOYENNE.SI.ENS (AVERAGEIFS)", "=MOYENNE.SI.ENS(T[ca];T[canal];\"Web\")", "Moyenne avec critères."],
+  ["xl", "MEDIANE (MEDIAN)", "=MEDIANE(T[ca])", "Valeur du milieu, robuste aux extrêmes."],
+  ["xl", "MAX.SI.ENS / MIN.SI.ENS (MAXIFS / MINIFS)", "=MAX.SI.ENS(T[ca];T[region];\"Sud\")", "Maximum ou minimum avec critères."],
+  ["xl", "ECARTYPE.STANDARD (STDEV.S)", "=ECARTYPE.STANDARD(T[ca])", "Écart-type d'un échantillon."],
+  ["xl", "QUARTILE.INCLURE (QUARTILE.INC)", "=QUARTILE.INCLURE(T[ca];3)", "Quartile 0 à 4 (1 = Q1, 2 = médiane, 3 = Q3)."],
+  ["xl", "CENTILE.INCLURE (PERCENTILE.INC)", "=CENTILE.INCLURE(T[ca];0,9)", "Valeur sous laquelle se trouvent 90 % des données."],
+  ["xl", "RANG (RANK.EQ)", "=RANG([@ca];T[ca];0)", "Rang d'une valeur (0 = décroissant)."],
+  ["xl", "COEFFICIENT.CORRELATION (CORREL)", "=COEFFICIENT.CORRELATION(T[a];T[b])", "Corrélation de Pearson entre deux séries."],
+  ["xl", "PENTE / ORDONNEE.ORIGINE (SLOPE / INTERCEPT)", "=PENTE(T[y];T[x])", "Coefficients de la droite de régression y = a + b·x."],
+  ["xl", "SOMMEPROD (SUMPRODUCT)", "=SOMMEPROD(T[quantite];T[prix_unitaire])", "Somme des produits ligne à ligne ; accepte des conditions (T[r]=\"Nord\")*…"],
+  ["xl", "ARRONDI (ROUND)", "=ARRONDI([@ca];2)", "Arrondit au nombre de décimales indiqué (ARRONDI.SUP, ARRONDI.INF)."],
+  ["xl", "SI (IF)", "=SI([@quantite]>=5;\"Grosse\";\"Petite\")", "Renvoie une valeur selon une condition."],
+  ["xl", "SI.CONDITIONS (IFS)", "=SI.CONDITIONS([@ca]<100;\"Petit\";[@ca]<500;\"Moyen\";VRAI;\"Gros\")", "Plusieurs conditions testées dans l'ordre, sans imbriquer des SI."],
+  ["xl", "SI.MULTIPLE (SWITCH)", "=SI.MULTIPLE([@canal];\"Web\";1;\"Magasin\";2;0)", "Associe une valeur à chaque cas."],
+  ["xl", "ET / OU / NON (AND / OR / NOT)", "=ET([@quantite]>0;[@prix]>0)", "Combine des conditions."],
+  ["xl", "SIERREUR (IFERROR)", "=SIERREUR([@a]/[@b];0)", "Remplace une erreur (#DIV/0!, #N/A) par une valeur."],
+  ["xl", "ESTVIDE / ESTNUM (ISBLANK / ISNUMBER)", "=ESTVIDE([@quantite])", "Teste si une cellule est vide / numérique."],
+  ["xl", "RECHERCHEX (XLOOKUP)", "=RECHERCHEX([@id];P[id];P[nom];\"inconnu\")", "Cherche une valeur et renvoie la valeur correspondante ; remplace RECHERCHEV."],
+  ["xl", "RECHERCHEV (VLOOKUP)", "=RECHERCHEV([@id];P;2;FAUX)", "Ancienne recherche : colonne par numéro, toujours mettre FAUX à la fin."],
+  ["xl", "INDEX + EQUIV (INDEX + MATCH)", "=INDEX(P[nom];EQUIV([@id];P[id];0))", "Recherche compatible avec toutes les versions d'Excel."],
+  ["xl", "EQUIVX (XMATCH)", "=EQUIVX(\"Nord\";T[region])", "Position d'une valeur dans une liste."],
+  ["xl", "FILTRE (FILTER)", "=FILTRE(T;(T[region]=\"Nord\")*(T[ca]>100);\"aucun\")", "Lignes qui respectent les conditions (* = ET, + = OU)."],
+  ["xl", "TRIER / TRIERPAR (SORT / SORTBY)", "=TRIERPAR(T;T[ca];-1)", "Trie une plage selon une ou plusieurs colonnes."],
+  ["xl", "UNIQUE", "=UNIQUE(T[region])", "Valeurs distinctes (ou lignes distinctes)."],
+  ["xl", "SEQUENCE", "=SEQUENCE(12)", "Suite de nombres (1 à 12), utile pour générer des mois."],
+  ["xl", "CHOISIRCOLS (CHOOSECOLS)", "=CHOISIRCOLS(T;1;3)", "Garde certaines colonnes d'une plage."],
+  ["xl", "PRENDRE / EXCLURE (TAKE / DROP)", "=PRENDRE(TRIERPAR(T;T[ca];-1);5)", "Garde / retire les N premières lignes."],
+  ["xl", "ASSEMB.V / ASSEMB.H (VSTACK / HSTACK)", "=ASSEMB.V(Janvier;Fevrier)", "Empile des plages verticalement / horizontalement."],
+  ["xl", "GROUPER.PAR (GROUPBY)", "=GROUPER.PAR(T[region];T[ca];SOMME)", "Agrège par groupe en une formule (Excel 365)."],
+  ["xl", "PIVOTER.PAR (PIVOTBY)", "=PIVOTER.PAR(T[region];T[canal];T[ca];SOMME)", "Tableau croisé en une formule (Excel 365)."],
+  ["xl", "LET", "=LET(x;T[ca];MOYENNE(x)/MEDIANE(x))", "Nomme des calculs intermédiaires dans une formule."],
+  ["xl", "LAMBDA", "=LAMBDA(p;c;(p-c)/p)", "Crée une fonction personnalisée (via le Gestionnaire de noms)."],
+  ["xl", "SUPPRESPACE (TRIM)", "=SUPPRESPACE([@nom])", "Supprime les espaces en début, en fin et les espaces multiples."],
+  ["xl", "MAJUSCULE / MINUSCULE / NOMPROPRE", "=NOMPROPRE([@nom])", "Change la casse (UPPER / LOWER / PROPER)."],
+  ["xl", "GAUCHE / DROITE / STXT (LEFT / RIGHT / MID)", "=STXT([@code];3;2)", "Extrait des caractères."],
+  ["xl", "NBCAR (LEN)", "=NBCAR([@cp])", "Nombre de caractères."],
+  ["xl", "CHERCHE / TROUVE (SEARCH / FIND)", "=CHERCHE(\"-\";[@code])", "Position d'un texte (CHERCHE ignore la casse, TROUVE la respecte)."],
+  ["xl", "SUBSTITUE (SUBSTITUTE)", "=SUBSTITUE([@prix];\"€\";\"\")", "Remplace un texte par un autre."],
+  ["xl", "JOINDRE.TEXTE (TEXTJOIN)", "=JOINDRE.TEXTE(\", \";VRAI;UNIQUE(T[region]))", "Concatène avec un séparateur, en ignorant les vides."],
+  ["xl", "FRACTIONNER.TEXTE (TEXTSPLIT)", "=FRACTIONNER.TEXTE([@nom];\" \")", "Découpe un texte en plusieurs cellules."],
+  ["xl", "TEXTE.AVANT / TEXTE.APRES (TEXTBEFORE / TEXTAFTER)", "=TEXTE.AVANT([@email];\"@\")", "Partie avant / après un séparateur."],
+  ["xl", "TEXTE (TEXT)", "=TEXTE([@date];\"mmmm aaaa\")", "Formate un nombre ou une date en texte."],
+  ["xl", "CNUM (VALUE)", "=CNUM(\"12,5\")", "Convertit un texte en nombre."],
+  ["xl", "AUJOURDHUI (TODAY)", "=AUJOURDHUI()", "Date du jour (recalculée à chaque ouverture)."],
+  ["xl", "DATE / ANNEE / MOIS / JOUR", "=DATE(ANNEE([@d]);MOIS([@d]);1)", "Construit une date / extrait ses éléments."],
+  ["xl", "DATEDIF", "=DATEDIF([@debut];[@fin];\"m\")", "Écart en années (\"y\"), mois (\"m\") ou jours (\"d\"). Fonction non documentée mais disponible."],
+  ["xl", "FIN.MOIS (EOMONTH)", "=FIN.MOIS([@date];0)", "Dernier jour du mois."],
+  ["xl", "NB.JOURS.OUVRES (NETWORKDAYS)", "=NB.JOURS.OUVRES([@debut];[@fin];Feries)", "Nombre de jours ouvrés entre deux dates."],
+  ["xl", "JOURSEM / NO.SEMAINE.ISO", "=JOURSEM([@date];2)", "Jour de la semaine (2 : lundi = 1) / numéro de semaine ISO."],
+  ["xl", "DECALER (OFFSET)", "=SOMME(DECALER(B2;0;0;3;1))", "Plage décalée ; volatile (recalculée sans cesse), à éviter sur de gros classeurs."],
+  ["dax", "SUM / AVERAGE / MIN / MAX", "CA = SUM(ventes[ca])", "Agrège une colonne dans le contexte de filtre."],
+  ["dax", "SUMX / AVERAGEX", "CA = SUMX(ventes, ventes[quantite] * ventes[prix])", "Itérateur : calcule une expression ligne par ligne puis agrège."],
+  ["dax", "COUNTROWS", "Nb lignes = COUNTROWS(ventes)", "Nombre de lignes d'une table (filtrée)."],
+  ["dax", "DISTINCTCOUNT", "Clients = DISTINCTCOUNT(ventes[client_id])", "Nombre de valeurs distinctes."],
+  ["dax", "CALCULATE", "CA Web = CALCULATE([CA], ventes[canal] = \"Web\")", "Évalue une expression dans un contexte de filtre modifié. La fonction centrale de DAX."],
+  ["dax", "FILTER", "FILTER(ventes, ventes[ca] > 1000)", "Table filtrée ligne par ligne (itérateur)."],
+  ["dax", "ALL", "CALCULATE([CA], ALL(ventes))", "Retire tous les filtres d'une table ou d'une colonne."],
+  ["dax", "ALLEXCEPT", "CALCULATE([CA], ALLEXCEPT(ventes, ventes[region]))", "Retire tous les filtres sauf ceux des colonnes indiquées."],
+  ["dax", "REMOVEFILTERS", "CALCULATE([CA], REMOVEFILTERS(produits))", "Version lisible de ALL utilisée dans CALCULATE."],
+  ["dax", "KEEPFILTERS", "CALCULATE([CA], KEEPFILTERS(produits[categorie] = \"Audio\"))", "Ajoute un filtre sans écraser celui du visuel."],
+  ["dax", "VALUES / SELECTEDVALUE", "SELECTEDVALUE(produits[categorie], \"Toutes\")", "Valeurs visibles / valeur unique sélectionnée (sinon valeur par défaut)."],
+  ["dax", "HASONEVALUE / ISINSCOPE", "IF(ISINSCOPE(produits[produit]), [CA])", "Teste le niveau de détail affiché (utile pour les totaux)."],
+  ["dax", "RELATED / RELATEDTABLE", "RELATED(produits[categorie])", "Valeur de la table liée côté 1 / table liée côté plusieurs."],
+  ["dax", "USERELATIONSHIP", "CALCULATE([CA], USERELATIONSHIP(ventes[date_livraison], Calendrier[Date]))", "Active une relation inactive pour un calcul."],
+  ["dax", "LOOKUPVALUE", "LOOKUPVALUE(produits[prix], produits[id], ventes[id])", "Recherche sans relation (préférez RELATED)."],
+  ["dax", "DIVIDE", "DIVIDE([Marge], [CA], 0)", "Division qui gère le zéro (renvoie BLANK ou la valeur indiquée)."],
+  ["dax", "IF / SWITCH", "SWITCH(TRUE(), [CA] > 1e6, \"A\", [CA] > 1e5, \"B\", \"C\")", "Conditions ; SWITCH(TRUE(), …) remplace des IF imbriqués."],
+  ["dax", "COALESCE / ISBLANK / BLANK", "COALESCE([CA], 0)", "Gestion des valeurs vides."],
+  ["dax", "FORMAT", "FORMAT([CA], \"# ##0 €\")", "Nombre ou date en texte formaté (pour les titres dynamiques)."],
+  ["dax", "RANKX", "RANKX(ALL(produits[produit]), [CA], , DESC, Dense)", "Rang d'un élément selon une mesure."],
+  ["dax", "TOPN", "TOPN(5, ALL(produits[produit]), [CA])", "Les N premières lignes selon une expression."],
+  ["dax", "SUMMARIZECOLUMNS", "SUMMARIZECOLUMNS(produits[categorie], \"CA\", [CA])", "Table résumée par groupes (comme GROUP BY)."],
+  ["dax", "ADDCOLUMNS", "ADDCOLUMNS(VALUES(produits[produit]), \"CA\", [CA])", "Ajoute des colonnes calculées à une table."],
+  ["dax", "CALENDAR / CALENDARAUTO", "CALENDAR(DATE(2025,1,1), DATE(2025,12,31))", "Génère une table de dates continue."],
+  ["dax", "TOTALYTD / DATESYTD", "TOTALYTD([CA], Calendrier[Date])", "Cumul depuis le début de l'année."],
+  ["dax", "SAMEPERIODLASTYEAR", "CALCULATE([CA], SAMEPERIODLASTYEAR(Calendrier[Date]))", "Même période, un an plus tôt."],
+  ["dax", "DATEADD", "CALCULATE([CA], DATEADD(Calendrier[Date], -1, MONTH))", "Décale la période (mois précédent, trimestre précédent…)."],
+  ["dax", "DATESINPERIOD", "DATESINPERIOD(Calendrier[Date], MAX(Calendrier[Date]), -3, MONTH)", "Fenêtre glissante de dates (moyenne mobile)."],
+  ["dax", "DATEDIFF", "DATEDIFF(ventes[date], ventes[livraison], DAY)", "Écart entre deux dates."],
+  ["dax", "CONCATENATEX", "CONCATENATEX(VALUES(produits[categorie]), produits[categorie], \", \")", "Concatène les valeurs d'une table en texte."],
+  ["dax", "VAR … RETURN", "VAR ca = [CA] RETURN DIVIDE(ca - [Coût], ca)", "Variables : lisibilité et calcul unique."],
+  ["dax", "EARLIER", "CALCULATE(SUM(t[ca]), FILTER(t, t[date] <= EARLIER(t[date])))", "Valeur de la ligne « extérieure » dans une colonne calculée (ancien style, préférer VAR)."],
+  ["m", "Table.SelectRows", "Table.SelectRows(Source, each [ca] > 100)", "Filtre les lignes."],
+  ["m", "Table.SelectColumns / RemoveColumns", "Table.SelectColumns(Source, {\"date\", \"ca\"})", "Garde / retire des colonnes."],
+  ["m", "Table.RenameColumns", "Table.RenameColumns(Source, {{\"old\", \"new\"}})", "Renomme des colonnes."],
+  ["m", "Table.TransformColumnTypes", "Table.TransformColumnTypes(Source, {{\"ca\", type number}}, \"fr-FR\")", "Change les types, avec paramètres régionaux."],
+  ["m", "Table.AddColumn", "Table.AddColumn(Source, \"ca\", each [q] * [p], type number)", "Ajoute une colonne calculée."],
+  ["m", "Table.TransformColumns", "Table.TransformColumns(Source, {{\"nom\", Text.Proper, type text}})", "Applique une fonction à une colonne existante."],
+  ["m", "Table.ReplaceValue", "Table.ReplaceValue(Source, null, 0, Replacer.ReplaceValue, {\"remise\"})", "Remplace des valeurs (ReplaceText pour un morceau de texte)."],
+  ["m", "Table.Group", "Table.Group(Source, {\"region\"}, {{\"ca\", each List.Sum([ca]), type number}})", "Regroupe et agrège."],
+  ["m", "Table.Sort", "Table.Sort(Source, {{\"ca\", Order.Descending}})", "Trie."],
+  ["m", "Table.Distinct", "Table.Distinct(Source, {\"commande\"})", "Supprime les doublons."],
+  ["m", "Table.NestedJoin + ExpandTableColumn", "Table.NestedJoin(V, {\"id\"}, P, {\"id\"}, \"P\", JoinKind.LeftOuter)", "Fusion (jointure), puis développement des colonnes voulues."],
+  ["m", "Table.Combine", "Table.Combine({Janvier, Fevrier})", "Empile des tables (Ajouter des requêtes)."],
+  ["m", "Table.Pivot / UnpivotOtherColumns", "Table.UnpivotOtherColumns(Source, {\"id\"}, \"attribut\", \"valeur\")", "Pivote / dépivote."],
+  ["m", "Table.FillDown", "Table.FillDown(Source, {\"region\"})", "Recopie la valeur précédente dans les null."],
+  ["m", "Table.PromoteHeaders", "Table.PromoteHeaders(Source, [PromoteAllScalars = true])", "Utilise la 1re ligne comme en-têtes."],
+  ["m", "Table.Buffer", "Table.Buffer(Table.Sort(Source, …))", "Fige une table en mémoire (tri avant dédoublonnage)."],
+  ["m", "Text.Trim / Upper / Proper", "Text.Proper(Text.Trim([nom]))", "Nettoie le texte."],
+  ["m", "Text.Split / BeforeDelimiter / AfterDelimiter", "Text.BeforeDelimiter([email], \"@\")", "Découpe un texte."],
+  ["m", "Text.Contains / StartsWith", "Text.Contains([nom], \"sas\", Comparer.OrdinalIgnoreCase)", "Teste la présence d'un texte."],
+  ["m", "Text.Select / Text.Remove", "Text.Select([tel], {\"0\"..\"9\"})", "Garde / retire certains caractères."],
+  ["m", "List.Sum / Average / Max / Distinct", "List.Sum(Source[ca])", "Fonctions sur une colonne (liste)."],
+  ["m", "Date.Year / Month / StartOfMonth", "Date.StartOfMonth([date])", "Fonctions de date."],
+  ["m", "Date.AddDays / Duration.Days", "Duration.Days([fin] - [debut])", "Calculs de durée."],
+  ["m", "Number.Round / Number.From", "Number.Round([ca], 2)", "Arrondi, conversion en nombre."],
+  ["m", "try … otherwise", "try Number.From([x]) otherwise null", "Gère les erreurs ligne par ligne."],
+  ["py", "pd.read_csv / read_excel", "pd.read_csv(\"f.csv\", sep=\";\", decimal=\",\")", "Charge un fichier dans un DataFrame."],
+  ["py", "head / tail / sample", "df.sample(5, random_state=1)", "Aperçu des lignes (au début, à la fin, au hasard)."],
+  ["py", "info / describe / shape / dtypes", "df.describe(include=\"all\")", "Structure et statistiques du tableau."],
+  ["py", "isna().sum()", "df.isna().sum()", "Nombre de valeurs manquantes par colonne."],
+  ["py", "value_counts", "df[\"region\"].value_counts(normalize=True)", "Fréquences (en proportion avec normalize)."],
+  ["py", "loc / iloc", "df.loc[df[\"ca\"] > 100, [\"region\", \"ca\"]]", "Sélection par étiquettes / par positions."],
+  ["py", "query", "df.query(\"ca > 100 and canal == 'Web'\")", "Filtre écrit comme une phrase."],
+  ["py", "sort_values", "df.sort_values([\"region\", \"ca\"], ascending=[True, False])", "Trie."],
+  ["py", "drop_duplicates / duplicated", "df.drop_duplicates(subset=[\"commande\"], keep=\"last\")", "Supprime / repère les doublons."],
+  ["py", "fillna / dropna", "df[\"remise\"].fillna(0)", "Remplace / supprime les manquants."],
+  ["py", "astype / to_numeric / to_datetime", "pd.to_datetime(df[\"date\"], dayfirst=True)", "Conversions de type."],
+  ["py", "rename / drop", "df.rename(columns={\"a\": \"b\"}).drop(columns=[\"tmp\"])", "Renomme / retire des colonnes."],
+  ["py", "assign", "df.assign(ca=lambda d: d.quantite * d.prix)", "Crée des colonnes dans une chaîne de méthodes."],
+  ["py", ".str (accesseur texte)", "df[\"nom\"].str.strip().str.title()", "Toutes les fonctions texte : contains, replace, split, extract, len…"],
+  ["py", ".dt (accesseur date)", "df[\"date\"].dt.to_period(\"M\")", "Fonctions date : year, month, day_name, isocalendar…"],
+  ["py", "groupby + agg", "df.groupby(\"region\").agg(ca=(\"ca\", \"sum\"), n=(\"ca\", \"size\"))", "Regroupe et résume."],
+  ["py", "transform", "df.groupby(\"region\")[\"ca\"].transform(\"mean\")", "Calcul par groupe renvoyé sur chaque ligne."],
+  ["py", "pivot_table / crosstab", "pd.crosstab(df[\"region\"], df[\"canal\"], normalize=\"index\")", "Tableau croisé (valeurs / effectifs)."],
+  ["py", "melt / pivot", "df.melt(id_vars=[\"id\"])", "Large → long / long → large."],
+  ["py", "merge / concat", "ventes.merge(produits, on=\"id\", how=\"left\", validate=\"m:1\")", "Jointure / empilement."],
+  ["py", "np.where / np.select", "np.select([df.ca < 100, df.ca < 500], [\"P\", \"M\"], \"G\")", "Colonnes conditionnelles."],
+  ["py", "pd.cut / qcut", "pd.qcut(df[\"ca\"], 4, labels=[\"Q1\", \"Q2\", \"Q3\", \"Q4\"])", "Classes de bornes fixes / quartiles."],
+  ["py", "rank / cumsum / shift / rolling", "df[\"ca\"].rolling(3).mean()", "Calculs de fenêtre."],
+  ["py", "resample", "df.resample(\"MS\", on=\"date\")[\"ca\"].sum()", "Agrège une série temporelle par période."],
+  ["py", "apply / map", "df[\"cp\"].map(dict_regions)", "Applique une fonction ou un dictionnaire (plus lent que les opérations vectorisées)."],
+  ["py", "to_csv / to_excel / to_parquet", "df.to_excel(\"res.xlsx\", index=False)", "Exporte le résultat."],
+  ["r", "read_csv / read_csv2 / read_excel", "read_csv2(\"f.csv\")", "Charge un fichier (read_csv2 : ; et virgule décimale)."],
+  ["r", "glimpse / summary / skim", "skimr::skim(df)", "Structure et statistiques."],
+  ["r", "select", "select(df, date, starts_with(\"prix\"), -tmp)", "Choisit des colonnes (avec des aides : starts_with, where…)."],
+  ["r", "filter", "filter(df, region == \"Nord\", ca > 100)", "Filtre les lignes (virgule = ET)."],
+  ["r", "mutate", "mutate(df, ca = quantite * prix)", "Crée ou modifie des colonnes."],
+  ["r", "arrange", "arrange(df, region, desc(ca))", "Trie."],
+  ["r", "distinct", "distinct(df, commande, .keep_all = TRUE)", "Supprime les doublons."],
+  ["r", "rename", "rename(df, chiffre_affaires = ca)", "Renomme (nouveau = ancien)."],
+  ["r", "summarise + .by / group_by", "summarise(df, ca = sum(ca), .by = region)", "Regroupe et résume."],
+  ["r", "count / n / n_distinct", "count(df, region, canal, sort = TRUE)", "Compte des lignes / valeurs distinctes."],
+  ["r", "if_else / case_when", "case_when(ca < 100 ~ \"P\", ca < 500 ~ \"M\", .default = \"G\")", "Conditions."],
+  ["r", "coalesce / replace_na / drop_na", "replace_na(remise, 0)", "Gestion des NA."],
+  ["r", "across", "mutate(df, across(where(is.character), str_squish))", "Applique une fonction à plusieurs colonnes."],
+  ["r", "left_join / inner_join / anti_join", "left_join(ventes, produits, by = join_by(id))", "Jointures."],
+  ["r", "bind_rows", "bind_rows(janvier, fevrier, .id = \"source\")", "Empile des tables."],
+  ["r", "pivot_longer / pivot_wider", "pivot_longer(df, -id, names_to = \"var\", values_to = \"val\")", "Large → long / long → large."],
+  ["r", "separate_wider_delim", "separate_wider_delim(df, nom, \" \", names = c(\"prenom\", \"nom\"))", "Sépare une colonne."],
+  ["r", "str_detect / str_replace_all / str_squish", "str_replace_all(tel, \"\\\\D\", \"\")", "Fonctions texte (stringr)."],
+  ["r", "ymd / dmy / floor_date", "floor_date(dmy(date), \"month\")", "Dates (lubridate)."],
+  ["r", "lag / lead / cumsum / min_rank", "mutate(evol = ca / lag(ca) - 1)", "Calculs de fenêtre."],
+  ["r", "slice_max / slice_head", "slice_max(df, ca, n = 5, by = region)", "Top N (par groupe)."],
+  ["r", "ggplot", "ggplot(df, aes(mois, ca, colour = canal)) + geom_line()", "Graphiques par couches (ggplot2)."],
+  ["sql", "SELECT … FROM", "SELECT region, ca FROM ventes", "Choisit des colonnes."],
+  ["sql", "WHERE", "WHERE ca > 100 AND canal = 'Web'", "Filtre les lignes (avant regroupement)."],
+  ["sql", "GROUP BY + agrégats", "SELECT region, SUM(ca), COUNT(*) FROM ventes GROUP BY region", "Regroupe et résume."],
+  ["sql", "HAVING", "HAVING SUM(ca) > 10000", "Filtre les groupes (après regroupement)."],
+  ["sql", "ORDER BY / LIMIT", "ORDER BY ca DESC LIMIT 10", "Trie, garde N lignes."],
+  ["sql", "DISTINCT / COUNT(DISTINCT)", "SELECT COUNT(DISTINCT client_id) FROM ventes", "Valeurs distinctes."],
+  ["sql", "JOIN", "FROM ventes v LEFT JOIN produits p ON v.id = p.id", "Jointures (INNER, LEFT, RIGHT, FULL)."],
+  ["sql", "UNION ALL", "SELECT * FROM jan UNION ALL SELECT * FROM fev", "Empile des résultats (UNION seul dédoublonne)."],
+  ["sql", "CASE WHEN", "CASE WHEN ca < 100 THEN 'P' ELSE 'G' END", "Condition."],
+  ["sql", "COALESCE / NULLIF", "ca / NULLIF(nb, 0)", "Gère les NULL / évite la division par zéro."],
+  ["sql", "CAST / TRY_CAST", "TRY_CAST(montant AS DOUBLE)", "Conversion de type (TRY_CAST renvoie NULL au lieu d'une erreur)."],
+  ["sql", "WITH (CTE)", "WITH totaux AS (SELECT …) SELECT * FROM totaux", "Requête nommée : découpe une requête complexe en étapes."],
+  ["sql", "ROW_NUMBER / RANK OVER", "RANK() OVER (PARTITION BY region ORDER BY ca DESC)", "Numérote / classe dans chaque groupe."],
+  ["sql", "LAG / LEAD", "LAG(ca) OVER (ORDER BY mois)", "Valeur de la ligne précédente / suivante."],
+  ["sql", "SUM() OVER", "SUM(ca) OVER (ORDER BY mois)", "Cumul, total de groupe sans regrouper."],
+  ["sql", "QUALIFY", "QUALIFY ROW_NUMBER() OVER (PARTITION BY id ORDER BY d DESC) = 1", "Filtre sur une fonction de fenêtre (DuckDB, Snowflake)."],
+  ["sql", "DATE_TRUNC / EXTRACT", "DATE_TRUNC('month', date)", "Arrondit une date / en extrait une partie."],
+  ["sql", "LIKE / ILIKE / REGEXP", "WHERE nom ILIKE '%dupont%'", "Recherche de motif (ILIKE ignore la casse)."],
+  ["sql", "STRING_AGG", "STRING_AGG(produit, ', ')", "Concatène les valeurs d'un groupe."],
+  ["sql", "PIVOT / UNPIVOT", "PIVOT ventes ON canal USING SUM(ca) GROUP BY region", "Tableau croisé / dépivotage (DuckDB, SQL Server)."],
+  ["sql", "SUMMARIZE / DESCRIBE", "SUMMARIZE ventes", "Profil rapide d'une table (DuckDB)."]
+];
+let funTool = "";
+function renderFonctions() {
+  const qv = ($("#funQ").value || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  $("#funTools").innerHTML = [["", "Tous"], ...FTOOLS].map(([k, l]) => `<button type="button" class="chip" data-ft="${k}" aria-pressed="${k === funTool}">${l} <span class="muted">${k ? FUN.filter(f => f[0] === k).length : FUN.length}</span></button>`).join("");
+  const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const rows = FUN.filter(f => (!funTool || f[0] === funTool) && (!qv || norm(f.slice(1).join(" ")).includes(qv)));
+  const TL = Object.fromEntries(FTOOLS), TC = { xl: "xl", dax: "pbi", m: "pbi", py: "py", r: "r", sql: "sql" };
+  $("#funCount").textContent = `${rows.length} fonction${rows.length > 1 ? "s" : ""}`;
+  $("#funTbl").innerHTML = `<thead><tr><th>Outil</th><th>Fonction</th><th>Exemple</th><th>À quoi ça sert</th></tr></thead><tbody>${rows.map(f => `<tr><td><span class="tool t-${TC[f[0]]}">${TL[f[0]]}</span></td><td><b>${esc(f[1])}</b></td><td><code>${esc(f[2])}</code></td><td>${esc(f[3])}</td></tr>`).join("") || `<tr><td colspan="4" class="empty">Aucune fonction ne correspond.</td></tr>`}</tbody>`;
+}
+$("#funQ").addEventListener("input", renderFonctions);
+$("#funTools").addEventListener("click", e => { const c = e.target.closest("[data-ft]"); if (c) { funTool = c.dataset.ft; renderFonctions(); } });
+
+/* ============ Contenus supplémentaires : mémo, vocabulaire, quiz ============ */
+MEMO.push(
+  ["Fenêtres et séries temporelles", [
+    ["Valeur précédente", 'df["ca"].shift(1)', "lag(ca)", "LAG(ca) OVER (ORDER BY mois)", "=B2 (ligne au-dessus)", "CALCULATE([CA]; DATEADD(Calendrier[Date]; -1; MONTH))"],
+    ["Évolution en %", 'df["ca"].pct_change() * 100', "(ca / lag(ca) - 1) * 100", "(ca / LAG(ca) OVER (ORDER BY mois) - 1) * 100", "=B3/B2-1", "DIVIDE([CA] - [CA N-1]; [CA N-1])"],
+    ["Moyenne mobile 3 périodes", 'df["ca"].rolling(3).mean()', "slider::slide_dbl(ca, mean, .before = 2)", "AVG(ca) OVER (ORDER BY mois ROWS 2 PRECEDING)", "=MOYENNE(B2:B4) recopiée", "AVERAGEX(DATESINPERIOD(…; -3; MONTH); [CA])"],
+    ["Cumul depuis le début de l'année", 'df.groupby(df.date.dt.year)["ca"].cumsum()', "mutate(cumul = cumsum(ca), .by = annee)", "SUM(ca) OVER (PARTITION BY YEAR(d) ORDER BY d)", "=SOMME.SI.ENS(C:C;A:A;\"<=\"&A2;annee;annee2)", "TOTALYTD([CA]; Calendrier[Date])"],
+    ["Total par mois", 'df.resample("MS", on="date")["ca"].sum()', "summarise(ca = sum(ca), .by = floor_date(date, \"month\"))", "GROUP BY DATE_TRUNC('month', date)", "TCD : clic droit sur une date › Grouper › Mois", "Visuel avec Calendrier[Mois]"],
+    ["Même période l'an dernier", 'df.set_index("date")["ca"].shift(12, freq="MS")', "lag(ca, 12)", "LAG(ca, 12) OVER (ORDER BY mois)", "=RECHERCHEX(MOIS.DECALER(A2;-12);A:A;B:B)", "CALCULATE([CA]; SAMEPERIODLASTYEAR(Calendrier[Date]))"]]],
+  ["Statistiques", [
+    ["Écart-type", 'df["ca"].std()', "sd(ca)", "STDDEV_SAMP(ca)", "=ECARTYPE.STANDARD(T[ca])", "STDEV.S(T[ca])"],
+    ["Quartiles", 'df["ca"].quantile([.25, .5, .75])', "quantile(ca, c(.25, .5, .75))", "QUANTILE_CONT(ca, [0.25, 0.5, 0.75])", "=QUARTILE.INCLURE(T[ca];1)", "PERCENTILE.INC(T[ca]; 0,25)"],
+    ["Échantillon aléatoire", "df.sample(n=100, random_state=42)", "slice_sample(df, n = 100)", "SELECT * FROM t USING SAMPLE 100", "=PRENDRE(TRIERPAR(T;TABLEAU.ALEA(LIGNES(T)));100)", "SAMPLE(100; T; T[id])"],
+    ["Test t (2 moyennes)", "scipy.stats.ttest_ind(a, b, equal_var=False)", "t.test(y ~ groupe, data = df)", "—", "=T.TEST(A;B;2;3)", "(visuel Python / R)"],
+    ["Khi-deux", "scipy.stats.chi2_contingency(pd.crosstab(a, b))", "chisq.test(table(a, b))", "—", "=CHISQ.TEST(obs;att)", "(visuel Python / R)"],
+    ["Régression linéaire", 'smf.ols("y ~ x", data=df).fit()', "lm(y ~ x, data = df)", "REGR_SLOPE(y, x), REGR_R2(y, x)", "=DROITEREG(y;x;VRAI;VRAI)", "Ligne de tendance / LINESTX"]]]);
+MEMO.find(m => m[0] === "Nettoyer")[1].push(
+  ["Extraire avec un motif", 'df["a"].str.extract(r"(\\d{5})")', 'str_extract(a, "\\\\d{5}")', "REGEXP_EXTRACT(a, '\\d{5}')", "Ctrl+E (remplissage instantané)", "Colonne à partir d'exemples"],
+  ["Retirer les accents", 'unicodedata.normalize("NFD", s)…', 'stringi::stri_trans_general(a, "Latin-ASCII")', "STRIP_ACCENTS(a)", "SUBSTITUE en chaîne", "Text.FromBinary(Text.ToBinary(x; 1251); TextEncoding.Ascii)"],
+  ["Plafonner les aberrants", 'df["a"].clip(bas, haut)', "pmin(pmax(a, bas), haut)", "LEAST(GREATEST(a, bas), haut)", "=MEDIANE(bas;[@a];haut)", "MIN(MAX(T[a]; bas); haut)"]);
+MEMO.find(m => m[0] === "Transformer")[1].push(
+  ["Arrondir", 'df["a"].round(2)', "round(a, 2)", "ROUND(a, 2)", "=ARRONDI([@a];2)", "ROUND(T[a]; 2)"],
+  ["Concaténer du texte", 'df["prenom"] + " " + df["nom"]', 'str_c(prenom, " ", nom)', "prenom || ' ' || nom", '=[@prenom]&" "&[@nom]', 'T[prenom] & " " & T[nom]'],
+  ["Classes par quartiles", 'pd.qcut(df["a"], 4)', "ntile(a, 4)", "NTILE(4) OVER (ORDER BY a)", "=EQUIV([@a];QUARTILE.INCLURE(T[a];{1;2;3});1)+1", "Groupes par emplacements"]);
+GLOSS.push(
+  ["Granularité", "Ce que représente une ligne d'une table : une commande, un produit par jour, un client par mois."],
+  ["Clé primaire / étrangère", "La clé primaire identifie chaque ligne d'une table (produit_id dans produits). La clé étrangère y fait référence depuis une autre table (produit_id dans ventes)."],
+  ["Cardinalité", "Nombre de correspondances possibles entre deux tables : un-à-un, un-à-plusieurs, plusieurs-à-plusieurs."],
+  ["Table de faits / de dimension", "Les faits enregistrent des événements mesurés (ventes) ; les dimensions les décrivent (produits, dates, clients)."],
+  ["Schéma en étoile", "Modèle où la table de faits est au centre, reliée à chaque dimension par une relation un-à-plusieurs."],
+  ["ETL / ELT", "Extraire, Transformer, Charger : la chaîne qui amène les données de la source vers l'outil d'analyse. Power Query est un outil d'ETL."],
+  ["Query folding (pliage)", "Traduction des étapes Power Query en requête SQL exécutée par la base source, pour ne télécharger que le résultat."],
+  ["Imputation", "Remplacement d'une valeur manquante par une valeur estimée (moyenne, médiane, valeur précédente…)."],
+  ["Valeur aberrante (outlier)", "Valeur très éloignée des autres ; erreur possible, ou cas réel mais rare."],
+  ["IQR (écart interquartile)", "Q3 − Q1 : l'étendue des 50 % de valeurs centrales. Sert à définir les bornes des boîtes à moustaches."],
+  ["Distribution", "Répartition des valeurs d'une variable : où elles se concentrent, leur étalement, leur symétrie."],
+  ["Variable catégorielle / numérique", "Catégorielle : un nombre limité de modalités (région, canal). Numérique : une quantité mesurable (prix, quantité)."],
+  ["p-valeur", "Probabilité d'observer un écart au moins aussi grand si l'hypothèse « aucune différence » était vraie. Sous 0,05 : écart jugé significatif."],
+  ["R² (coefficient de détermination)", "Part de la variation d'une variable expliquée par un modèle, entre 0 et 1."],
+  ["Fonction de fenêtre", "Calcul sur un ensemble de lignes voisines ou d'un même groupe, sans réduire le nombre de lignes (rang, cumul, moyenne mobile)."],
+  ["KPI", "Indicateur clé de performance : une mesure suivie dans le temps et comparée à un objectif."],
+  ["Regex", "Expression régulière : motif qui décrit du texte (\\d{5} = cinq chiffres)."],
+  ["Encodage", "Façon de stocker les caractères en octets. UTF-8 est la norme ; « Ã© » trahit un mauvais encodage."],
+  ["Pseudonymisation", "Remplacement des identifiants directs par un code. Réversible : les données restent personnelles au sens du RGPD."],
+  ["Reproductibilité", "Capacité à obtenir le même résultat en relançant l'analyse, grâce à des données sources intactes et des traitements écrits."],
+  ["Parquet", "Format de fichier en colonnes, compressé et typé, très rapide pour l'analyse de gros volumes."],
+  ["Notebook", "Document qui mêle code, résultats et texte (Jupyter, Quarto), idéal pour explorer et partager une analyse."]
+);
+QUIZ.push(
+  ["Quelle méthode repère une valeur aberrante hors de [Q1 − 1,5×IQR ; Q3 + 1,5×IQR] ?", ["Le z-score", "La méthode IQR (boîte à moustaches)", "La régression", "Le khi-deux"], 1, "IQR = Q3 − Q1. C'est la règle des moustaches d'une boîte à moustaches."],
+  ["Un fichier affiche « Ã© » à la place de « é ». Que se passe-t-il ?", ["Le fichier est corrompu", "Un problème d'encodage (UTF-8 lu comme Windows-1252)", "Le séparateur est incorrect", "Il manque des colonnes"], 1, "Relisez le fichier en UTF-8 (Origine du fichier 65001 dans Excel, encoding=\"utf-8\" en Python)."],
+  ["Un code postal 01000 devient 1000 après import. Que faire ?", ["Ajouter 1 000", "Le lire comme du texte", "Le multiplier par 10", "Rien, c'est normal"], 1, "Les codes (postaux, SIRET, téléphone) sont du texte : dtype={\"cp\": str}, col_character(), type texte dans Power Query."],
+  ["Nord a une moyenne de 100 € sur 2 commandes, Sud 10 € sur 98 commandes. Quel est le panier moyen global ?", ["55 €", "11,80 €", "10 €", "100 €"], 1, "(2 × 100 + 98 × 10) / 100 = 11,80 €. Ne jamais faire la moyenne de moyennes."],
+  ["Après une jointure gauche, le tableau a plus de lignes qu'avant. Cause probable ?", ["Des NULL dans la table de gauche", "Une clé en double dans la table de droite", "Un mauvais tri", "Un problème d'encodage"], 1, "Chaque doublon de clé à droite duplique les lignes de gauche. Vérifiez l'unicité (validate=\"many_to_one\")."],
+  ["Dans Power BI, dans quel sens les filtres circulent-ils dans un schéma en étoile bien construit ?", ["Des faits vers les dimensions", "Des dimensions vers les faits", "Dans les deux sens toujours", "Ils ne circulent pas"], 1, "Relation 1 → * à sens unique : la dimension (côté 1) filtre la table de faits (côté *)."],
+  ["Quelle fonction DAX modifie le contexte de filtre ?", ["FILTER", "CALCULATE", "SUMX", "RELATED"], 1, "CALCULATE évalue une expression après avoir ajouté, retiré ou remplacé des filtres."],
+  ["Pourquoi préférer DIVIDE(a; b) à a / b en DAX ?", ["C'est plus rapide à écrire", "Elle gère la division par zéro", "Elle arrondit le résultat", "Elle ignore les filtres"], 1, "DIVIDE renvoie BLANK (ou une valeur choisie) au lieu d'une erreur."],
+  ["Que renvoie SUM(ventes[quantite]) * SUM(ventes[prix]) par rapport au vrai CA ?", ["Le même résultat", "Un résultat faux : il faut SUMX(ventes; quantite × prix)", "Un résultat arrondi", "Une erreur"], 1, "Le produit des sommes n'est pas la somme des produits ligne à ligne."],
+  ["En SQL, quelle fonction donne la valeur de la ligne précédente ?", ["PREV()", "LAG()", "LEAD()", "SHIFT()"], 1, "LAG(x) OVER (ORDER BY …) ; LEAD donne la suivante. En pandas : shift(1)."],
+  ["Que signifie une p-valeur de 0,02 ?", ["L'effet est important", "Il y a 2 % de chances que l'écart observé se produise si aucune différence n'existe réellement", "Il y a 98 % de chances que l'hypothèse soit vraie", "Les données sont fausses à 2 %"], 1, "Sous le seuil de 0,05 : l'écart est jugé significatif. Cela ne dit rien de sa taille."],
+  ["Quel test compare les moyennes de deux groupes ?", ["Khi-deux", "t de Student", "Corrélation", "ANOVA à 5 facteurs"], 1, "Le t de Welch (variances inégales) est le choix par défaut : t.test() en R, ttest_ind(equal_var=False) en Python."],
+  ["Un R² de 0,85 signifie :", ["85 % des points sont sur la droite", "Le modèle explique 85 % de la variation de y", "La pente vaut 0,85", "La corrélation est de 85 %"], 1, "R² = part de la variance expliquée. (Pour une régression simple, R² est le carré de la corrélation.)"],
+  ["Quel graphique pour montrer une évolution sur 24 mois ?", ["Camembert", "Courbe", "Nuage de points", "Anneau"], 1, "Une courbe relie les points dans l'ordre du temps."],
+  ["Pourquoi l'axe d'un graphique en barres doit-il commencer à zéro ?", ["C'est une règle d'Excel", "La longueur de la barre code la valeur : sinon les écarts sont exagérés", "Pour aligner les étiquettes", "Pour la couleur"], 1, "Une barre deux fois plus longue doit représenter une valeur deux fois plus grande."],
+  ["Dans Excel, que fait le signe # dans =LIGNES(A2#) ?", ["Il commente la formule", "Il fait référence à toute la plage renvoyée par une formule dynamique", "Il transforme en texte", "Il bloque la référence"], 1, "A2# désigne tout le résultat qui « déborde » depuis A2."],
+  ["Quel est l'avantage principal de RECHERCHEX sur RECHERCHEV ?", ["Elle est plus ancienne", "Pas de numéro de colonne et correspondance exacte par défaut", "Elle fonctionne sans données", "Elle trie automatiquement"], 1, "RECHERCHEV avec correspondance approximative par défaut est une source classique d'erreurs silencieuses."],
+  ["Quel format de fichier est le plus adapté à de gros volumes analytiques ?", ["CSV", "Parquet", "XLS", "TXT"], 1, "Parquet est compressé, typé et lu en colonnes : 5 à 10 fois plus petit et bien plus rapide."],
+  ["En Power Query, que signifie « each [ca] > 100 » ?", ["Une boucle for", "Une fonction appliquée à chaque ligne, [ca] étant la valeur de la ligne", "Un commentaire", "Un tri"], 1, "each est un raccourci pour (_) => _[ca] > 100."],
+  ["Des données pseudonymisées (email haché) sont-elles encore des données personnelles au sens du RGPD ?", ["Non, jamais", "Oui, car la ré-identification reste possible", "Seulement en France", "Seulement si elles contiennent un nom"], 1, "Seule l'anonymisation irréversible sort du champ du RGPD."],
+  ["Quel format de date est non ambigu et se trie correctement comme du texte ?", ["JJ/MM/AAAA", "MM/JJ/AAAA", "AAAA-MM-JJ", "JJ-MMM-AA"], 2, "Le format ISO 8601 (2025-04-03)."],
+  ["Que retourne COUNT(col) en SQL sur une colonne contenant des NULL ?", ["Le nombre total de lignes", "Le nombre de valeurs non NULL", "Une erreur", "Le nombre de NULL"], 1, "COUNT(*) compte toutes les lignes ; COUNT(col) ignore les NULL."],
+  ["Dans un projet reproductible, que fait-on des données brutes ?", ["On les corrige directement", "On ne les modifie jamais", "On les supprime après import", "On les renomme à chaque version"], 1, "Les corrections se font dans le code ou Power Query, pour pouvoir rejouer le traitement."],
+  ["En pandas, quelle option de merge vérifie qu'une clé est unique à droite ?", ["how=\"left\"", "validate=\"many_to_one\"", "indicator=True", "sort=True"], 1, "validate lève une erreur si la cardinalité n'est pas respectée ; indicator montre les lignes sans correspondance."]
+);
+
 /* ============ Navigation et câblage ============ */
 function renderDsSel() { $("#dsSel").innerHTML = Object.keys(DS).map(n => `<option value="${esc(n)}"${n === S.ds ? " selected" : ""}>${esc(DS[n].file)} (${DS[n].rows.length} l.)</option>`).join(""); }
 $("#dsSel").onchange = e => { S.ds = e.target.value; S.sel = null; S.chart = null; renderAll(); };
@@ -1383,7 +2850,7 @@ $("#tabs").onclick = e => { const b = e.target.closest("[data-tab]"); if (b) { s
 function renderAll() {
   STAGES = run(S.ds, steps()); if (S.sel && !steps().some(s => s.id === S.sel)) S.sel = null;
   $("#dsSel").value = S.ds;
-  ({ atelier: renderAtelier, explorer: renderExplorer, graphiques: renderCharts, defis: renderDefis, memo: renderMemo, quiz: renderQuiz })[S.tab]();
+  ({ atelier: renderAtelier, cours: renderCours, fonctions: renderFonctions, explorer: renderExplorer, graphiques: renderCharts, defis: renderDefis, memo: renderMemo, quiz: renderQuiz })[S.tab]();
   save();
 }
 $("#steps").addEventListener("click", onStepsClick);
@@ -1401,6 +2868,6 @@ $("#loadDemo").onclick = () => {
 $("#clearSteps").onclick = () => { S.stepsBy[S.ds] = []; S.sel = null; renderAll(); };
 
 renderAddMenu(); renderDsSel(); renderStatic();
-const h = (location.hash || "").slice(1); if (["atelier", "explorer", "graphiques", "defis", "memo", "quiz"].includes(h)) S.tab = h;
+const h = (location.hash || "").slice(1); if (["atelier", "cours", "explorer", "graphiques", "fonctions", "defis", "memo", "quiz"].includes(h)) S.tab = h;
 setTab(S.tab); renderAll();
 </script>
